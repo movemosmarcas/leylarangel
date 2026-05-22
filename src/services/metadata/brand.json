@@ -1,0 +1,13 @@
+{
+  "colors": {
+    "primary": "#FFAB8C",
+    "secondary": "#F3E5D8",
+    "white": "#FFFFFF",
+    "black": "#1A1A1A"
+  },
+  "typography": {
+    "headings": "'Designer', sans-serif",
+    "body": "'Outfit', sans-serif"
+  }
+}
+

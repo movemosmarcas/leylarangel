@@ -1,0 +1,11 @@
+---
+// Component: Image
+// Props can be defined here
+const { data } = Astro.props;
+---
+
+<div class="a-image">
+  <h1>Image Component</h1>
+  <!-- Boilerplate for Image -->
+  { data && <pre>{JSON.stringify(data, null, 2)}</pre> }
+</div>

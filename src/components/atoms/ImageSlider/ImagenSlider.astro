@@ -1,0 +1,11 @@
+---
+// Component: ImagenSlider
+// Props can be defined here
+const { data } = Astro.props;
+---
+
+<div class="a-imagenslider">
+  <h1>ImagenSlider Component</h1>
+  <!-- Boilerplate for ImagenSlider -->
+  { data && <pre>{JSON.stringify(data, null, 2)}</pre> }
+</div>

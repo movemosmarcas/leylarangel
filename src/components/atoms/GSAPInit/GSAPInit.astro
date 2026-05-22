@@ -1,0 +1,20 @@
+---
+// Component: GSAPInit
+// Props can be defined here
+const { data } = Astro.props;
+---
+
+<div class="a-gsapinit"></div>
+
+<script>
+  import { initGSAP } from "../../../scripts/gsap-init";
+  
+  // Inicializar GSAP en el cliente
+  initGSAP();
+  
+  // Soporte para Astro View Transitions
+  document.addEventListener('astro:page-load', () => {
+    initGSAP();
+  });
+</script>
+

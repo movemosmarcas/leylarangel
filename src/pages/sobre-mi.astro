@@ -1,0 +1,614 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout headerType="dark">
+  <div class="u-sobre-mi-page">
+    <a href="/" class="a-sm-logo-link" aria-label="Ir a Inicio">
+      <img src="/img/logo-leyla-blanco.png" alt="Leyla Rangel Logo" class="a-sm-logo" />
+    </a>
+
+    <!-- HERO HEADER -->
+    <header class="o-sm-hero">
+      <div class="o-sm-hero__container">
+        <span class="o-sm-hero__eyebrow">Sobre mí</span>
+        <h1 class="o-sm-hero__title">YO SOY LEYLA RANGEL</h1>
+        <p class="o-sm-hero__tagline">
+          Actriz·Doblajista·Directora.<br />
+          <em>Yo soy la voz detrás de las historias que marcaron tu vida.</em>
+        </p>
+      </div>
+      <div class="o-sm-hero__image-wrap">
+        <img src="/img/hero-horizontal.png" alt="Leyla Rangel" class="o-sm-hero__image" />
+        <div class="o-sm-hero__image-overlay"></div>
+      </div>
+    </header>
+
+    <!-- BIO SECTION -->
+    <main class="o-sm-main">
+      <div class="o-sm-main__container">
+
+        <!-- Intro bio paragraphs -->
+        <section class="o-sm-bio">
+          <div class="o-sm-bio__text">
+            <p class="o-sm-bio__paragraph o-sm-bio__paragraph--lead">
+              Me gradué en <strong>CasAzul</strong> donde estudié actuación. Debuté en 2006 con la Compañía Nacional de Teatro, interpretando el papel protagónico en la obra <em>"Susana y los Jóvenes"</em> de Jorge Ibargüengoitia.
+            </p>
+            <p class="o-sm-bio__paragraph">
+                Con cerca de <strong>38 años</strong> de experiencia en los medios audiovisuales y más de <strong>33 años</strong> dentro de la especialidad del doblaje y la locución comercial, he colaborado con marcas internacionales como Disney, Pixar, DreamWorks, Ghibli, Marvel, Warner, Sony, M&M’s, Mercedes Benz, Coca‑Cola, Naturella, AutoZone, L’Oréal, Mattel y Netflix, entre muchas otras.
+
+            </p>
+            <p class="o-sm-bio__paragraph">
+              Actualmente es la <strong class="o-sm-bio__accent">voz institucional de Coppel</strong>.
+            </p>
+            <p class="o-sm-bio__paragraph">
+              Desde 2020 colaboro con <strong>Audible</strong> y <strong>Penguin Random House</strong> como narradora de muchos de sus títulos en versiones para audiolibro.
+            </p>
+          </div>
+        </section>
+
+        <!-- Stats strip -->
+        <div class="o-sm-stats">
+          <div class="m-sm-stat">
+            <span class="m-sm-stat__number">38+</span>
+            <span class="m-sm-stat__label">Años de trayectoria</span>
+          </div>
+          <div class="m-sm-stat">
+            <span class="m-sm-stat__number">33+</span>
+            <span class="m-sm-stat__label">Años en doblaje</span>
+          </div>
+          <div class="m-sm-stat">
+            <span class="m-sm-stat__number">2006</span>
+            <span class="m-sm-stat__label">Debut en teatro nacional</span>
+          </div>
+          <div class="m-sm-stat">
+            <span class="m-sm-stat__number">4</span>
+            <span class="m-sm-stat__label">Direcciones Ghibli / Dreamworks recientes</span>
+          </div>
+        </div>
+
+        <!-- Personajes -->
+        <section class="o-sm-section">
+          <h2 class="o-sm-section__title">
+            <span class="o-sm-section__title-line">Personajes</span>
+            <span class="o-sm-section__title-sub">Icónicos</span>
+          </h2>
+          <div class="o-sm-characters">
+            {[
+              { character: 'Hermione Granger', work: 'Harry Potter' },
+              { character: 'Ahsoka Tano', work: 'Star Wars' },
+              { character: 'Shuri', work: 'Pantera Negra · Marvel' },
+              { character: 'Violeta Parr', work: 'Los Increíbles' },
+              { character: 'Astrid Hofferson', work: 'Cómo Entrenar a tu Dragón' },
+              { character: 'Charlotte', work: 'La Princesa y el Sapo' },
+              { character: 'Raven', work: 'La Casa de Raven y Es tan Raven' },
+              { character: 'Kim Possible', work: 'Kim Posible' },
+              { character: 'Rory Gilmore', work: 'Gilmore Girls' },
+              { character: 'Hazel Grace Lancaster', work: 'Bajo la Misma Estrella' },
+              { character: 'Capitán Teemo', work: 'League of Legends' },
+              { character: 'Han Mi-nyeo', work: 'Los Juegos del Calamar' },
+              { character: 'Gloria', work: 'Barbie (la película)' },
+              { character: 'Sofía Falcone', work: 'El Pingüino · DC & HBO' },
+            ].map((item) => (
+              <div class="m-sm-character">
+                <span class="m-sm-character__name">{item.character}</span>
+                <span class="m-sm-character__work">{item.work}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Dirección Doblaje -->
+        <section class="o-sm-section">
+          <h2 class="o-sm-section__title">
+            <span class="o-sm-section__title-line">Dirección</span>
+            <span class="o-sm-section__title-sub">Doblaje Animación</span>
+          </h2>
+          <div class="o-sm-direction">
+            {[
+              {
+                title: 'El Niño y la Garza',
+                studio: 'Ghibli',
+                year: '2023',
+                note: 'Yo dirigí la versión española, ganadora del Oscar a Mejor Cinta Animada.',
+                badge: 'OSCAR'
+              },
+              {
+                title: 'Robot Salvaje',
+                studio: 'Dreamworks',
+                year: '2024',
+                note: 'Yo dirigí la versión española; la película animada con más nominaciones a los Globos de Oro y nominada al Oscar 2025 incluyendo Mejor Película Animada.',
+                badge: 'OSCAR NOM'
+              },
+              {
+                title: 'La Tumba de las Luciérnagas',
+                studio: 'Ghibli · Netflix',
+                year: '2024',
+                note: 'Yo dirigí la versión española de esta cinta emblemática de Ghibli, disponible en Netflix.',
+              },
+              {
+                title: 'Memorias de un Caracol',
+                studio: 'Adam Elliot',
+                year: '2025',
+                note: 'Yo dirigí la versión española, nominada a los premios de la Academia en 2025.',
+                badge: 'OSCAR NOM'
+              },
+            ].map((film) => (
+              <div class="m-sm-film">
+                <div class="m-sm-film__header">
+                  <div class="m-sm-film__meta">
+                    <span class="m-sm-film__studio">{film.studio}</span>
+                    <span class="m-sm-film__year">{film.year}</span>
+                  </div>
+                  {film.badge && <span class="m-sm-film__badge">{film.badge}</span>}
+                </div>
+                <h3 class="m-sm-film__title">{film.title}</h3>
+                <p class="m-sm-film__note">{film.note}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Marcas -->
+        <section class="o-sm-section">
+          <h2 class="o-sm-section__title">
+            <span class="o-sm-section__title-line">Marcas</span>
+            <span class="o-sm-section__title-sub">con las que ha colaborado</span>
+          </h2>
+          <div class="o-sm-brands">
+            {[
+              'Disney', 'Pixar', 'Dreamworks', 'Ghibli', 'Marvel', 'Warner', 'Sony', 'Netflix',
+              'Mercedes Benz', 'Coca Cola', 'Telcel', 'Target', 'Naturella', 'Evenflo', 'Mattel',
+              'Allegra', "Mac & Cheese de Kraft", 'AutoZone', "M&M's Verde", "L'Oréal", 'Coppel',
+              'Audible', 'Penguin Random House'
+            ].map((brand) => (
+              <span class="a-sm-brand-pill">{brand}</span>
+            ))}
+          </div>
+        </section>
+
+        <!-- Back button -->
+        <div class="o-sm-back">
+          <a href="/" class="a-sm-back-btn">← Volver al inicio</a>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+</Layout>
+
+<style>
+  /* Base */
+  .u-sobre-mi-page {
+    position: relative;
+    background: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  /* =====================
+     HERO HEADER
+  ===================== */
+  .o-sm-hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    padding-top: 140px;
+  }
+
+  .o-sm-hero__image-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .o-sm-hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    filter: brightness(0.35) contrast(1.1);
+  }
+
+  .o-sm-hero__image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.3) 0%,
+      rgba(0,0,0,0.1) 40%,
+      rgba(0,0,0,0.85) 80%,
+      #000000 100%
+    );
+  }
+
+  .o-sm-hero__container {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 40px 100px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .a-sm-logo-link {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    z-index: 100;
+    transition: transform 0.4s ease;
+  }
+
+  .a-sm-logo-link:hover {
+    transform: scale(1.04);
+  }
+
+  .a-sm-logo {
+    width: 290px;
+    height: auto;
+    display: block;
+  }
+
+  .o-sm-hero__eyebrow {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--color-primary, #FFAB8C);
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .o-sm-hero__title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0 0 28px;
+    line-height: 1;
+  }
+
+  .o-sm-hero__tagline {
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.7);
+    margin: 0;
+  }
+
+  .o-sm-hero__tagline em {
+    color: var(--color-primary, #FFAB8C);
+    font-style: italic;
+  }
+
+  /* =====================
+     MAIN CONTENT
+  ===================== */
+  .o-sm-main {
+    padding: 100px 0 120px;
+  }
+
+  .o-sm-main__container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* Bio */
+  .o-sm-bio {
+    margin-bottom: 80px;
+  }
+
+  .o-sm-bio__paragraph {
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.8;
+    color: rgba(255,255,255,0.65);
+    margin: 0 0 24px;
+    font-weight: 300;
+  }
+
+  .o-sm-bio__paragraph--lead {
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    color: rgba(255,255,255,0.8);
+  }
+
+  .o-sm-bio__paragraph strong {
+    color: rgba(255,255,255,0.95);
+    font-weight: 500;
+  }
+
+  .o-sm-bio__paragraph em {
+    color: var(--color-primary, #FFAB8C);
+  }
+
+  .o-sm-bio__accent {
+    color: var(--color-primary, #FFAB8C);
+    font-weight: 600;
+  }
+
+  /* Stats strip */
+  .o-sm-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 100px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .m-sm-stat {
+    padding: 32px 24px;
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.3s ease;
+  }
+
+  .m-sm-stat:last-child {
+    border-right: none;
+  }
+
+  .m-sm-stat:hover {
+    background: rgba(255, 171, 140, 0.04);
+  }
+
+  .m-sm-stat__number {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    color: var(--color-primary, #FFAB8C);
+    line-height: 1;
+  }
+
+  .m-sm-stat__label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.4;
+  }
+
+  /* Sections */
+  .o-sm-section {
+    margin-bottom: 100px;
+  }
+
+  .o-sm-section__title {
+    margin: 0 0 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .o-sm-section__title-line {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    display: block;
+  }
+
+  .o-sm-section__title-sub {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-primary, #FFAB8C);
+    display: block;
+  }
+
+  /* Characters grid */
+  .o-sm-characters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .m-sm-character {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 22px 28px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-right: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.3s ease;
+  }
+
+  .m-sm-character:hover {
+    background: rgba(255, 171, 140, 0.04);
+  }
+
+  .m-sm-character__name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.02em;
+  }
+
+  .m-sm-character__work {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-primary, #FFAB8C);
+  }
+
+  /* Direction films */
+  .o-sm-direction {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .m-sm-film {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all 0.4s ease;
+  }
+
+  .m-sm-film:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255, 171, 140, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,171,140,0.06);
+  }
+
+  .m-sm-film__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .m-sm-film__meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .m-sm-film__studio {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-primary, #FFAB8C);
+    font-weight: 600;
+  }
+
+  .m-sm-film__year {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.05em;
+  }
+
+  .m-sm-film__badge {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #D4AF37;
+    border: 1px solid rgba(212,175,55,0.4);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-weight: 700;
+  }
+
+  .m-sm-film__title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 400;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .m-sm-film__note {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.45);
+    margin: 0;
+  }
+
+  /* Brands cloud */
+  .o-sm-brands {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .a-sm-brand-pill {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.65);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 7px 16px;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+
+  .a-sm-brand-pill:hover {
+    background: rgba(255, 171, 140, 0.08);
+    border-color: rgba(255, 171, 140, 0.25);
+    color: var(--color-primary, #FFAB8C);
+  }
+
+  /* Back button */
+  .o-sm-back {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .a-sm-back-btn {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .a-sm-back-btn:hover {
+    color: var(--color-primary, #FFAB8C);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .a-sm-logo-link {
+      top: 20px;
+      left: 20px;
+    }
+    .a-sm-logo {
+      width: 180px;
+    }
+
+    .o-sm-hero__container {
+      padding: 100px 24px 80px; /* Increased top padding to prevent collision */
+    }
+
+    .o-sm-main__container {
+      padding: 0 24px;
+    }
+
+    .o-sm-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .m-sm-stat {
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .m-sm-stat:nth-child(2n) {
+      border-right: none;
+    }
+
+    .o-sm-characters {
+      grid-template-columns: 1fr;
+    }
+
+    .o-sm-direction {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

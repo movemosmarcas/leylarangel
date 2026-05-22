@@ -1,0 +1,11 @@
+---
+// Component: Chip
+// Props can be defined here
+const { data } = Astro.props;
+---
+
+<div class="a-chip">
+  <h1>Chip Component</h1>
+  <!-- Boilerplate for Chip -->
+  { data && <pre>{JSON.stringify(data, null, 2)}</pre> }
+</div>

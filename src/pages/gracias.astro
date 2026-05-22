@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout headerType="dark">
+  <div class="u-gracias-page">
+    <div class="o-gracias-content">
+      <h1 class="o-gracias-title">¡Gracias por tu mensaje!</h1>
+      <p class="o-gracias-desc">He recibido tu información y me pondré en contacto contigo lo más pronto posible para conversar sobre tu proyecto.</p>
+      
+      <a href="/" class="a-btn-volver">Volver al inicio</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .u-gracias-page {
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 40px;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  .o-gracias-content {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .o-gracias-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+  }
+
+  .o-gracias-desc {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 auto 50px;
+    max-width: 80%;
+  }
+
+  .a-btn-volver {
+    display: inline-block;
+    padding: 16px 32px;
+    background-color: #ffffff;
+    color: #000000;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .a-btn-volver:hover {
+    background-color: var(--color-primary, #FFAB8C);
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 171, 140, 0.2);
+  }
+</style>

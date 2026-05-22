@@ -1,0 +1,88 @@
+---
+import './CharacterParallax.css';
+import { getCharacters } from '../../../services/getServices/getContent.js';
+
+const characters = await getCharacters();
+// Mapping characters to available images (assuming 2, 4, 6, 8, 10, 11 are some of them)
+const charImages = [
+  { name: "Hermione Granger", img: "/img/characters/2.png" },
+  { name: "Ahsoka Tano", img: "/img/characters/4.png" },
+  { name: "Violeta Parr", img: "/img/characters/6.png" },
+  { name: "Shuri", img: "/img/characters/8.png" },
+  { name: "Astrid", img: "/img/characters/10.png" },
+  { name: "Raven", img: "/img/characters/11.png" }
+];
+
+---
+
+<section class="o-char-parallax" id="personajes">
+  <div class="o-char-parallax__bg-container">
+    {charImages.map((char, index) => (
+      <div class={`o-char-parallax__bg-item o-char-parallax__bg-item--${index + 1} u-parallax`} data-speed={0.1 + (index * 0.05)}>
+        <img src={char.img} alt={char.name} />
+      </div>
+    ))}
+  </div>
+
+  <div class="o-char-parallax__content l-container">
+    <div class="o-char-parallax__text-wrapper">
+      <h2 class="o-char-parallax__title u-fade-up">Voces que cobran vida</h2>
+      <p class="o-char-parallax__description u-fade-up">
+        Más de 33 años dando voz a los personajes más icónicos del cine y la televisión. Desde la magia de Hogwarts hasta las galaxias muy, muy lejanas.
+      </p>
+      
+      <div class="o-char-parallax__list">
+        {characters.slice(0, 8).map(char => (
+          <div class="o-char-parallax__list-item u-fade-up">
+            <span class="o-char-parallax__char-name">{char.name}</span>
+            <span class="o-char-parallax__char-source">{char.source}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Parallax effect for background images
+  gsap.utils.toArray('.u-parallax').forEach((layer: any) => {
+    const speed = layer.dataset.speed;
+    gsap.to(layer, {
+      y: -200 * speed,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".o-char-parallax",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+  });
+
+  // Reveal animations for text
+  gsap.from(".o-char-parallax__title", {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    scrollTrigger: {
+      trigger: ".o-char-parallax__title",
+      start: "top 80%"
+    }
+  });
+
+  gsap.from(".o-char-parallax__list-item", {
+    opacity: 0,
+    x: -30,
+    stagger: 0.1,
+    duration: 0.8,
+    scrollTrigger: {
+      trigger: ".o-char-parallax__list",
+      start: "top 70%"
+    }
+  });
+</script>

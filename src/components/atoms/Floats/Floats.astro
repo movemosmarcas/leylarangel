@@ -1,0 +1,75 @@
+---
+// Component: Floats
+---
+
+<div class="a-floats">
+  <a href="#contacto" class="a-float-contact">
+    Contáctame
+  </a>
+</div>
+
+<style>
+  .a-float-contact {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999; /* Float above all content, layers, headers, and footers */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.8rem;
+    background-color: rgba(26, 26, 26, 0.75); /* Dark translucent background for high readability over light backgrounds (like the lavender footer) */
+    color: #FFFFFF;
+    border: 1.5px solid #FFFFFF; /* High-contrast white outline border as requested */
+    border-radius: 4px; /* Crisp rectangular design for a premium editorial look */
+    font-family: var(--font-headings), sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    backdrop-filter: blur(8px); /* Glassmorphic background blur */
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .a-float-contact:hover {
+    background-color: #FFFFFF; /* Solid white background fill on hover */
+    color: #1A1A1A; /* Text changes to dark charcoal for maximum contrast */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.25), 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+
+  .a-float-contact:active {
+    transform: translateY(-1px);
+  }
+
+  /* Fade-in entrance animation on load */
+  @keyframes floatFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .a-float-contact {
+    animation: floatFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+  }
+
+  /* Responsive styling for mobile */
+  @media (max-width: 768px) {
+    .a-float-contact {
+      bottom: 20px;
+      right: 20px;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      border-width: 1px;
+    }
+  }
+</style>

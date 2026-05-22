@@ -1,0 +1,227 @@
+---
+import './AudioGallery.css';
+
+const demos = [
+  { 
+    id: 'comercial-gallery',
+    title: 'COMERCIAL', 
+    category: 'Voz Institucional',
+    image: '/img/Carita-demo-1.png',
+    file: '/audio/demo-comercial.mp3',
+    date: 'MAR 25, 2025',
+    titleLabel: 'TACTILE FUTURES'
+  },
+  { 
+    id: 'doblaje-gallery',
+    title: 'DOBLAJE', 
+    category: 'Interpretación',
+    image: '/img/Carita-demo-2.png',
+    file: '/audio/demo-doblaje.mp3',
+    date: 'MAY 15, 2025',
+    titleLabel: 'SONIC EMOTIONS'
+  }
+];
+---
+
+<section class="o-audio-gallery" id="demos">
+  <header class="o-audio-gallery__header">
+    <h2 class="o-audio-gallery__title">
+      {
+        "THE SOUND GALLERY".split(" ").map((word) => (
+          <span class="a-word-reveal">{word} </span>
+        ))
+      }
+    </h2>
+  </header>
+
+  <div class="o-audio-gallery__grid">
+    {demos.map((demo) => (
+      <div class="o-audio-gallery__panel" data-audio-id={demo.id}>
+        <!-- Art Wrapper (For GSAP Dropdown reveal) -->
+        <div class="o-audio-gallery__art-wrapper">
+          <!-- Art Piece (The clean minimalist card) -->
+          <div class="o-audio-gallery__art-piece">
+            <div class="o-audio-gallery__art-inner">
+              <img src={demo.image} alt={demo.title} class="o-audio-gallery__image" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Player Overlay -->
+        <div class="o-audio-gallery__player">
+          <div class="o-audio-gallery__player-info">
+            <span class="o-audio-gallery__demo-cat">{demo.category}</span>
+            <h3 class="o-audio-gallery__demo-title">{demo.title}</h3>
+          </div>
+
+          <div class="o-audio-gallery__controls">
+            <audio id={`audio-${demo.id}`} src={demo.file}></audio>
+            
+            <button class="o-audio-gallery__play-btn" aria-label="Reproducir">
+              <span class="o-audio-gallery__icon-play">▶</span>
+              <span class="o-audio-gallery__icon-pause" style="display: none;">‖</span>
+            </button>
+            
+            <div class="o-audio-gallery__progress-wrap">
+              <div class="o-audio-gallery__progress-bar"></div>
+            </div>
+            
+            <div class="o-audio-gallery__time">
+              <span class="o-audio-gallery__current">0:00</span>
+              <span class="o-audio-gallery__separator">/</span>
+              <span class="o-audio-gallery__duration">0:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initAudioGallery() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo('.o-audio-gallery__title .a-word-reveal',
+      {
+        opacity: 0,
+        y: 20,
+        filter: 'blur(10px)',
+      },
+      {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        stagger: 0.05,
+        duration: 1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.o-audio-gallery__header',
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Animación de "Descolgado" (Curtain drop down / unroll) para las tarjetas
+    gsap.fromTo('.o-audio-gallery__art-wrapper',
+      {
+        clipPath: 'inset(0% 0% 100% 0%)',
+        y: -120,
+        opacity: 0
+      },
+      {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        y: 0,
+        opacity: 1,
+        duration: 1.6,
+        ease: 'power4.out',
+        stagger: 0.25,
+        scrollTrigger: {
+          trigger: '.o-audio-gallery__grid',
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Animación de aparición suave para los controles del reproductor (para que no aparezcan flotando en la nada)
+    gsap.fromTo('.o-audio-gallery__player',
+      {
+        opacity: 0,
+        y: 30
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        stagger: 0.25,
+        delay: 0.2, // Ligero retraso para que ocurra a la par de la caída de la tarjeta
+        scrollTrigger: {
+          trigger: '.o-audio-gallery__grid',
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    document.querySelectorAll('.o-audio-gallery__panel').forEach(panel => {
+      const audioId = panel.getAttribute('data-audio-id');
+      if (!audioId) return;
+      const audio = panel.querySelector(`#audio-${audioId}`) as HTMLAudioElement;
+      if (!audio) return;
+      
+      const playBtn = panel.querySelector('.o-audio-gallery__play-btn');
+      const playIcon = panel.querySelector('.o-audio-gallery__icon-play') as HTMLElement;
+      const pauseIcon = panel.querySelector('.o-audio-gallery__icon-pause') as HTMLElement;
+      const progressBar = panel.querySelector('.o-audio-gallery__progress-bar') as HTMLElement;
+      const currentTimeEl = panel.querySelector('.o-audio-gallery__current');
+      const durationEl = panel.querySelector('.o-audio-gallery__duration');
+
+      const formatTime = (time: number) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      };
+
+      // Si los metadatos ya están listos
+      if (audio.duration && durationEl) {
+        durationEl.textContent = formatTime(audio.duration);
+      }
+
+      audio.addEventListener('loadedmetadata', () => {
+        if (durationEl) durationEl.textContent = formatTime(audio.duration);
+      });
+
+      playBtn?.addEventListener('click', () => {
+        // Pause all other audios (including from other sections)
+        document.querySelectorAll('audio').forEach(otherAudio => {
+          if (otherAudio !== audio) {
+            otherAudio.pause();
+            const otherPanel = otherAudio.closest('.o-audio-gallery__panel') || otherAudio.closest('.o-audio-demos__item');
+            if (otherPanel) {
+              const pi = otherPanel.querySelector('.o-audio-gallery__icon-play, .m-custom-player__icon-play') as HTMLElement;
+              const pa = otherPanel.querySelector('.o-audio-gallery__icon-pause, .m-custom-player__icon-pause') as HTMLElement;
+              if (pi) pi.style.display = 'block';
+              if (pa) pa.style.display = 'none';
+            }
+          }
+        });
+
+        if (audio.paused) {
+          audio.play();
+          if (playIcon) playIcon.style.display = 'none';
+          if (pauseIcon) pauseIcon.style.display = 'block';
+        } else {
+          audio.pause();
+          if (playIcon) playIcon.style.display = 'block';
+          if (pauseIcon) pauseIcon.style.display = 'none';
+        }
+      });
+
+      audio.addEventListener('timeupdate', () => {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        if (progressBar) progressBar.style.width = `${progress}%`;
+        if (currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
+      });
+
+      audio.addEventListener('ended', () => {
+        if (playIcon) playIcon.style.display = 'block';
+        if (pauseIcon) pauseIcon.style.display = 'none';
+        if (progressBar) progressBar.style.width = '0%';
+      });
+    });
+  }
+
+  // Ejecutar cuando el DOM esté listo o en transiciones de Astro
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAudioGallery);
+  } else {
+    initAudioGallery();
+  }
+  document.addEventListener('astro:page-load', initAudioGallery);
+</script>

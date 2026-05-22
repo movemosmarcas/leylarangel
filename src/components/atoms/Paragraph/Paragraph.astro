@@ -1,0 +1,29 @@
+---
+interface Props {
+  text: string;
+  size?: 'lg' | 'md' | 'sm';
+  className?: string;
+}
+
+const { text, size = 'md', className } = Astro.props;
+---
+
+<p class:list={[
+  'a-paragraph',
+  `a-paragraph--${size}`,
+  className
+]}>
+  {text}
+</p>
+
+<style>
+  .a-paragraph {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  
+  .a-paragraph--lg { font-size: 1.25rem; line-height: 1.8; }
+  .a-paragraph--md { font-size: 1.125rem; }
+  .a-paragraph--sm { font-size: 0.9rem; }
+</style>

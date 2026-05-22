@@ -1,0 +1,65 @@
+---
+import './TextReveal.css';
+---
+
+<section class="m-text-reveal" id="doblaje">
+  <div class="m-text-reveal__container">
+    <p class="m-text-reveal__paragraph">
+      {
+        "Si algún día fuiste un niño".split(" ").map((word) => (
+          <span class="m-text-reveal__word">{word} </span>
+        ))
+      }
+      <br />
+      {
+        "enamorado de las historias".split(" ").map((word) => (
+          <span class="m-text-reveal__word">{word} </span>
+        ))
+      }
+      <br />
+      {
+        "seguramente ya me conoces".split(" ").map((word) => (
+          <span class="m-text-reveal__word">{word} </span>
+        ))
+      }
+    </p>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initTextRevealAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo('.m-text-reveal__word', 
+      { 
+        opacity: 0,
+        filter: 'blur(12px)',
+        y: 15
+      },
+      {
+        opacity: 1,
+        filter: 'blur(0px)',
+        y: 0,
+        stagger: 0.03, // Faster stagger
+        duration: 0.7, // Shorter, punchy duration
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.m-text-reveal__container',
+          start: 'top 80%', // Triggers earlier in the scroll
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+  }
+
+  // Ejecutar cuando el DOM esté listo o en transiciones de Astro
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTextRevealAnimations);
+  } else {
+    initTextRevealAnimations();
+  }
+  document.addEventListener('astro:page-load', initTextRevealAnimations);
+</script>

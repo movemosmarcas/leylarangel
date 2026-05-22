@@ -1,0 +1,27 @@
+{
+  "title": "Latest Publications",
+  "subtitle": "Insights and updates from our team",
+  "items": [
+    {
+      "id": 1,
+      "title": "The Future of Web Development",
+      "excerpt": "Exploring the shift towards headless architectures and modular design.",
+      "image": "/publications_thumbnails_1775709675998.png",
+      "link": "/blog/future"
+    },
+    {
+      "id": 2,
+      "title": "Atomic Design at Scale",
+      "excerpt": "How to maintain consistency in large-scale design systems.",
+      "image": "/publications_thumbnails_1775709675998.png",
+      "link": "/blog/atomic"
+    },
+    {
+      "id": 3,
+      "title": "GSAP Animations in Astro",
+      "excerpt": "Creating smooth, performant animations for the modern web.",
+      "image": "/publications_thumbnails_1775709675998.png",
+      "link": "/blog/gsap"
+    }
+  ]
+}

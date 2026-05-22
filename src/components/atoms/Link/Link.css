@@ -1,0 +1,22 @@
+.a-link {
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-family: inherit;
+}
+
+.a-link--default {
+  color: var(--primary);
+}
+
+.a-link--default:hover {
+  color: var(--secondary);
+}
+
+.a-link--nav {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.a-link--nav:hover {
+  color: var(--primary);
+}

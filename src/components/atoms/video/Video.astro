@@ -1,0 +1,11 @@
+---
+// Component: Video
+// Props can be defined here
+const { data } = Astro.props;
+---
+
+<div class="a-video">
+  <h1>Video Component</h1>
+  <!-- Boilerplate for Video -->
+  { data && <pre>{JSON.stringify(data, null, 2)}</pre> }
+</div>

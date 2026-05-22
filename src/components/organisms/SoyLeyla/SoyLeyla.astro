@@ -1,0 +1,161 @@
+---
+import './SoyLeyla.css';
+import Btn from '../../atoms/Btn/Btn.astro';
+---
+
+<section class="o-soy-leyla" id="sobre-mi">
+  <div class="o-soy-leyla__container">
+    <div class="o-soy-leyla__image-wrapper">
+      <img src="/img/hero-vertical.png" alt="Leyla Rangel" class="o-soy-leyla__image" />
+    </div>
+    
+    <div class="o-soy-leyla__content">
+      <span class="o-soy-leyla__tag">Sobre mí</span>
+      <h2 class="o-soy-leyla__title">
+        {
+          "SOY LEYLA RANGEL".split(" ").map((word) => (
+            <span class="a-word-reveal">{word} </span>
+          ))
+        }
+      </h2>
+      <div class="o-soy-leyla__bio">
+        <p>
+          Con más de <span class="o-soy-leyla__accent">33 años de trayectoria</span>, he prestado mi voz para dar vida a personajes icónicos en el cine y la televisión. Mi pasión es contar historias a través de la interpretación vocal, fusionando técnica y emoción para conectar con audiencias de todo el mundo. Desde grandes producciones de <span class="o-soy-leyla__accent">Disney</span> hasta campañas publicitarias globales.
+        </p>
+      </div>
+
+      <div class="o-soy-leyla__cta-container">
+        <Btn text="Conoce más sobre mí" url="/sobre-mi" variant="secondary" className="o-soy-leyla__btn" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initSoyLeylaAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Scroll-linked Image Parallax (purely tied to scroll position)
+    gsap.fromTo('.o-soy-leyla__image',
+      {
+        yPercent: 15,
+        scale: 1.15,
+      },
+      {
+        yPercent: -10,
+        scale: 1.0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.o-soy-leyla',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        }
+      }
+    );
+
+    // 2. Play-once content reveal when section is scrolled into view
+    const revealTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.o-soy-leyla',
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      }
+    });
+
+    // Image reveal animation
+    revealTl.fromTo('.o-soy-leyla__image-wrapper', 
+      {
+        clipPath: 'inset(100% 0 0 0)',
+      },
+      {
+        clipPath: 'inset(0% 0 0 0)',
+        duration: 1.5,
+        ease: 'power3.out',
+      }
+    );
+
+    // Tag reveal
+    revealTl.fromTo('.o-soy-leyla__tag',
+      {
+        opacity: 0,
+        y: 30,
+        filter: 'blur(4px)',
+      },
+      {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 0.6,
+        ease: 'power2.out',
+      },
+      '-=1.0'
+    );
+
+    // Title reveal (word by word staggered de-blur)
+    revealTl.fromTo('.o-soy-leyla__title .a-word-reveal',
+      {
+        opacity: 0,
+        y: 20,
+        filter: 'blur(10px)',
+      },
+      {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        stagger: 0.05,
+        duration: 1,
+        ease: 'power2.out',
+      },
+      '-=0.8'
+    );
+
+    // Biography paragraphs reveal
+    const bioParagraphs = document.querySelectorAll('.o-soy-leyla__bio p');
+    bioParagraphs.forEach((p, idx) => {
+      revealTl.fromTo(p,
+        {
+          opacity: 0,
+          y: 30,
+          filter: 'blur(8px)',
+        },
+        {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 0.8,
+          ease: 'power2.out',
+        },
+        `-=${0.6}`
+      );
+    });
+
+    // Button reveal
+    revealTl.fromTo('.o-soy-leyla__cta-container',
+      {
+        opacity: 0,
+        y: 30,
+        filter: 'blur(8px)',
+      },
+      {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 0.8,
+        ease: 'power2.out',
+      },
+      '-=0.4'
+    );
+  }
+
+  // Ejecutar cuando el DOM esté listo o en transiciones de Astro
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSoyLeylaAnimations);
+  } else {
+    initSoyLeylaAnimations();
+  }
+  document.addEventListener('astro:page-load', initSoyLeylaAnimations);
+</script>

@@ -1,0 +1,410 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { mockPosts } from "../services/posts";
+import { Image } from "astro:assets";
+
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
+const getSlug = (title: string) => {
+  return title
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+};
+---
+
+<Layout headerType="dark">
+  <div class="u-historias-page">
+    <a href="/" class="a-historias-logo-link" aria-label="Ir a Inicio">
+      <img src="/img/logo-leyla-blanco.png" alt="Leyla Rangel Logo" class="a-historias-logo" />
+    </a>
+    <div class="o-historias-header">
+      <div class="o-historias-header__container">
+        <span class="a-historias-subtitle">Leyla Rangel • Historias</span>
+        <h1 class="o-historias-header__title">Explorando el Arte de la Voz</h1>
+        <p class="o-historias-header__desc">
+          Reflexiones, vivencias y el fascinante viaje detrás del doblaje, la dirección de actores y la locución profesional.
+        </p>
+      </div>
+    </div>
+
+    <main class="o-historias-gallery">
+      <div class="o-historias-gallery__container">
+        <div class="o-historias-gallery__grid">
+          {mockPosts.map((post) => {
+            const slug = getSlug(post.title);
+            const coverImage = post.featured_image;
+            const authorAvatar = post.author_avatar || "/img/hero-vertical.png";
+            
+            return (
+              <article class="m-historias-card" onclick={`window.location.href='/historias/${slug}'`}>
+                <div class="m-historias-card__content">
+                  <div class="m-historias-card__meta-row">
+                    <div class="m-historias-card__categories">
+                      {post.category?.map((cat) => (
+                        <span class="a-badge-tag">{cat.name}</span>
+                      ))}
+                    </div>
+                    {post.read_time && (
+                      <span class="m-historias-card__read-time">• {post.read_time}</span>
+                    )}
+                  </div>
+
+                  <h2 class="m-historias-card__title">
+                    <a href={`/historias/${slug}`} class="m-historias-card__title-link">
+                      {post.title}
+                    </a>
+                  </h2>
+
+                  <p class="m-historias-card__excerpt">{post.excerpt}</p>
+
+                  <div class="m-historias-card__footer-row">
+                    <div class="m-historias-card__author-info">
+                      <img src={authorAvatar} alt={post.author} class="a-avatar-img" />
+                      <div class="m-historias-card__meta-details">
+                        <span class="a-meta-label">Escrito por</span>
+                        <span class="a-meta-value">{post.author}</span>
+                      </div>
+                    </div>
+
+                    <div class="m-historias-card__date-info">
+                      <div class="m-historias-card__meta-details">
+                        <span class="a-meta-label">Publicado el</span>
+                        <span class="a-meta-value">{formatDate(post.date)}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="m-historias-card__cover-wrap">
+                  <Image 
+                    src={coverImage} 
+                    alt={post.title} 
+                    width={800} 
+                    height={500} 
+                    class="m-historias-card__cover-img"
+                  />
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  /* Base layout styling */
+  .u-historias-page {
+    position: relative;
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    padding-top: 140px; /* Leave space for the sticky header */
+    padding-bottom: 120px;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  /* Header Section */
+  .o-historias-header {
+    position: relative;
+    padding: 80px 40px 60px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: radial-gradient(circle at center bottom, rgba(255, 171, 140, 0.04) 0%, transparent 70%);
+  }
+
+  .o-historias-header__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .a-historias-logo-link {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    z-index: 100;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .a-historias-logo-link:hover {
+    transform: scale(1.05);
+  }
+
+  .a-historias-logo {
+    width: 290px;
+    height: auto;
+    display: block;
+  }
+
+  .a-historias-subtitle {
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary, #FFAB8C);
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  .o-historias-header__title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+  }
+
+  .o-historias-header__desc {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+  }
+
+  /* Gallery section grid */
+  .o-historias-gallery {
+    padding: 80px 40px 0;
+  }
+
+  .o-historias-gallery__container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .o-historias-gallery__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  /* Horizontal card component */
+  .m-historias-card {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: stretch;
+    background: rgba(10, 10, 10, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 40px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Hover states - glowing glass lift effect */
+  .m-historias-card:hover {
+    transform: translateY(-8px);
+    background: rgba(15, 15, 15, 0.85);
+    border-color: rgba(255, 171, 140, 0.25);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
+                0 0 40px rgba(255, 171, 140, 0.08);
+  }
+
+  /* Left column - Content */
+  .m-historias-card__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .m-historias-card__meta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .m-historias-card__categories {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Glassmorphic tags */
+  .a-badge-tag {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    padding: 5px 14px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .m-historias-card:hover .a-badge-tag {
+    background: rgba(255, 171, 140, 0.1);
+    border-color: rgba(255, 171, 140, 0.2);
+    color: var(--color-primary, #FFAB8C);
+  }
+
+  .m-historias-card__read-time {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.05em;
+  }
+
+  /* Card Title */
+  .m-historias-card__title {
+    margin: 0 0 16px;
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.15;
+    text-transform: none; /* Keep natural casing for article titles */
+    letter-spacing: normal;
+  }
+
+  .m-historias-card__title-link {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .m-historias-card:hover .m-historias-card__title-link {
+    color: var(--color-primary, #FFAB8C);
+  }
+
+  /* Card Excerpt */
+  .m-historias-card__excerpt {
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 32px 0;
+    font-weight: 300;
+  }
+
+  /* Card Footer Info */
+  .m-historias-card__footer-row {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 24px;
+    margin-top: auto;
+  }
+
+  .m-historias-card__author-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Avatar image */
+  .a-avatar-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #111;
+  }
+
+  .m-historias-card__meta-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .a-meta-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .a-meta-value {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* Right column - Cover Image Wrapper */
+  .m-historias-card__cover-wrap {
+    flex: 0 0 45%;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background-color: #0f0f0f;
+    min-height: 250px;
+    display: flex;
+  }
+
+  .m-historias-card__cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .m-historias-card:hover .m-historias-card__cover-img {
+    transform: scale(1.05);
+  }
+
+  /* Responsive styling */
+  @media (max-width: 900px) {
+    .a-historias-logo-link {
+      top: 20px;
+      left: 20px;
+    }
+    .a-historias-logo {
+      width: 180px;
+    }
+
+    .o-historias-header {
+      padding: 100px 24px 40px; /* More top padding to prevent text colliding with logo */
+    }
+    
+    .o-historias-gallery {
+      padding: 40px 24px 0;
+    }
+
+    .m-historias-card {
+      flex-direction: column-reverse;
+      gap: 32px;
+      padding: 30px;
+      border-radius: 16px;
+    }
+
+    .m-historias-card__cover-wrap {
+      flex: none;
+      width: 100%;
+      height: 240px;
+      min-height: auto;
+    }
+
+    .m-historias-card__footer-row {
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .m-historias-card {
+      padding: 20px;
+    }
+    
+    .m-historias-card__footer-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+  }
+</style>

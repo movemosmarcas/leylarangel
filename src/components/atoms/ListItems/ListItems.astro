@@ -1,0 +1,11 @@
+---
+// Component: ListItems
+// Props can be defined here
+const { data } = Astro.props;
+---
+
+<div class="a-listitems">
+  <h1>ListItems Component</h1>
+  <!-- Boilerplate for ListItems -->
+  { data && <pre>{JSON.stringify(data, null, 2)}</pre> }
+</div>

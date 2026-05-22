@@ -1,0 +1,67 @@
+---
+import { getSeoData } from "../../../services/getServices/seo.service";
+
+const path = Astro.url.pathname;
+const pageRoute = path === "/" ? "home" : path.replace(/\//g, "");
+const seoData = await getSeoData(pageRoute);
+
+const {
+  title,
+  description,
+  keywords,
+  siteName,
+  author,
+  themeColor,
+  ogType,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  twitterCard,
+  twitterTitle,
+  twitterDescription,
+  favicon,
+} = seoData;
+
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site || "https://example.com",
+);
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href={favicon} />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+{keywords && <meta name="keywords" content={keywords.join(", ")} />}
+<meta name="author" content={author} />
+<meta name="theme-color" content={themeColor} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={ogTitle || title} />
+<meta property="og:description" content={ogDescription || description} />
+<meta property="og:image" content={new URL(ogImage, Astro.url)} />
+<meta property="og:site_name" content={siteName} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content={twitterCard} />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={twitterTitle || title} />
+<meta
+  property="twitter:description"
+  content={twitterDescription || description}
+/>
+<meta property="twitter:image" content={new URL(ogImage, Astro.url)} />
+
+<!-- Robots -->
+<meta name="robots" content="index, follow" />

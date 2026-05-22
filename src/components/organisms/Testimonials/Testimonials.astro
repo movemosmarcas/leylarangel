@@ -1,0 +1,115 @@
+---
+import './Testimonials.css';
+
+const testimonials = [
+  {
+    quote: "Trabajar con Leyla fue como encontrar la pieza que le faltaba a nuestro rompecabezas. Su voz le dio vida y alma a nuestro proyecto.",
+    name: "Sarah Conor",
+    title: "Founder, Clonify",
+    image: "/img/testimonio-1-new.jpg",
+    bgColor: "#BCCFC3"
+  },
+  {
+    quote: "Leyla no solo graba una voz, ella entiende la intención detrás del texto. Elevó nuestro comercial a un nivel completamente nuevo y sofisticado.",
+    name: "Bruce Lee",
+    title: "Director Creativo, Maiz",
+    image: "/img/testimonio-2-new.jpg",
+    bgColor: "#B2A0CA"
+  },
+  {
+    quote: "Desde el primer concepto hasta el lanzamiento, Leyla nos entregó un trabajo con claridad, creatividad y estilo. Nunca habíamos sonado tan profesionales.",
+    name: "John Headphone",
+    title: "CEO, Marcom",
+    image: "/img/testimonio-3-new.jpg",
+    bgColor: "#ECAB37"
+  }
+];
+---
+
+<section class="o-testimonials" id="testimonios">
+  <div class="o-testimonials__container">
+    <header class="o-testimonials__header">
+      <h2 class="o-testimonials__title">
+        {
+          "La voz elegida por marcas que no temen destacar.".split(" ").map((word) => (
+            <span class="a-word-reveal">{word} </span>
+          ))
+        }
+      </h2>
+    </header>
+
+    <div class="o-testimonials__cards">
+      {testimonials.map((testimonio, index) => (
+        <div class="o-testimonials__card" id={`testimonial-card-${index}`}>
+          <div class="o-testimonials__image-col" style={`background-color: ${testimonio.bgColor};`}>
+            <img src={testimonio.image} alt={testimonio.name} class="o-testimonials__image" />
+          </div>
+          <div class="o-testimonials__content-col">
+            <p class="o-testimonials__quote">"{testimonio.quote}"</p>
+            <div class="o-testimonials__author">
+              <div class="o-testimonials__author-name">{testimonio.name}</div>
+              <div class="o-testimonials__author-title">{testimonio.title}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initTestimonialsAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo('.o-testimonials__title .a-word-reveal',
+      {
+        opacity: 0,
+        y: 20,
+        filter: 'blur(10px)',
+      },
+      {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        stagger: 0.05,
+        duration: 1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.o-testimonials__header',
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    gsap.fromTo('.o-testimonials__card',
+      {
+        opacity: 0,
+        y: 60,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.2,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.o-testimonials__cards',
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+  }
+
+  // Bind to lifecycle hooks for transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTestimonialsAnimations);
+  } else {
+    initTestimonialsAnimations();
+  }
+  document.addEventListener('astro:page-load', initTestimonialsAnimations);
+</script>

@@ -1,0 +1,81 @@
+---
+import './CharacterGrid.css';
+
+const leftColumn = [
+  { src: '/img/characters/10.png', alt: 'Kim Possible' },
+  { src: '/img/characters/2.png', alt: 'Hermione Granger' },
+  { src: '/img/characters/6.png', alt: 'Violet' },
+];
+
+const rightColumn = [
+  { src: '/img/characters/11.png', alt: 'Ahsoka Tano' },
+  { src: '/img/characters/4.png', alt: 'Joy' },
+  { src: '/img/characters/8.png', alt: 'Mavis' },
+];
+---
+
+<section class="o-char-grid">
+  <div class="o-char-grid__container">
+    <div class="o-char-grid__background">
+      <div class="o-char-grid__track">
+        <!-- Left Column -->
+        <div class="o-char-grid__side o-char-grid__side--left">
+          {leftColumn.map((char) => (
+            <div class="o-char-grid__item">
+              <img src={char.src} alt={char.alt} class="o-char-grid__img" />
+            </div>
+          ))}
+        </div>
+
+        <!-- Right Column -->
+        <div class="o-char-grid__side o-char-grid__side--right">
+          {rightColumn.map((char) => (
+            <div class="o-char-grid__item">
+              <img src={char.src} alt={char.alt} class="o-char-grid__img" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="o-char-grid__content">
+      <h2 class="o-char-grid__text">
+        PORQUE LLEVO MÁS DE <span class="u-highlight">33 AÑOS</span> DOBLANDO PERSONAJES QUE ESTÁN EN TU CORAZÓN, PARA MARCAS QUE TE HAN ACOMPAÑADO DESDE SIEMPRE
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Parallax effect for the left column
+  gsap.to('.o-char-grid__side--left', {
+    y: '-30%',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.o-char-grid',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true
+    }
+  });
+
+  // Parallax effect for the right column - slightly different speed
+  gsap.to('.o-char-grid__side--right', {
+    y: '-50%',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.o-char-grid',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true
+    }
+  });
+</script>
+
+

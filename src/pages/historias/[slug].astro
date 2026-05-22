@@ -1,0 +1,651 @@
+---
+import { getListPost } from "../../services/posts";
+import { Image } from "astro:assets";
+import { getAllSlugs } from "../../services/allSlugs";
+import Layout from "../../layouts/Layout.astro";
+import AudioPlayer from "../../components/molecules/AudioPlayer/AudioPlayer.jsx";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const allSlugs = await getAllSlugs("post");
+  return allSlugs.map((slug: any) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const post = await getListPost("post", 1, slug);
+const postData = post[0];
+
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
+const featuredImage = postData.featured_image || "/placeholder-hero.jpg";
+const authorAvatar = postData.author_avatar || "/img/hero-vertical.png";
+const shareUrl = typeof window !== 'undefined' ? window.location.href : `https://leylarangel.com/historias/${slug}`;
+---
+
+<Layout headerType="dark">
+  <div class="u-post-page">
+    <a href="/" class="a-post-logo-link" aria-label="Ir a Inicio">
+      <img src="/img/logo-leyla-blanco.png" alt="Leyla Rangel Logo" class="a-post-logo" />
+    </a>
+    <article class="o-post">
+      <!-- 1. Centered Sleek Header -->
+      <header class="o-post-header">
+        <div class="o-post-header__container">
+          <div class="o-post-header__meta-row">
+            <div class="o-post-header__categories">
+              {postData.category?.map((cat) => (
+                <span class="a-badge-tag">{cat.name}</span>
+              ))}
+            </div>
+            {postData.read_time && (
+              <span class="o-post-header__read-time">• {postData.read_time}</span>
+            )}
+          </div>
+
+          <h1 class="o-post-header__title">{postData.title}</h1>
+          
+          {postData.subtitle && (
+            <p class="o-post-header__subtitle">{postData.subtitle}</p>
+          )}
+
+          <div class="o-post-header__author-bar">
+            <div class="o-post-header__author-info">
+              <img src={authorAvatar} alt={postData.author} class="a-avatar-img" />
+              <div class="o-post-header__meta-details">
+                <span class="a-meta-label">Escrito por</span>
+                <span class="a-meta-value">{postData.author}</span>
+              </div>
+            </div>
+
+            <div class="o-post-header__divider"></div>
+
+            <div class="o-post-header__date-info">
+              <div class="o-post-header__meta-details">
+                <span class="a-meta-label">Publicado el</span>
+                <span class="a-meta-value">{formatDate(postData.date)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 2. Centered Wide Cover Image/Video -->
+      <div class="o-post-cover">
+        <div class="o-post-cover__container" id="coverContainer">
+          {postData.youtube_id ? (
+            <div class="o-post-cover__video-trigger" data-youtube-id={postData.youtube_id} id="videoTrigger" role="button" aria-label="Reproducir video de Youtube">
+              <Image
+                src={featuredImage}
+                alt={postData.title}
+                width={1200}
+                height={680}
+                class="o-post-cover__img"
+              />
+              <div class="m-play-button">
+                <div class="m-play-button__circle">
+                  <svg class="m-play-button__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <Image
+              src={featuredImage}
+              alt={postData.title}
+              width={1200}
+              height={680}
+              class="o-post-cover__img"
+            />
+          )}
+        </div>
+      </div>
+
+      <!-- 3. Centered Post Body Columns -->
+      <div class="o-post-body">
+        <div class="o-post-body__container">
+          
+          <!-- React Audio Player Component -->
+          <div class="o-post-player-wrap">
+            <AudioPlayer
+              client:only="react"
+              content={postData.content}
+              title={postData.title}
+            />
+          </div>
+
+          <!-- Main Article HTML Content -->
+          <div class="o-post-body__content" set:html={postData.content} />
+
+          <!-- 4. Dynamic Post Footer Tags & Share -->
+          <footer class="o-post-footer">
+            <div class="o-post-footer__tags">
+              {postData.tags?.map((tag) => (
+                <span class="a-post-tag">#{tag}</span>
+              ))}
+            </div>
+
+            <div class="o-post-footer__share">
+              <span class="a-share-label">Compartir:</span>
+              <div class="m-share-buttons">
+                <a 
+                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(postData.title)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="a-share-btn a-share-btn--twitter"
+                  aria-label="Compartir en X (Twitter)"
+                >
+                  X
+                </a>
+                <a 
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="a-share-btn a-share-btn--facebook"
+                  aria-label="Compartir en Facebook"
+                >
+                  Facebook
+                </a>
+                <a 
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(postData.title + ' ' + shareUrl)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="a-share-btn a-share-btn--whatsapp"
+                  aria-label="Compartir en WhatsApp"
+                >
+                  WhatsApp
+                </a>
+                <a 
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="a-share-btn a-share-btn--linkedin"
+                  aria-label="Compartir en LinkedIn"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</Layout>
+
+<style>
+  /* Page Layout wrapping */
+  .u-post-page {
+    position: relative;
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    padding-top: 140px; /* Space for the header */
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  /* Centered Header Section */
+  .o-post-header {
+    padding: 80px 24px 40px;
+    text-align: center;
+    background: radial-gradient(circle at center top, rgba(255, 171, 140, 0.05) 0%, transparent 60%);
+  }
+
+  .o-post-header__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .a-post-logo-link {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    z-index: 100;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .a-post-logo-link:hover {
+    transform: scale(1.05);
+  }
+
+  .a-post-logo {
+    width: 290px;
+    height: auto;
+    display: block;
+  }
+
+  .o-post-header__meta-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .o-post-header__categories {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Glassmorphic tags */
+  .a-badge-tag {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  .o-post-header__read-time {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.05em;
+  }
+
+  /* Huge sleek title */
+  .o-post-header__title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin: 0 0 20px 0;
+    text-transform: none; /* Premium natural title casing */
+    letter-spacing: normal;
+    color: #ffffff;
+  }
+
+  /* Description/Subtitle underneath title */
+  .o-post-header__subtitle {
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 740px;
+    margin: 0 auto 40px;
+  }
+
+  /* Author & date metadata bar */
+  .o-post-header__author-bar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 16px 40px;
+  }
+
+  .o-post-header__author-info,
+  .o-post-header__date-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .a-avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .o-post-header__meta-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .a-meta-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .a-meta-value {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .o-post-header__divider {
+    width: 1px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Wide Featured Cover Image */
+  .o-post-cover {
+    padding: 0 24px;
+    margin-bottom: 60px;
+  }
+
+  .o-post-cover__container {
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    background-color: #0c0c0c;
+    position: relative;
+  }
+
+  .o-post-cover__video-trigger {
+    position: relative;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .o-post-cover__img {
+    width: 100%;
+    height: auto;
+    max-height: 580px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .o-post-cover__video-trigger:hover .o-post-cover__img {
+    transform: scale(1.03);
+  }
+
+  /* Play Button Overlay */
+  .m-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    pointer-events: none; /* Let clicks pass to trigger */
+  }
+
+  .m-play-button__circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 
+                0 0 0 0px rgba(255, 171, 140, 0);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .o-post-cover__video-trigger:hover .m-play-button__circle {
+    background: rgba(255, 171, 140, 0.12);
+    border-color: rgba(255, 171, 140, 0.6);
+    color: var(--color-primary, #FFAB8C);
+    transform: scale(1.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
+                0 0 40px rgba(255, 171, 140, 0.4);
+  }
+
+  .m-play-button__icon {
+    width: 28px;
+    height: 28px;
+    margin-left: 4px; /* Perfectly center visual weight of triangle */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .o-post-cover__video-trigger:hover .m-play-button__icon {
+    transform: scale(1.05);
+  }
+
+  .o-post-cover__iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 580px;
+    display: block;
+    border: none;
+    background-color: #000;
+  }
+
+  /* Reading text wrapper */
+  .o-post-body {
+    padding: 0 24px 80px;
+  }
+
+  .o-post-body__container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* Player wrap styling */
+  .o-post-player-wrap {
+    margin-bottom: 48px;
+  }
+
+  /* HTML Article text formatting */
+  .o-post-body__content {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    line-height: 1.8;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Drop Cap for first letter of first paragraph */
+  .o-post-body__content :global(p:first-of-type::first-letter) {
+    float: left;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 5rem);
+    font-weight: 700;
+    line-height: 0.8;
+    padding-right: 12px;
+    padding-top: 4px;
+    color: var(--color-primary, #FFAB8C);
+  }
+
+  /* Paragraph spacing */
+  .o-post-body__content :global(p) {
+    margin-bottom: 32px;
+  }
+
+  /* Headings inside content */
+  .o-post-body__content :global(h2),
+  .o-post-body__content :global(h3) {
+    font-family: 'Josefin Sans', sans-serif;
+    color: #ffffff;
+    font-weight: 400;
+    margin-top: 48px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+
+  .o-post-body__content :global(h2) {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  }
+
+  .o-post-body__content :global(h3) {
+    font-size: clamp(1.3rem, 2.8vw, 1.7rem);
+  }
+
+  /* Blockquote details */
+  .o-post-body__content :global(blockquote) {
+    margin: 48px 0;
+    padding-left: 28px;
+    border-left: 3px solid var(--color-primary, #FFAB8C);
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.5vw, 1.45rem);
+    line-height: 1.6;
+    color: #ffffff;
+    background: transparent;
+  }
+
+  .o-post-body__content :global(blockquote p) {
+    margin-bottom: 0;
+  }
+
+  /* Sleek Separator and Footer details */
+  .o-post-footer {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  /* Inline hashtag tags */
+  .o-post-footer__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .a-post-tag {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    transition: color 0.3s ease;
+  }
+
+  .a-post-tag:hover {
+    color: var(--color-primary, #FFAB8C);
+  }
+
+  /* Sharing block */
+  .o-post-footer__share {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .a-share-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .m-share-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Sharing circular buttons */
+  .a-share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .a-share-btn:hover {
+    background: rgba(255, 171, 140, 0.1);
+    border-color: rgba(255, 171, 140, 0.25);
+    color: var(--color-primary, #FFAB8C);
+    transform: translateY(-2px);
+  }
+
+
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .a-post-logo-link {
+      top: 20px;
+      left: 20px;
+    }
+    .a-post-logo {
+      width: 180px;
+    }
+
+    .o-post-header {
+      padding: 100px 16px 30px;
+    }
+
+    .o-post-header__author-bar {
+      flex-direction: column;
+      gap: 16px;
+      padding: 16px 20px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .o-post-header__divider {
+      display: none;
+    }
+
+    .o-post-cover {
+      margin-bottom: 40px;
+      padding: 0 16px;
+    }
+
+    .o-post-body {
+      padding: 0 16px 60px;
+    }
+
+    .o-post-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 40px;
+      padding-top: 30px;
+    }
+  }
+</style>
+
+<script>
+  function setupVideoPlayer() {
+    const trigger = document.getElementById('videoTrigger');
+    const container = document.getElementById('coverContainer');
+    if (!trigger || !container) return;
+
+    trigger.addEventListener('click', () => {
+      const youtubeId = trigger.getAttribute('data-youtube-id');
+      if (!youtubeId) return;
+
+      container.innerHTML = `
+        <iframe 
+          class="o-post-cover__iframe"
+          src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowfullscreen>
+        </iframe>
+      `;
+    });
+  }
+
+  // Bind to standard load and Astro view transitions page-load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupVideoPlayer);
+  } else {
+    setupVideoPlayer();
+  }
+  document.addEventListener('astro:page-load', setupVideoPlayer);
+</script>

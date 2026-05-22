@@ -1,0 +1,42 @@
+---
+import './Contact.css';
+---
+
+<section class="o-contact" id="contacto">
+  <div class="l-container">
+    <div class="o-contact__grid">
+      <div class="o-contact__image-side u-fade-up">
+        <img src="/img/hero-headless.png" alt="Leyla Rangel" class="o-contact__image" />
+      </div>
+      
+      <div class="o-contact__form-side">
+        <h2 class="o-contact__title u-fade-up">Contacto</h2>
+        <p class="o-contact__subtitle u-fade-up">
+          ¿Interesado en colaborar para una marca, doblaje o audiolibro? Hablemos.
+        </p>
+        
+        <form class="o-contact__form u-fade-up">
+          <div class="o-contact__field">
+            <label for="name" class="o-contact__label">Nombre</label>
+            <input type="text" id="name" name="name" class="o-contact__input" placeholder="Tu nombre" required />
+          </div>
+          
+          <div class="o-contact__field">
+            <label for="email" class="o-contact__label">Email</label>
+            <input type="email" id="email" name="email" class="o-contact__input" placeholder="tu@email.com" required />
+          </div>
+          
+          <div class="o-contact__field">
+            <label for="message" class="o-contact__label">Mensaje</label>
+            <textarea id="message" name="message" class="o-contact__textarea" placeholder="¿En qué puedo ayudarte?" required></textarea>
+          </div>
+          
+          <button type="submit" class="o-contact__submit">
+            <span>Enviar Mensaje</span>
+            <span class="o-contact__arrow">→</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

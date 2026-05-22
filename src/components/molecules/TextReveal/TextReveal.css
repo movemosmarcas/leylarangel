@@ -1,0 +1,40 @@
+.m-text-reveal {
+  position: relative;
+  width: 100%;
+  min-height: 50vh; /* Reduced from 80vh to balance spacing */
+  display: flex;
+  align-items: center; /* Center content vertically for a premium layout */
+  justify-content: center;
+  background-color: var(--color-white);
+  padding: 5vh 5vw; /* Reduced from 15vh to create even space */
+  z-index: 15;
+}
+
+
+.m-text-reveal__container {
+  max-width: 1000px;
+  text-align: center;
+}
+
+.m-text-reveal__paragraph {
+  font-family: var(--font-body);
+  font-size: 60px; /* Increased to 60px as requested */
+  font-weight: 300; /* Light weight restored */
+  line-height: 1.0; 
+  color: var(--color-black);
+  text-align: center;
+}
+
+.m-text-reveal__word {
+  opacity: 0; /* Fully hidden by default for smooth entrance */
+  filter: blur(10px);
+  display: inline-block;
+  white-space: pre;
+  will-change: filter, opacity, transform;
+}
+
+@media (max-width: 768px) {
+  .m-text-reveal__paragraph {
+    font-size: 2rem;
+  }
+}

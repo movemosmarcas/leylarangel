@@ -1,0 +1,26 @@
+---
+import './Btn.css';
+
+interface Props {
+  text: string;
+  url?: string;
+  type?: 'button' | 'submit';
+  variant?: 'primary' | 'secondary' | 'ghost';
+  className?: string;
+}
+
+const { text, url, type = 'button', variant = 'primary', className } = Astro.props;
+const Element = url ? 'a' : 'button';
+---
+
+<Element 
+  href={url} 
+  type={!url ? type : undefined}
+  class:list={[
+    'a-button',
+    `a-button--${variant}`,
+    className
+  ]}
+>
+  {text}
+</Element>

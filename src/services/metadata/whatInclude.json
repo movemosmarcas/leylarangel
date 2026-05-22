@@ -1,0 +1,20 @@
+{
+  "title": "What's Included",
+  "items": [
+    {
+      "title": "Atomic Design",
+      "description": "Building with consistency using the strongest methodology in the industry.",
+      "icon": "A"
+    },
+    {
+      "title": "GSAP Animations",
+      "description": "High-performance animations that wow your users instantly.",
+      "icon": "G"
+    },
+    {
+      "title": "Headless CMS",
+      "description": "Connect any data source and manage your content with ease.",
+      "icon": "C"
+    }
+  ]
+}

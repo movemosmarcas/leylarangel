@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "El Niño y la Garza",
+    "studio": "Studio Ghibli",
+    "year": "2024",
+    "award": "Ganadora del Oscar a Mejor Cinta Animada",
+    "gif": "/img/el-nino-y-la-garza.gif",
+    "awardType": "oscar-winner"
+  },
+  {
+    "id": 2,
+    "title": "Robot Salvaje",
+    "studio": "Dreamworks Animation",
+    "year": "2024",
+    "award": "De Dreamworks, la película animada con más nominaciones a los \"Globos de Oro\" en la historia y contendiente principal en los premios Oscar 2025, con tres nominaciones incluyendo Mejor Película Animada.",
+    "gif": "/img/robot-salvaje.gif",
+    "awardType": "oscar-nominee"
+  },
+  {
+    "id": 3,
+    "title": "La Tumba de las Luciérnagas",
+    "studio": "Studio Ghibli",
+    "year": "1988",
+    "award": "Una de las cintas más emblemáticas de Estudios Ghibli.",
+    "gif": "/img/la-tumba-de-las-luciernagas.gif",
+    "awardType": "ghibli-classic"
+  },
+  {
+    "id": 4,
+    "title": "Memorias de un Caracol",
+    "studio": "Snailspace / Adam Elliot",
+    "year": "2024",
+    "award": "Otra de las películas animadas nominadas a los premios de la Academia en 2025.",
+    "gif": "/img/memorias-de-un-caracol.gif",
+    "awardType": "oscar-nominee"
+  }
+]

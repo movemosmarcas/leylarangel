@@ -1,0 +1,98 @@
+.o-char-parallax {
+  position: relative;
+  width: 100%;
+  min-height: 150vh;
+  background: var(--color-dark);
+  overflow: hidden;
+  padding: 100px 0;
+}
+
+.o-char-parallax__bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.o-char-parallax__bg-item {
+  position: absolute;
+  opacity: 0.2;
+  filter: grayscale(1) contrast(1.2);
+  transition: opacity 0.5s ease;
+}
+
+.o-char-parallax__bg-item img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Position items randomly/artistically */
+.o-char-parallax__bg-item--1 { top: 10%; left: 5%; width: 250px; }
+.o-char-parallax__bg-item--2 { top: 30%; right: 5%; width: 300px; }
+.o-char-parallax__bg-item--3 { top: 50%; left: 10%; width: 200px; }
+.o-char-parallax__bg-item--4 { top: 70%; right: 10%; width: 280px; }
+.o-char-parallax__bg-item--5 { top: 20%; left: 40%; width: 180px; }
+.o-char-parallax__bg-item--6 { top: 80%; left: 30%; width: 220px; }
+
+.o-char-parallax__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.o-char-parallax__text-wrapper {
+  max-width: 800px;
+}
+
+.o-char-parallax__title {
+  font-size: clamp(40px, 6vw, 100px);
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  color: var(--color-primary);
+}
+
+.o-char-parallax__description {
+  font-size: 1.2rem;
+  margin-bottom: 60px;
+  color: var(--color-secondary);
+}
+
+.o-char-parallax__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  text-align: left;
+}
+
+.o-char-parallax__list-item {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 2px solid var(--color-primary);
+  backdrop-filter: blur(5px);
+}
+
+.o-char-parallax__char-name {
+  font-family: var(--font-headings);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+.o-char-parallax__char-source {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary-light);
+  margin-top: 5px;
+}

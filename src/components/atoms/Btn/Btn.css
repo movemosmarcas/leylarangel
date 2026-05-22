@@ -1,0 +1,76 @@
+.a-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border-radius: 0; /* Premium sharp corners matching the header luxury brand aesthetic */
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 13px;
+  font-family: var(--font-body, 'Josefin Sans', sans-serif);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+/* Primary Variant - Salmon brand color (#FFAB8C) */
+.a-button--primary {
+  background: var(--color-primary, #FFAB8C);
+  color: var(--color-black, #1a1a1a);
+  border-color: var(--color-primary, #FFAB8C);
+}
+
+.a-button--primary:hover {
+  background: transparent;
+  color: var(--color-primary, #FFAB8C);
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(255, 171, 140, 0.45); /* Luxurious brand glow */
+  border-color: var(--color-primary, #FFAB8C);
+}
+
+/* Secondary Variant - Elegant hollow button with border adapting to Dark/Light theme context */
+.a-button--secondary {
+  background: transparent;
+  color: var(--color-black, #1a1a1a);
+  border-color: var(--color-black, #1a1a1a);
+}
+
+.a-button--secondary:hover {
+  background: var(--color-black, #1a1a1a);
+  color: var(--color-white, #ffffff);
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(255, 171, 140, 0.45); /* Luxurious brand glow */
+  border-color: var(--color-primary, #FFAB8C);
+}
+
+/* Dark context override to keep high-end legibility */
+.u-dark-theme .a-button--secondary {
+  color: var(--color-white, #ffffff);
+  border-color: var(--color-white, #ffffff);
+}
+
+.u-dark-theme .a-button--secondary:hover {
+  background: var(--color-white, #ffffff);
+  color: var(--color-black, #1a1a1a);
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(255, 171, 140, 0.45); /* Luxurious brand glow */
+  border-color: var(--color-primary, #FFAB8C);
+}
+
+/* Ghost Variant - Minimal text button */
+.a-button--ghost {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.a-button--ghost:hover {
+  color: var(--color-primary, #FFAB8C);
+  transform: translateY(-2px);
+  text-shadow: 0 0 10px rgba(255, 171, 140, 0.5); /* Subtle text glow */
+}
+
+.a-button--full {
+  width: 100%;
+}

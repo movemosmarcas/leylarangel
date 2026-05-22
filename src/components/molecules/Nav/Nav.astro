@@ -1,0 +1,27 @@
+---
+import Link from '../../atoms/Link/Link.astro';
+import './Nav.css';
+
+interface NavLink {
+  url: string;
+  label: string;
+}
+
+interface Props {
+  links: NavLink[];
+}
+
+const { links } = Astro.props;
+---
+
+<nav class="m-nav">
+  <ul class="m-nav__list">
+    {links.map((link) => (
+      <li class="m-nav__item">
+        <Link href={link.url} variant="nav" class="m-nav__link">
+          {link.label}
+        </Link>
+      </li>
+    ))}
+  </ul>
+</nav>

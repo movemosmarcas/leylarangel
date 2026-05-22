@@ -1,0 +1,23 @@
+.m-nav {
+  display: flex;
+  align-items: center;
+}
+
+.m-nav__list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.m-nav__item {
+  display: flex;
+  align-items: center;
+}
+
+/* Specific overrides for nav if needed can go here, 
+   but specific link styling is handled by the Link atom */
+.m-nav__link {
+  /* Inherits styles from a-link--nav */
+}

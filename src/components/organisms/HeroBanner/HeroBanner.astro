@@ -1,0 +1,43 @@
+---
+import './HeroBanner.css';
+import Title from '../../atoms/Title/Title.astro';
+import Paragraph from '../../atoms/Paragraph/Paragraph.astro';
+import Btn from '../../atoms/Btn/Btn.astro';
+import { getHeroBannerData } from '../../../services/getServices/heroBanner.service';
+
+const data = await getHeroBannerData();
+---
+
+<section class="o-hero-banner">
+  <div class="o-hero-banner__background">
+    <img src={data.backgroundImage} alt="Background" class="o-hero-banner__image" />
+    <div class="o-hero-banner__overlay"></div>
+  </div>
+  
+  <div class="o-hero-banner__container">
+    <div class="o-hero-banner__content">
+      <Title 
+        level={1} 
+        text={data.title} 
+        size="xl" 
+        isGradient={true} 
+        className="o-hero-banner__title" 
+      />
+      
+      <Paragraph 
+        text={data.description} 
+        size="lg" 
+        className="o-hero-banner__description" 
+      />
+      
+      <div class="o-hero-banner__actions">
+        <Btn 
+          text={data.ctaText} 
+          url={data.ctaLink} 
+          variant="primary" 
+          className="o-hero-banner__btn" 
+        />
+      </div>
+    </div>
+  </div>
+</section>

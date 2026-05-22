@@ -1,0 +1,122 @@
+.o-demos {
+  width: 100%;
+  height: 100vh;
+  background: var(--color-dark);
+  overflow: hidden;
+}
+
+.o-demos__container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.o-demos__panel {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: flex 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+  cursor: pointer;
+}
+
+.o-demos__panel:hover {
+  flex: 1.5;
+}
+
+.o-demos__bg-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.o-demos__bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+  transition: filter 0.8s ease, opacity 0.5s ease;
+}
+
+
+.o-demos__panel:hover .o-demos__bg {
+  filter: brightness(0.7) grayscale(0);
+}
+
+.o-demos__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--color-white);
+}
+
+.o-demos__label {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.o-demos__title {
+  font-family: var(--font-headings);
+  font-size: clamp(40px, 5vw, 80px);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 30px;
+  letter-spacing: 0.1em;
+}
+
+.o-demos__play-btn {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px 30px;
+  border-radius: 50px;
+  color: var(--color-white);
+  transition: all 0.3s ease;
+}
+
+.o-demos__play-btn:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.o-demos__play-icon {
+  font-size: 1.2rem;
+}
+
+.o-demos__play-text {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.o-demos__play-btn.is-playing {
+  background: var(--color-primary);
+  box-shadow: 0 0 20px rgba(255, 171, 142, 0.4);
+}
+
+/* Add a separator line between panels */
+.o-demos__panel--commercial::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 10%;
+  width: 1px;
+  height: 80%;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 3;
+}

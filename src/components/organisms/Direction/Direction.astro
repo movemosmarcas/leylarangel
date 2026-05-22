@@ -1,0 +1,294 @@
+---
+import './Direction.css';
+import Title from '../../atoms/Title/Title.astro';
+import Paragraph from '../../atoms/Paragraph/Paragraph.astro';
+import { getDirectionWorks } from '../../../services/getServices/getDirection.js';
+
+const works = await getDirectionWorks();
+---
+
+<section class="o-direction" id="direccion">
+  <div class="o-direction__container">
+    <div class="o-direction__header">
+      <div class="o-direction__header-text">
+        <span class="o-direction__subtitle">Trayectoria Creativa</span>
+        <Title text="Dirección de Doblaje" level={2} size="xl" className="o-direction__title" shouldReveal={true} />
+        <Paragraph 
+          text="Liderando el arte de la interpretación vocal y la dirección artística en proyectos de animación de clase mundial para estudios legendarios como Studio Ghibli y Dreamworks." 
+          size="lg" 
+          className="o-direction__description" 
+        />
+      </div>
+      <div class="o-direction__header-photo">
+        <div class="o-direction__photo-frame">
+          <img 
+            src="/img/hero-vertical.png" 
+            alt="Leyla Rangel - Directora de Doblaje" 
+            class="o-direction__photo" 
+            loading="eager"
+          />
+          <div class="o-direction__photo-overlay"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="o-direction__list">
+      {works.map((work) => (
+        <div class="o-direction__card-wrapper">
+          <div class="o-direction__card">
+            <div class="o-direction__card-img-wrapper">
+              <img 
+                src={work.gif} 
+                alt={work.title} 
+                class="o-direction__card-img" 
+                loading="lazy" 
+              />
+              <div class="o-direction__card-overlay-gradient"></div>
+            </div>
+            
+            <div class="o-direction__card-content">
+              <div class="o-direction__card-meta">
+                <span class="o-direction__card-studio">{work.studio}</span>
+                <span class="o-direction__card-year">{work.year}</span>
+              </div>
+              
+              <h3 class="o-direction__card-title">{work.title}</h3>
+              
+              <div class="o-direction__card-award-box">
+                <!-- Visual Laurel Wreath Seal -->
+                <div class="o-direction__badge">
+                  <svg class="o-direction__badge-svg" viewBox="0 0 100 100">
+                    <defs>
+                      <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FFF3D6" />
+                        <stop offset="40%" stop-color="#D4AF37" />
+                        <stop offset="100%" stop-color="#AA7C11" />
+                      </linearGradient>
+                      <linearGradient id="silver-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FFFFFF" />
+                        <stop offset="40%" stop-color="#A6A6A6" />
+                        <stop offset="100%" stop-color="#595959" />
+                      </linearGradient>
+                    </defs>
+                    
+                    <g fill={work.awardType.includes('oscar') ? "url(#gold-grad)" : "url(#silver-grad)"}>
+                      <!-- Left Laurel Wreath Branch -->
+                      <path d="M45,80 C36,78 28,70 25,60 C22,50 24,38 31,28 C32,26 34,27 34,29 C28,38 27,48 31,57 C34,64 41,70 45,71 C47,72 47,76 45,80 Z" />
+                      <path d="M28,34 C25,36 21,35 19,32 C17,29 18,25 21,23 C24,21 28,22 30,25 C32,28 31,32 28,34 Z" />
+                      <path d="M25,47 C22,49 18,48 16,45 C14,42 15,38 18,36 C21,34 25,35 27,38 C29,41 28,45 25,47 Z" />
+                      <path d="M26,60 C23,62 19,61 17,58 C15,55 16,51 19,49 C22,47 26,48 28,51 C30,54 29,58 26,60 Z" />
+                      <path d="M31,71 C28,73 24,72 22,69 C20,66 21,62 24,60 C27,58 31,59 33,62 C35,65 34,69 31,71 Z" />
+                      
+                      <!-- Right Laurel Wreath Branch -->
+                      <path d="M55,80 C64,78 72,70 75,60 C78,50 76,38 69,28 C68,26 66,27 66,29 C72,38 73,48 69,57 C66,64 59,70 55,71 C53,72 53,76 55,80 Z" />
+                      <path d="M72,34 C75,36 79,35 81,32 C83,29 82,25 79,23 C76,21 72,22 70,25 C68,28 69,32 72,34 Z" />
+                      <path d="M75,47 C78,49 82,48 84,45 C86,42 85,38 82,36 C79,34 75,35 73,38 C71,41 72,45 75,47 Z" />
+                      <path d="M74,60 C77,62 81,61 83,58 C85,55 84,51 81,49 C78,47 74,48 72,51 C70,54 71,58 74,60 Z" />
+                      <path d="M69,71 C72,73 76,72 78,69 C80,66 79,62 76,60 C73,58 69,59 67,62 C65,65 66,69 69,71 Z" />
+                      
+                      <!-- Inner Seal symbol -->
+                      {work.awardType === 'oscar-winner' ? (
+                        <!-- Oscar Statuette stylized outline -->
+                        <path d="M50,22 C52,22 54,20 54,18 C54,16 52,14 50,14 C48,14 46,16 46,18 C46,20 48,22 50,22 Z M48,25 L52,25 L53,38 L51,52 L52,62 L48,62 L49,52 L47,38 Z M45,64 L55,64 L55,67 L45,67 Z" />
+                      ) : work.awardType === 'oscar-nominee' ? (
+                        <!-- Star for nominees -->
+                        <polygon points="50,23 54,34 66,34 56,41 60,52 50,45 40,52 44,41 34,34 46,34" />
+                      ) : (
+                        <!-- Star for Ghibli classics -->
+                        <polygon points="50,25 53,35 63,35 55,41 58,51 50,45 42,51 45,41 37,35 47,35" />
+                      )}
+                    </g>
+                  </svg>
+                </div>
+                
+                <div class="o-direction__card-award-meta">
+                  <span class="o-direction__card-award-badge">Logros & Reconocimientos</span>
+                  <p class="o-direction__card-award-text">{work.award}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initDirectionAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Clean up previous ScrollTriggers in the direction section to prevent duplications with view transitions
+    ScrollTrigger.getAll().forEach(trigger => {
+      if (trigger.trigger && (trigger.trigger as HTMLElement).closest && (trigger.trigger as HTMLElement).closest('#direccion')) {
+        trigger.kill();
+      }
+    });
+
+    // Create a beautiful staggered reveal for the section header elements
+    const headerTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.o-direction__header',
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+
+    headerTl.fromTo('.o-direction__subtitle',
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+    );
+
+    headerTl.fromTo('.o-direction__title .a-word-reveal',
+      {
+        opacity: 0,
+        y: 20,
+        filter: 'blur(8px)',
+      },
+      {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        stagger: 0.04,
+        duration: 0.9,
+        ease: 'power2.out'
+      },
+      '-=0.6'
+    );
+
+    headerTl.fromTo('.o-direction__description',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' },
+      '-=0.7'
+    );
+
+    // Staggered fade, scale and reveal for each card individually
+    gsap.utils.toArray('.o-direction__card-wrapper').forEach((wrapper: any) => {
+      const card = wrapper.querySelector('.o-direction__card');
+      const meta = wrapper.querySelector('.o-direction__card-meta');
+      const title = wrapper.querySelector('.o-direction__card-title');
+      const awardBox = wrapper.querySelector('.o-direction__card-award-box');
+      const badge = wrapper.querySelector('.o-direction__badge-svg');
+      const awardText = wrapper.querySelector('.o-direction__card-award-text');
+      const img = wrapper.querySelector('.o-direction__card-img');
+
+      // 1. Entrance animation triggered as each card comes into view
+      const cardTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+
+      cardTl.fromTo(card,
+        {
+          opacity: 0,
+          y: 70,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: 'power3.out'
+        }
+      );
+
+      if (meta) {
+        cardTl.fromTo(meta,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+          '-=0.9'
+        );
+      }
+
+      if (title) {
+        cardTl.fromTo(title,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' },
+          '-=0.8'
+        );
+      }
+
+      if (awardBox) {
+        cardTl.fromTo(awardBox,
+          { opacity: 0, y: 25 },
+          { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
+          '-=0.8'
+        );
+      }
+
+      if (badge) {
+        cardTl.fromTo(badge,
+          { scale: 0, rotation: -30 },
+          { scale: 1, rotation: 0, duration: 1.0, ease: 'back.out(1.6)' },
+          '-=0.7'
+        );
+      }
+
+      if (awardText) {
+        cardTl.fromTo(awardText,
+          { opacity: 0, x: 15 },
+          { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out' },
+          '-=0.7'
+        );
+      }
+
+      // 2. Parallax: Shift the background image vertically based on scroll
+      if (img) {
+        gsap.fromTo(img,
+          {
+            yPercent: -8,
+            scale: 1.25
+          },
+          {
+            yPercent: 8,
+            scale: 1.25,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: wrapper,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true
+            }
+          }
+        );
+      }
+    });
+
+    // 3. Desktop multi-layered depth parallax using MatchMedia
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 993px)", () => {
+      gsap.utils.toArray('.o-direction__card-wrapper').forEach((wrapper: any) => {
+        const content = wrapper.querySelector('.o-direction__card-content');
+        if (content) {
+          gsap.fromTo(content,
+            { yPercent: 4 },
+            {
+              yPercent: -4,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: wrapper,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true
+              }
+            }
+          );
+        }
+      });
+    });
+  }
+
+  // Bind to lifecycle hooks for Astro view transitions and static loads
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDirectionAnimations);
+  } else {
+    initDirectionAnimations();
+  }
+  document.addEventListener('astro:page-load', initDirectionAnimations);
+</script>
+

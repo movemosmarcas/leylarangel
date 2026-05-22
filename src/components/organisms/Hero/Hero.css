@@ -1,0 +1,204 @@
+.o-hero {
+  position: relative;
+  width: 100%;
+  height: 115vh; /* Reduced from 150vh to bring paragraph much closer */
+  overflow: hidden;
+  background-color: var(--color-white);
+}
+
+.o-hero__fixed-bg {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* This is the visible banner height */
+  display: flex;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.o-hero__salmon-panel, .o-hero__image-panel {
+  will-change: transform;
+}
+
+.o-hero__salmon-panel {
+  flex: 0 0 40%;
+  height: calc(100% + 150px); /* Reduced height to restore image proportion */
+  background-color: var(--color-primary);
+  z-index: 2;
+}
+
+.o-hero__image-panel {
+  flex: 1;
+  height: calc(100% + 150px); /* Reduced height to restore image proportion */
+  background-color: var(--color-white);
+  overflow: hidden;
+  z-index: 2;
+}
+
+.o-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Fill the placeholder with horizontal image */
+  object-position: center;
+}
+
+
+
+
+.o-hero__logo {
+  width: 290px; /* Slightly reduced from 320px */
+  height: auto;
+  margin-top: 50px;
+  margin-left: 50px;
+  opacity: 0;
+  will-change: transform, opacity;
+  z-index: 10;
+}
+
+.o-hero__title-container {
+  position: absolute;
+  top: calc(35vh + 30px);
+  left: 18vw;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.o-hero__title {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.85;
+  font-size: clamp(5rem, 11vw, 10rem); /* Enlarged font */
+  will-change: transform;
+}
+
+.o-hero__cta {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUpCTA 1.5s ease forwards 1.2s; /* Delayed slightly to match staggered title reveal */
+}
+
+.o-hero__cta-text {
+  font-family: var(--font-body);
+  font-size: 18px; /* Increased from 14px */
+  text-transform: uppercase;
+  letter-spacing: 0.4em; /* More breathing room */
+  color: var(--color-black);
+  font-weight: 700; /* Bolder */
+}
+
+.o-hero__scroll-indicator {
+  width: 2px; /* Thicker line */
+  height: 80px; /* Longer line */
+  background-color: rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  margin-left: 2px;
+}
+
+.o-hero__scroll-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background-color: var(--color-black);
+  animation: scrollAnim 2s infinite ease-in-out;
+}
+
+@keyframes scrollAnim {
+  0% { transform: translateY(-100%); }
+  50% { transform: translateY(100%); }
+  100% { transform: translateY(300%); }
+}
+
+@keyframes fadeInUpCTA {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+.o-hero__title-line {
+  font-family: var(--font-headings);
+  font-size: clamp(60px, 10vw, 120px);
+  display: inline-block;
+  opacity: 0;
+  filter: blur(15px);
+  will-change: transform, opacity, filter;
+}
+
+.o-hero__title-line--bold {
+  font-weight: 700; /* Josefin Sans Bold */
+  color: var(--color-black);
+}
+
+.o-hero__title-line--thin {
+  font-weight: 100; /* Josefin Sans Thin */
+  font-style: normal;
+  color: var(--color-black);
+  letter-spacing: -0.02em;
+}
+
+.o-hero__extra-space {
+  position: relative;
+  height: 15vh; /* Reduced from 50vh to bring the white paragraph section close and clean */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Align closer to the bottom to remain close to the paragraph below */
+  padding-bottom: 2vh; /* Small buffer */
+  background-color: var(--color-black); /* Blends seamlessly into the dark layout */
+}
+
+/* Stop-Motion GIF Effect */
+.o-hero__gif-sequence {
+  position: relative;
+  width: 250px; /* Ancho fijo para estabilizar las imágenes */
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.o-hero__gif-frame {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  animation: stopMotionGif 3s infinite; /* 1s per frame * 3 frames = 3s */
+}
+
+.o-hero__gif-frame.frame-1 { animation-delay: 0s; }
+.o-hero__gif-frame.frame-2 { animation-delay: 1s; }
+.o-hero__gif-frame.frame-3 { animation-delay: 2s; }
+
+@keyframes stopMotionGif {
+  0%, 33.33% { opacity: 1; }
+  33.34%, 100% { opacity: 0; }
+}
+
+
+
+
+@media (max-width: 768px) {
+  .o-hero__fixed-bg {
+    flex-direction: column;
+  }
+  
+  .o-hero__salmon-panel {
+    flex: 0 0 50%;
+  }
+  
+  .o-hero__main-view {
+    padding-left: 40px;
+  }
+}

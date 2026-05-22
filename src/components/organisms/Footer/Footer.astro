@@ -1,0 +1,95 @@
+---
+import './Footer.css';
+---
+
+<footer class="o-footer">
+  <div class="o-footer__container">
+    <!-- Centered Logo -->
+    <div class="o-footer__logo-wrap">
+      <img src="/img/logo-leyla.png" alt="Leyla Rangel Logo" class="o-footer__logo" />
+    </div>
+
+    <!-- Centered Horizontal Navigation Menu (Matches the Hero navbar) -->
+    <nav class="o-footer__nav">
+      <ul class="o-footer__nav-list">
+        <li><a href="/" class="o-footer__link">Inicio</a></li>
+        <li><a href="/#demos" class="o-footer__link">Demos</a></li>
+        <li><a href="/#doblaje" class="o-footer__link">Doblaje</a></li>
+        <li><a href="/#direccion" class="o-footer__link">Dirección</a></li>
+        <li><a href="/#comercial" class="o-footer__link">Comercial</a></li>
+        <li><a href="/#sobre-mi" class="o-footer__link">Sobre mí</a></li>
+        <li><a href="/historias" class="o-footer__link">Historias</a></li>
+      </ul>
+    </nav>
+
+    <!-- Centered Social Links -->
+    <div class="o-footer__social">
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="o-footer__social-link">Instagram</a>
+      <span class="o-footer__social-divider">•</span>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="o-footer__social-link">LinkedIn</a>
+      <span class="o-footer__social-divider">•</span>
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="o-footer__social-link">Facebook</a>
+    </div>
+
+    <!-- Bottom footer credits -->
+    <div class="o-footer__bottom">
+      <p class="o-footer__copy">&copy; {new Date().getFullYear()} Leyla Rangel. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initFooterReveal() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const footer = document.querySelector('.o-footer') as HTMLElement;
+    const main = document.querySelector('main') as HTMLElement;
+    if (!footer || !main) return;
+
+    // Bulletproof dynamic height setting
+    const updateFooterMargin = () => {
+      const height = footer.offsetHeight;
+      main.style.marginBottom = `${height}px`;
+    };
+
+    // Run initially
+    updateFooterMargin();
+
+    // Re-calculate margin when footer size changes (responsive layout transitions)
+    const resizeObserver = new ResizeObserver(() => {
+      updateFooterMargin();
+      ScrollTrigger.refresh();
+    });
+    resizeObserver.observe(footer);
+
+    // Subtle 3D parallax scroll reveal inside the footer elements as page rolls up
+    gsap.fromTo('.o-footer__container',
+      {
+        yPercent: -20,
+        opacity: 0.7,
+      },
+      {
+        yPercent: 0,
+        opacity: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: 'main',
+          start: 'bottom bottom',
+          end: () => `bottom+=${footer.offsetHeight} bottom`,
+          scrub: true,
+        }
+      }
+    );
+  }
+
+  // Bind to lifecycle hooks
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFooterReveal);
+  } else {
+    initFooterReveal();
+  }
+  document.addEventListener('astro:page-load', initFooterReveal);
+</script>

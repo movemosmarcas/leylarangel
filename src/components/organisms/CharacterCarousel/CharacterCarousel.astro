@@ -1,0 +1,155 @@
+---
+import './CharacterCarousel.css';
+
+const row1 = [
+  { src: '/img/personajes/ahsoka-main_88c206d7.jpeg', alt: 'Ahsoka' },
+  { src: '/img/personajes/Violeta.png', alt: 'Violeta' },
+  { src: '/img/personajes/p_kimpossible_21235_e9aff5f7.jpeg', alt: 'Kim Possible' },
+  { src: '/img/personajes/image-0.jpeg', alt: 'Personaje' },
+  { src: '/img/personajes/Adelante4.jpeg', alt: 'Personaje' },
+];
+
+const row2 = [
+  { src: '/img/personajes/p_kimpossible_21235_e9aff5f7.jpeg', alt: 'Kim Possible' },
+  { src: '/img/personajes/ahsoka-main_88c206d7.jpeg', alt: 'Ahsoka' },
+  { src: '/img/personajes/Violeta.png', alt: 'Violeta' },
+  { src: '/img/personajes/1_obDCz57X7D2Kd1XvcdI0Iw.jpg', alt: 'Personaje' },
+  { src: '/img/personajes/Atras.jpeg', alt: 'Personaje' },
+  { src: '/img/personajes/Atras2.jpeg', alt: 'Personaje' },
+];
+
+
+
+---
+
+<section class="o-char-carousel">
+
+  <div class="o-char-carousel__reveal-text">
+    <p class="o-char-carousel__paragraph">
+      {
+        "Porque llevo más de 33 años".split(" ").map((word) => (
+          <span class="o-char-carousel__word">{word} </span>
+        ))
+      }
+      <br />
+      {
+        "doblando personajes que aún".split(" ").map((word) => (
+          <span class="o-char-carousel__word">{word} </span>
+        ))
+      }
+      <br />
+      {
+        "hoy llevas en el corazón".split(" ").map((word) => (
+          <span class="o-char-carousel__word">{word} </span>
+        ))
+      }
+    </p>
+  </div>
+  <div class="o-char-carousel__inner">
+    
+    <!-- Row 1: Moves Left -->
+    <div class="o-char-carousel__row o-char-carousel__row--1">
+      <div class="o-char-carousel__track o-char-carousel__track--left">
+        {[...row1, ...row1, ...row1, ...row1, ...row1].map((char) => (
+          <div class="o-char-carousel__item">
+            <img src={char.src} alt={char.alt} class="o-char-carousel__img" />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Row 2: Moves Right -->
+    <div class="o-char-carousel__row o-char-carousel__row--2">
+      <div class="o-char-carousel__track o-char-carousel__track--right">
+        {[...row2, ...row2, ...row2, ...row2, ...row2].map((char) => (
+          <div class="o-char-carousel__item">
+            <img src={char.src} alt={char.alt} class="o-char-carousel__img" />
+          </div>
+        ))}
+      </div>
+    </div>
+
+
+
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initCharacterCarousel() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Row 1: Move Left (Reduced distance for subtlety)
+    gsap.to('.o-char-carousel__row--1 .o-char-carousel__track--left', {
+      x: '-25%', /* Less distance = Slower movement */
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.o-char-carousel',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 2 /* Higher value = Smoother, more delayed/elegant feel */
+      }
+    });
+
+    // Row 2: Moves Right
+    // Reduced initial offset and target for subtlety
+    gsap.set('.o-char-carousel__track--right', { x: '-25%' });
+    gsap.to('.o-char-carousel__track--right', {
+      x: '0%',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.o-char-carousel',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 2
+      }
+    });
+
+    // Single impact entrance for the reveal text (not scrubbed)
+    gsap.fromTo('.o-char-carousel__word', 
+      { 
+        opacity: 0,
+        filter: 'blur(10px)',
+        y: 20
+      },
+      {
+        opacity: 1,
+        filter: 'blur(0px)',
+        y: 0,
+        stagger: 0.03, // Faster stagger
+        duration: 0.7, // Shorter, punchy duration
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.o-char-carousel__reveal-text',
+          start: 'top 80%', // Triggers earlier
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Subtle Parallax for the container
+    gsap.to('.o-char-carousel__reveal-text', {
+      y: 80,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.o-char-carousel',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+  }
+
+  // Ejecutar cuando el DOM esté listo o en transiciones de Astro
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCharacterCarousel);
+  } else {
+    initCharacterCarousel();
+  }
+  document.addEventListener('astro:page-load', initCharacterCarousel);
+</script>
+
+

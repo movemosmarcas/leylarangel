@@ -1,0 +1,28 @@
+{
+  "logo": {
+    "text": "Antigravity",
+    "link": "/"
+  },
+  "links": [
+    {
+      "label": "Home",
+      "url": "/"
+    },
+    {
+      "label": "About",
+      "url": "about"
+    },
+    {
+      "label": "Publications",
+      "url": "#publications"
+    },
+    {
+      "label": "Contact",
+      "url": "#contact"
+    }
+  ],
+  "cta": {
+    "label": "Get Started",
+    "url": "/contact"
+  }
+}

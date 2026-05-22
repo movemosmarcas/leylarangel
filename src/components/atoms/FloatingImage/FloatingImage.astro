@@ -1,0 +1,11 @@
+---
+// Component: FloatingImage
+// Props can be defined here
+const { data } = Astro.props;
+---
+
+<div class="a-floatingimage">
+  <h1>FloatingImage Component</h1>
+  <!-- Boilerplate for FloatingImage -->
+  { data && <pre>{JSON.stringify(data, null, 2)}</pre> }
+</div>

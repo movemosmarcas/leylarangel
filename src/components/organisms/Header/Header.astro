@@ -1,0 +1,152 @@
+---
+import './Header.css';
+---
+
+<header class="o-header">
+  <button class="o-header__hamburger" aria-label="Abrir menú" aria-expanded="false">
+    <span class="o-header__hamburger-line o-header__hamburger-line--top"></span>
+    <span class="o-header__hamburger-line o-header__hamburger-line--middle"></span>
+    <span class="o-header__hamburger-line o-header__hamburger-line--bottom"></span>
+  </button>
+
+  <div class="o-header__overlay" aria-hidden="true">
+    <div class="o-header__overlay-bg"></div>
+    
+    <div class="o-header__overlay-content">
+      <div class="o-header__brand-visual">
+        <div class="o-header__gif-sequence">
+          <img src="/img/logo1.png" alt="Leyla Rangel Animación 1" class="o-header__gif-frame frame-1" />
+          <img src="/img/logo2.png" alt="Leyla Rangel Animación 2" class="o-header__gif-frame frame-2" />
+          <img src="/img/logo3.png" alt="Leyla Rangel Animación 3" class="o-header__gif-frame frame-3" />
+        </div>
+      </div>
+
+      <nav class="o-header__nav">
+        <ul class="o-header__nav-list">
+          <li class="o-header__nav-item" style="--index: 1;">
+            <a href="/" class="o-header__nav-link">Inicio</a>
+          </li>
+          <li class="o-header__nav-item" style="--index: 2;">
+            <a href="#demos" class="o-header__nav-link">Demos</a>
+          </li>
+          <li class="o-header__nav-item" style="--index: 3;">
+            <a href="#doblaje" class="o-header__nav-link">Doblaje</a>
+          </li>
+          <li class="o-header__nav-item" style="--index: 4;">
+            <a href="#direccion" class="o-header__nav-link">Dirección</a>
+          </li>
+          <li class="o-header__nav-item" style="--index: 5;">
+            <a href="#comercial" class="o-header__nav-link">Comercial</a>
+          </li>
+          <li class="o-header__nav-item" style="--index: 6;">
+            <a href="/sobre-mi" class="o-header__nav-link">Sobre mí</a>
+          </li>
+          <li class="o-header__nav-item" style="--index: 7;">
+            <a href="/historias" class="o-header__nav-link">Historias</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="o-header__footer">
+      <div class="o-header__socials">
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="o-header__social-link">Instagram</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="o-header__social-link">LinkedIn</a>
+        <a href="https://wa.me" target="_blank" rel="noopener noreferrer" class="o-header__social-link">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  function setupHeader() {
+    const hamburger = document.querySelector('.o-header__hamburger');
+    const overlay = document.querySelector('.o-header__overlay');
+    const header = document.querySelector('.o-header');
+    const navLinks = document.querySelectorAll('.o-header__nav-link');
+    const overlayBg = document.querySelector('.o-header__overlay-bg');
+    
+    if (!hamburger || !overlay || !header) return;
+
+    // Toggle Menu
+    function toggleMenu() {
+      const isOpen = header.classList.toggle('is-menu-open');
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      overlay.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    function closeMenu() {
+      header.classList.remove('is-menu-open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Clean listeners to avoid duplication on Astro transitions
+    const newHamburger = hamburger.cloneNode(true);
+    hamburger.parentNode.replaceChild(newHamburger, hamburger);
+    
+    newHamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    if (overlayBg) {
+      overlayBg.addEventListener('click', closeMenu);
+    }
+
+    // Close when pressing Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMenu();
+      }
+    });
+
+    // Handle Link clicks
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        const isHome = window.location.pathname === '/' || window.location.pathname === '/index.html';
+        
+        // Check if it's a section anchor
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          closeMenu();
+          
+          if (isHome) {
+            const target = document.querySelector(href);
+            if (target) {
+              // Wait for the browser to process the removal of overflow: hidden
+              setTimeout(() => {
+                target.scrollIntoView({ behavior: 'smooth' });
+              }, 150);
+            }
+          } else {
+            // Navigate to homepage with anchor
+            window.location.href = '/' + href;
+          }
+        } else if (href === '/') {
+          e.preventDefault();
+          closeMenu();
+          
+          if (isHome) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            window.location.href = '/';
+          }
+        } else {
+          closeMenu();
+        }
+      });
+    });
+  }
+
+  // Bind on load and Astro page-load for view transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupHeader);
+  } else {
+    setupHeader();
+  }
+  document.addEventListener('astro:page-load', setupHeader);
+</script>

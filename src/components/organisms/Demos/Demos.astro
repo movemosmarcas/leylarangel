@@ -1,0 +1,107 @@
+---
+import './Demos.css';
+---
+
+<section class="o-demos" id="demos">
+  <div class="o-demos__container">
+    <div class="o-demos__panel o-demos__panel--commercial">
+      <div class="o-demos__bg-wrapper">
+        <img src="/img/characters/10.png" alt="Locución Comercial" class="o-demos__bg" />
+      </div>
+      <div class="o-demos__content">
+        <h3 class="o-demos__label">Locución</h3>
+        <h2 class="o-demos__title">Comercial</h2>
+        <button class="o-demos__play-btn" data-type="commercial">
+          <span class="o-demos__play-icon">▶</span>
+          <span class="o-demos__play-text">Escuchar Demo</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="o-demos__panel o-demos__panel--dubbing">
+      <div class="o-demos__bg-wrapper">
+        <img src="/img/characters/11.png" alt="Doblaje" class="o-demos__bg" />
+      </div>
+
+      <div class="o-demos__content">
+        <h3 class="o-demos__label">Voz</h3>
+        <h2 class="o-demos__title">Doblaje</h2>
+        <button class="o-demos__play-btn" data-type="dubbing">
+          <span class="o-demos__play-icon">▶</span>
+          <span class="o-demos__play-text">Escuchar Demo</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+
+  const panels = document.querySelectorAll('.o-demos__panel');
+  
+  panels.forEach(panel => {
+    const bg = panel.querySelector('.o-demos__bg');
+    
+    panel.addEventListener('mouseenter', () => {
+      gsap.to(bg, { scale: 1.1, duration: 1, ease: "power2.out" });
+    });
+    
+    panel.addEventListener('mouseleave', () => {
+      gsap.to(bg, { scale: 1, duration: 1, ease: "power2.out" });
+    });
+  });
+
+  // Audio cycling logic
+  const playBtns = document.querySelectorAll('.o-demos__play-btn');
+  const demoImages = {
+    commercial: [
+      "/img/characters/10.png",
+      "/img/characters/2.png",
+      "/img/characters/4.png"
+    ],
+    dubbing: [
+      "/img/characters/11.png",
+      "/img/characters/6.png",
+      "/img/characters/8.png"
+    ]
+  };
+
+  playBtns.forEach(btn => {
+    let interval: any;
+    let currentIndex = 0;
+    const type = btn.getAttribute('data-type') as 'commercial' | 'dubbing';
+    const panel = btn.closest('.o-demos__panel');
+    const bg = panel?.querySelector('.o-demos__bg') as HTMLImageElement;
+
+    btn.addEventListener('click', () => {
+      const icon = btn.querySelector('.o-demos__play-icon');
+      const text = btn.querySelector('.o-demos__play-text');
+      
+      if (text?.textContent === 'Escuchar Demo') {
+        text.textContent = 'Pausar Demo';
+        if (icon) icon.textContent = '||';
+        btn.classList.add('is-playing');
+        
+        // Start cycling images
+        interval = setInterval(() => {
+          currentIndex = (currentIndex + 1) % demoImages[type].length;
+          gsap.to(bg, {
+            opacity: 0,
+            duration: 0.5,
+            onComplete: () => {
+              bg.src = demoImages[type][currentIndex];
+              gsap.to(bg, { opacity: 1, duration: 0.5 });
+            }
+          });
+        }, 3000);
+      } else {
+        if (text) text.textContent = 'Escuchar Demo';
+        if (icon) icon.textContent = '▶';
+        btn.classList.remove('is-playing');
+        clearInterval(interval);
+      }
+    });
+  });
+
+</script>

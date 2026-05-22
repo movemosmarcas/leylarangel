@@ -1,0 +1,93 @@
+---
+import './ContactModal.css';
+---
+
+<div class="o-contact-modal" id="contactModal" aria-hidden="true">
+  <div class="o-contact-modal__backdrop" id="contactModalBackdrop"></div>
+  
+  <div class="o-contact-modal__content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="o-contact-modal__close" id="contactModalClose" aria-label="Cerrar modal">✕</button>
+    
+    <h2 class="o-contact-modal__title" id="modalTitle">Hablemos</h2>
+    <p class="o-contact-modal__desc">Déjame tus datos y me pondré en contacto contigo muy pronto.</p>
+    
+    <form class="o-contact-form" action="/gracias" method="GET">
+      <div class="m-form-field">
+        <label for="contactName" class="a-label">Tu nombre</label>
+        <input type="text" id="contactName" name="name" class="a-input" required placeholder="Ej. María Pérez" />
+      </div>
+      
+      <div class="m-form-field">
+        <label for="contactEmail" class="a-label">Tu email</label>
+        <input type="email" id="contactEmail" name="email" class="a-input" required placeholder="hola@tuempresa.com" />
+      </div>
+      
+      <div class="m-form-field">
+        <label for="contactCompany" class="a-label">Empresa a la que representas</label>
+        <input type="text" id="contactCompany" name="company" class="a-input" required placeholder="Nombre de tu empresa o estudio" />
+      </div>
+      
+      <div class="m-form-field">
+        <label for="contactMessage" class="a-label">Tu mensaje</label>
+        <textarea id="contactMessage" name="message" class="a-textarea" required placeholder="Cuéntame sobre tu proyecto..."></textarea>
+      </div>
+      
+      <div class="m-checkbox-field">
+        <input type="checkbox" id="contactTerms" name="terms" class="a-checkbox" required />
+        <label for="contactTerms" class="a-checkbox-label">
+          Acepto la <a href="#">política de tratamiento de datos</a>
+        </label>
+      </div>
+      
+      <button type="submit" class="a-submit-btn">Enviar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function initContactModal() {
+    const modal = document.getElementById('contactModal');
+    const closeBtn = document.getElementById('contactModalClose');
+    const backdrop = document.getElementById('contactModalBackdrop');
+    // We catch the "CONTÁCTAME" button by its href="#contacto" or class
+    const triggers = document.querySelectorAll('a[href="#contacto"], .js-open-contact');
+    
+    if (!modal) return;
+    
+    const openModal = (e) => {
+      if (e) e.preventDefault();
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    };
+    
+    const closeModal = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+    
+    triggers.forEach(trigger => {
+      // Remove any previously attached listeners if necessary, but multiple clicks won't hurt
+      trigger.addEventListener('click', openModal);
+    });
+    
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (backdrop) backdrop.addEventListener('click', closeModal);
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+  }
+
+  // Setup on page load and Astro transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactModal);
+  } else {
+    initContactModal();
+  }
+  document.addEventListener('astro:page-load', initContactModal);
+</script>

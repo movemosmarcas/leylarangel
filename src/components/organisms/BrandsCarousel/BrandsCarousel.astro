@@ -1,0 +1,43 @@
+---
+import './BrandsCarousel.css';
+import { getBrands } from '../../../services/getServices/getContent.js';
+
+const brands = await getBrands();
+---
+
+<section class="o-brands" id="marcas">
+  <div class="o-brands__container">
+    <div class="o-brands__track">
+      <div class="o-brands__list">
+        {brands.map(brand => (
+          <div class="o-brands__item">
+            <span class="o-brands__name">{brand}</span>
+          </div>
+        ))}
+        {/* Duplicate for infinite effect */}
+        {brands.map(brand => (
+          <div class="o-brands__item">
+            <span class="o-brands__name">{brand}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="o-brands__overlay o-brands__overlay--left"></div>
+    <div class="o-brands__overlay o-brands__overlay--right"></div>
+  </div>
+</section>
+
+<script>
+  // Infinite scroll logic can be done with pure CSS or GSAP
+  import gsap from 'gsap';
+
+  const track = document.querySelector('.o-brands__list');
+  if (track) {
+    gsap.to(track, {
+      xPercent: -50,
+      ease: "none",
+      duration: 30,
+      repeat: -1
+    });
+  }
+</script>

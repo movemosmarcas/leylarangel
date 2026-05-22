@@ -1,0 +1,167 @@
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('/fonts/HvDTrial_Brandon_Grotesque_black-BF64a625c944b08.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('/fonts/HvDTrial_Brandon_Grotesque_thin-BF64a625c9034b9.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+:root {
+  /* Brand Colors */
+  --color-primary: #FFAB8C;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  
+  /* Typography */
+  --font-headings: 'Josefin Sans', sans-serif;
+  --font-body: 'Josefin Sans', sans-serif;
+  
+  --header-height: 100px;
+}
+
+
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background: var(--color-white);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headings);
+  font-weight: normal;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.l-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Dark Theme Utility */
+.u-dark-theme {
+  background-color: var(--color-black) !important;
+  color: var(--color-white) !important;
+}
+
+.u-dark-theme h1,
+.u-dark-theme h2,
+.u-dark-theme h3,
+.u-dark-theme h4,
+.u-dark-theme p,
+.u-dark-theme span,
+.u-dark-theme section,
+.u-dark-theme div {
+  /* Only apply if they don't have their own specific background logic that we want to keep */
+}
+
+/* Specific component overrides for dark theme */
+.u-dark-theme .o-hero,
+.u-dark-theme .m-text-reveal,
+.u-dark-theme .o-char-carousel,
+.u-dark-theme .o-audio-demos,
+.u-dark-theme .o-brand-cloud {
+  background-color: var(--color-black) !important;
+  color: var(--color-white) !important;
+}
+
+/* Text Overrides */
+.u-dark-theme .m-text-reveal__paragraph,
+.u-dark-theme .o-char-carousel__paragraph,
+.u-dark-theme .o-audio-demos__title,
+.u-dark-theme .o-brand-cloud__title,
+.u-dark-theme .o-audio-demos__item-title {
+  color: var(--color-white) !important;
+}
+
+/* Carousel Row specific fix */
+.u-dark-theme .o-char-carousel__row {
+  background-color: var(--color-black) !important;
+}
+
+.u-dark-theme .o-char-carousel__row--2 {
+  background-color: transparent !important;
+}
+
+/* Audio Items */
+.u-dark-theme .o-audio-demos__item {
+  background-color: #222 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.u-dark-theme .o-audio-demos__item:hover {
+  background-color: #2a2a2a !important;
+  border-color: var(--color-primary) !important;
+}
+
+.u-dark-theme .o-audio-demos__item-description {
+  color: #aaa !important;
+}
+
+.u-dark-theme .m-custom-player__progress-container {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.u-dark-theme .m-custom-player__time {
+  color: #888 !important;
+}
+
+/* CTA and indicators */
+.u-dark-theme .o-hero__cta-text {
+  color: var(--color-white) !important;
+}
+
+.u-dark-theme .o-hero__scroll-indicator {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.u-dark-theme .o-hero__scroll-dot {
+  background-color: var(--color-white) !important;
+}
+
+/* Logo inversion for dark theme */
+.u-dark-theme .o-brand-cloud__logo {
+  filter: grayscale(1) brightness(0) invert(1) !important;
+  opacity: 0.5 !important;
+}
+
+.u-dark-theme .o-brand-cloud__card:hover .o-brand-cloud__logo {
+  opacity: 0.9 !important;
+}
+
+/* Word Reveal Animation Utility */
+.a-word-reveal {
+  opacity: 0;
+  display: inline-block;
+  white-space: pre;
+  will-change: filter, opacity, transform;
+}
+
+
+

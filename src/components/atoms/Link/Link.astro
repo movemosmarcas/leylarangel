@@ -1,0 +1,15 @@
+---
+import './Link.css';
+
+interface Props {
+  href: string;
+  class?: string;
+  variant?: 'nav' | 'default';
+}
+
+const { href, class: className, variant = 'default' } = Astro.props;
+---
+
+<a href={href} class:list={['a-link', `a-link--${variant}`, className]}>
+  <slot />
+</a>

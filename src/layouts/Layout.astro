@@ -1,0 +1,43 @@
+---
+import Head from "../components/molecules/Head/Head.astro";
+import PostHog from "../components/PostHog.astro";
+import Header from "../components/organisms/Header/Header.astro";
+import Footer from "../components/organisms/Footer/Footer.astro";
+import Floats from "../components/atoms/Floats/Floats.astro";
+import ContactModal from "../components/organisms/ContactModal/ContactModal.astro";
+import GSAPInit from "../components/atoms/GSAPInit/GSAPInit.astro";
+import { fade } from "astro:transitions";
+import "../styles/global.css";
+
+const path = Astro.url.pathname;
+const { headerType } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" transition:name="root" transition:animate="none">
+  <head>
+    <Head />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;700&family=Josefin+Sans:wght@100;300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+  </head>
+
+  <body>
+    <GSAPInit />
+    <Header headerType={headerType} />
+
+    <main
+      class={`main ${path === "/" ? "home" : ""} is-grid-form`}
+      transition:animate={fade({ duration: "0.9s" })}
+    >
+      <slot />
+    </main>
+    <Floats />
+    <ContactModal />
+    <Footer />
+  </body>
+</html>

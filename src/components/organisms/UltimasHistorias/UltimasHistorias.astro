@@ -1,0 +1,99 @@
+---
+import './UltimasHistorias.css';
+import { mockPosts } from '../../../services/posts';
+import { Image } from 'astro:assets';
+
+// Get the latest 2 posts
+const latestPosts = mockPosts.slice(0, 2);
+
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
+const getSlug = (title: string) => {
+  return title
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+};
+---
+
+<section class="o-ultimas-historias" id="historias">
+  <div class="o-ultimas-historias__container">
+    <div class="o-ultimas-historias__header">
+      <span class="o-ultimas-historias__subtitle">Reflexiones & Doblaje</span>
+      <h2 class="o-ultimas-historias__title">Últimas Historias</h2>
+    </div>
+
+    <div class="o-ultimas-historias__grid">
+      {latestPosts.map((post) => {
+        const slug = getSlug(post.title);
+        const coverImage = post.featured_image;
+        const authorAvatar = post.author_avatar || "/img/hero-vertical.png";
+
+        return (
+          <article 
+            class="m-historia-mini-card" 
+            onclick={`window.location.href='/historias/${slug}'`}
+            role="link"
+            aria-label={`Leer artículo: ${post.title}`}
+          >
+            <div class="m-historia-mini-card__image-wrap">
+              <Image 
+                src={coverImage} 
+                alt={post.title} 
+                width={600} 
+                height={380} 
+                class="m-historia-mini-card__image"
+              />
+              <div class="m-historia-mini-card__categories">
+                {post.category?.slice(0, 1).map((cat) => (
+                  <span class="a-mini-tag">{cat.name}</span>
+                ))}
+              </div>
+            </div>
+
+            <div class="m-historia-mini-card__content">
+              <div class="m-historia-mini-card__meta">
+                <span class="m-historia-mini-card__date">{formatDate(post.date)}</span>
+                {post.read_time && (
+                  <span class="m-historia-mini-card__read-time">• {post.read_time}</span>
+                )}
+              </div>
+
+              <h3 class="m-historia-mini-card__title">
+                <a href={`/historias/${slug}`} class="m-historia-mini-card__title-link">
+                  {post.title}
+                </a>
+              </h3>
+
+              <p class="m-historia-mini-card__excerpt">
+                {post.excerpt}
+              </p>
+
+              <div class="m-historia-mini-card__footer">
+                <div class="m-historia-mini-card__author">
+                  <img src={authorAvatar} alt={post.author} class="m-historia-mini-card__avatar" />
+                  <span class="m-historia-mini-card__author-name">{post.author}</span>
+                </div>
+                <span class="m-historia-mini-card__more-btn">Leer Más →</span>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <div class="o-ultimas-historias__actions">
+      <a href="/historias" class="a-historias-view-all-btn">
+        Ver Todas
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,110 @@
+.o-soy-leyla {
+  position: relative;
+  width: 100%;
+  padding: 140px 0 50px 0; /* Reduced bottom padding to bring the logos section closer */
+  background-color: var(--color-black); /* Dark theme as requested */
+  color: var(--color-white);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.o-soy-leyla__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 8vw;
+}
+
+.o-soy-leyla__image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.o-soy-leyla__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.2);
+}
+
+.o-soy-leyla__content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.o-soy-leyla__tag {
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0.4em;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.o-soy-leyla__title {
+  font-family: var(--font-headings);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  font-weight: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.o-soy-leyla__bio {
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.6;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.o-soy-leyla__accent {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 992px) {
+  .o-soy-leyla__container {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    text-align: center;
+  }
+  
+  .o-soy-leyla__image-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .o-soy-leyla__content {
+    align-items: center;
+  }
+}
+
+.o-soy-leyla__cta-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .o-soy-leyla__cta-container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .o-soy-leyla {
+    padding: 80px 0 30px 0; /* Adjusted for mobile viewports */
+  }
+  .o-soy-leyla__container {
+    padding: 0 24px;
+  }
+}

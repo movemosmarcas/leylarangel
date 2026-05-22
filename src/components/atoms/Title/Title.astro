@@ -1,0 +1,35 @@
+---
+import './Title.css';
+
+interface Props {
+  text: string;
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+  size?: 'xl' | 'lg' | 'md' | 'sm';
+  isGradient?: boolean;
+  className?: string;
+  shouldReveal?: boolean;
+}
+
+const { text, level = 2, size = 'lg', isGradient = false, className, shouldReveal = false } = Astro.props;
+const Tag = `h${level}` as any;
+---
+
+<Tag 
+  class:list={[
+    'a-title',
+    `a-title--${size}`,
+    isGradient && 'a-title--gradient',
+    className
+  ]}
+>
+  {
+    shouldReveal ? (
+      text.split(" ").map((word) => (
+        <span class="a-word-reveal">{word} </span>
+      ))
+    ) : (
+      text
+    )
+  }
+</Tag>
+
