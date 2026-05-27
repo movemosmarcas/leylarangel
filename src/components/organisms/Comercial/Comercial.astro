@@ -7,7 +7,11 @@ import './Comercial.css';
 
     <div class="o-comercial__header">
       <div class="o-comercial__header-image">
-        <img src="/img/hero-vertical.png" alt="Leyla Rangel Locución Comercial" class="o-comercial__img" />
+        <div class="o-comercial__gif-sequence">
+          <img src="/img/logo1.png" alt="Leyla Rangel Animación 1" class="o-comercial__gif-frame frame-1" />
+          <img src="/img/logo2.png" alt="Leyla Rangel Animación 2" class="o-comercial__gif-frame frame-2" />
+          <img src="/img/logo3.png" alt="Leyla Rangel Animación 3" class="o-comercial__gif-frame frame-3" />
+        </div>
       </div>
       <div class="o-comercial__header-text">
         <span class="o-comercial__subtitle">Locución Comercial</span>
@@ -19,24 +23,9 @@ import './Comercial.css';
     </div>
 
     <div class="o-comercial__body">
-      <!-- Left: Feature statement -->
-      <div class="o-comercial__feature">
-        <blockquote class="o-comercial__blockquote">
-          <p class="o-comercial__blockquote-text">
-            "Actualmente puedes escuchar mi voz en comerciales de <strong>Allegra</strong>, <strong>Mac & Cheese de Kraft</strong>, <strong>AutoZone</strong>, <strong>M&M’s Verde</strong>, <strong>L’Oréal</strong> y soy la <strong>voz institucional de Coppel</strong>."
-          </p>
-        </blockquote>
-
-        <div class="o-comercial__coppel-badge">
-          <span class="o-comercial__coppel-label">Voz Institucional</span>
-          <span class="o-comercial__coppel-brand">COPPEL</span>
-          <span class="o-comercial__coppel-desc">Una de las cadenas departamentales más importantes de México</span>
-        </div>
-      </div>
-
-      <!-- Right: Brand logos grid -->
+      <!-- Top section: Brands Grid -->
       <div class="o-comercial__brands">
-        <p class="o-comercial__brands-title">Marcas con las que ha colaborado</p>
+        <p class="o-comercial__brands-title">Marcas con las que he colaborado</p>
         <div class="o-comercial__brands-grid">
           {[
             'Disney', 'Pixar', 'Dreamworks', 'Ghibli', 'Marvel',
@@ -46,8 +35,14 @@ import './Comercial.css';
             <span class="o-comercial__brand-pill">{brand}</span>
           ))}
         </div>
+      </div>
 
-        <div class="o-comercial__currently">
+      <!-- Bottom section: Currently on air + Image Card -->
+      <div class="o-comercial__currently-card">
+        <div class="o-comercial__currently-image">
+          <img src="/img/leyla-y-micro.png" alt="Leyla en cabina grabando" class="o-comercial__img-micro" />
+        </div>
+        <div class="o-comercial__currently-content">
           <span class="o-comercial__currently-label">Actualmente en el aire</span>
           <div class="o-comercial__currently-grid">
             {['Allegra', 'Mac & Cheese de Kraft', 'AutoZone', "M&M's Verde", "L'Oréal", 'Coppel'].map((brand) => (
@@ -95,7 +90,7 @@ import './Comercial.css';
       }
     );
 
-    gsap.fromTo(['.o-comercial__feature', '.o-comercial__brands'],
+    gsap.fromTo('.o-comercial__brands',
       { opacity: 0, y: 50 },
       {
         opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: 'power3.out',
@@ -106,6 +101,32 @@ import './Comercial.css';
         }
       }
     );
+
+    // Card Unroll Reveal
+    const cardTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.o-comercial__currently-card',
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+
+    cardTl.fromTo('.o-comercial__currently-card',
+      { clipPath: 'inset(0% 100% 0% 0%)' }, // Wipe from left to right
+      { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }
+    )
+    .fromTo('.o-comercial__currently-label',
+      { opacity: 0, x: -20 },
+      { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' },
+      '-=0.4'
+    )
+    .fromTo('.o-comercial__current-item',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, stagger: 0.1, duration: 0.6, ease: 'back.out(1.2)' },
+      '-=0.4'
+    );
+
+    // Image Parallax Effect (Removed per user request)
   }
 
   if (document.readyState === 'loading') {

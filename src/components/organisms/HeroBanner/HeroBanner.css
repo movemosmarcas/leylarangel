@@ -54,8 +54,11 @@
 }
 
 .o-hero-banner__title {
+  font-family: var(--font-headings);
+  font-weight: 300;
+  text-transform: uppercase;
   margin: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.05em;
 }
 
 .o-hero-banner__description {

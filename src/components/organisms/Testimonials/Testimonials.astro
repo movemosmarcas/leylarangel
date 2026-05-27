@@ -7,7 +7,7 @@ const testimonials = [
     name: "Sarah Conor",
     title: "Founder, Clonify",
     image: "/img/testimonio-1-new.jpg",
-    bgColor: "#BCCFC3"
+    bgColor: "#F3E7D7"
   },
   {
     quote: "Leyla no solo graba una voz, ella entiende la intención detrás del texto. Elevó nuestro comercial a un nivel completamente nuevo y sofisticado.",
@@ -21,7 +21,7 @@ const testimonials = [
     name: "John Headphone",
     title: "CEO, Marcom",
     image: "/img/testimonio-3-new.jpg",
-    bgColor: "#ECAB37"
+    bgColor: "#BCCFC3"
   }
 ];
 ---
@@ -40,8 +40,8 @@ const testimonials = [
 
     <div class="o-testimonials__cards">
       {testimonials.map((testimonio, index) => (
-        <div class="o-testimonials__card" id={`testimonial-card-${index}`}>
-          <div class="o-testimonials__image-col" style={`background-color: ${testimonio.bgColor};`}>
+        <div class="o-testimonials__card" id={`testimonial-card-${index}`} style={`background-color: ${testimonio.bgColor};`}>
+          <div class="o-testimonials__image-col">
             <img src={testimonio.image} alt={testimonio.name} class="o-testimonials__image" />
           </div>
           <div class="o-testimonials__content-col">
@@ -67,19 +67,17 @@ const testimonials = [
     gsap.fromTo('.o-testimonials__title .a-word-reveal',
       {
         opacity: 0,
-        y: 20,
-        filter: 'blur(10px)',
+        y: 40,
       },
       {
         opacity: 1,
         y: 0,
-        filter: 'blur(0px)',
-        stagger: 0.05,
-        duration: 1,
-        ease: 'power2.out',
+        stagger: 0.08,
+        duration: 1.2,
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: '.o-testimonials__header',
-          start: 'top 80%',
+          start: 'top 85%',
           toggleActions: 'play none none reverse'
         }
       }

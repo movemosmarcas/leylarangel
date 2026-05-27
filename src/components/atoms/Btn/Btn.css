@@ -26,7 +26,8 @@
   background: transparent;
   color: var(--color-primary, #FFAB8C);
   transform: translateY(-3px);
-  box-shadow: 0 0 25px rgba(255, 171, 140, 0.45); /* Luxurious brand glow */
+  box-shadow: 0 0 30px rgba(255, 171, 140, 0.3), inset 0 0 15px rgba(255, 171, 140, 0.1);
+  text-shadow: 0 0 12px rgba(255, 171, 140, 0.8);
   border-color: var(--color-primary, #FFAB8C);
 }
 
@@ -38,10 +39,11 @@
 }
 
 .a-button--secondary:hover {
-  background: var(--color-black, #1a1a1a);
-  color: var(--color-white, #ffffff);
+  background: transparent;
+  color: var(--color-primary, #FFAB8C);
   transform: translateY(-3px);
-  box-shadow: 0 0 25px rgba(255, 171, 140, 0.45); /* Luxurious brand glow */
+  box-shadow: 0 0 30px rgba(255, 171, 140, 0.3), inset 0 0 15px rgba(255, 171, 140, 0.1);
+  text-shadow: 0 0 12px rgba(255, 171, 140, 0.8);
   border-color: var(--color-primary, #FFAB8C);
 }
 
@@ -52,10 +54,11 @@
 }
 
 .u-dark-theme .a-button--secondary:hover {
-  background: var(--color-white, #ffffff);
-  color: var(--color-black, #1a1a1a);
+  background: transparent;
+  color: var(--color-primary, #FFAB8C);
   transform: translateY(-3px);
-  box-shadow: 0 0 25px rgba(255, 171, 140, 0.45); /* Luxurious brand glow */
+  box-shadow: 0 0 30px rgba(255, 171, 140, 0.3), inset 0 0 15px rgba(255, 171, 140, 0.1);
+  text-shadow: 0 0 12px rgba(255, 171, 140, 0.8);
   border-color: var(--color-primary, #FFAB8C);
 }
 

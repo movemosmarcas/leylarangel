@@ -54,8 +54,11 @@
 }
 
 .o-char-parallax__title {
+  font-family: var(--font-headings);
   font-size: clamp(40px, 6vw, 100px);
+  font-weight: 300;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin-bottom: 30px;
   color: var(--color-primary);
 }

@@ -1,15 +1,20 @@
 ---
 import './BrandCloud.css';
 
+import pixarLogo from '../../../assets/img/Pixar_logo.svg.png';
+import cocaColaLogo from '../../../assets/img/Coca-Cola_logo_white.png';
+import nickelodeonLogo from '../../../assets/img/Nickelodeon_2009_logo.svg.png';
+import disneyLogo from '../../../assets/img/Disney_logo.png';
+
 const brands = [
-  { name: 'Disney', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney_2011.svg' },
+  { name: 'Disney', logo: disneyLogo.src },
   { name: 'Netflix', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg' },
   { name: 'HBO Max', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/17/HBO_Max_Logo.svg' },
   { name: 'Warner Bros', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Warner_Bros_logo.svg' },
-  { name: 'Nickelodeon', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Nickelodeon_2023.svg' },
-  { name: 'Cartoon Network', logo: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Cartoon_Network_2010_logo.svg' },
+  { name: 'Nickelodeon', logo: nickelodeonLogo.src },
+  { name: 'Coca-Cola', logo: cocaColaLogo.src },
   { name: 'Sony', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Sony_logo.svg' },
-  { name: 'Pixar', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2e/Pixar_Logo.svg' },
+  { name: 'Pixar', logo: pixarLogo.src, customStyle: 'max-width: 200px; max-height: 80px;' },
 ];
 ---
 
@@ -19,7 +24,12 @@ const brands = [
       <div class="o-brand-cloud__track">
         {[...brands, ...brands, ...brands, ...brands].map((brand) => (
           <div class="o-brand-cloud__card">
-            <img src={brand.logo} alt={brand.name} class="o-brand-cloud__logo" />
+            <img 
+              src={brand.logo} 
+              alt={brand.name} 
+              class="o-brand-cloud__logo" 
+              style={brand.customStyle || ''}
+            />
           </div>
         ))}
       </div>

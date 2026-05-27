@@ -1,9 +1,9 @@
 .o-direction {
-  padding: 140px 0;
-  background: var(--color-black, #0a0a0a);
-  position: relative;
-  z-index: 3;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 120px 0;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .o-direction__container {
@@ -92,8 +92,8 @@
 .o-direction__title {
   font-family: var(--font-headings) !important;
   font-size: clamp(2rem, 4vw, 3.5rem) !important;
-  letter-spacing: 0.1em !important;
-  font-weight: normal !important;
+  letter-spacing: 0.05em !important;
+  font-weight: 300 !important;
   text-transform: uppercase !important;
   color: var(--color-white, #ffffff) !important;
   margin-bottom: 20px;

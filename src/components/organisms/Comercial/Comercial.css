@@ -3,9 +3,9 @@
 .o-comercial {
   background: #000000;
   color: #ffffff;
-  padding: 140px 0;
+  padding: 120px 0;
   position: relative;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   overflow: hidden;
 }
 
@@ -29,9 +29,9 @@
 /* Header */
 .o-comercial__header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 60px;
+  gap: 30px;
   margin-bottom: 80px;
 }
 
@@ -42,31 +42,38 @@
 
 .o-comercial__header-image {
   flex: 0 0 250px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  height: 250px;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.o-comercial__header-image::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4));
-  pointer-events: none;
-}
-
-.o-comercial__img {
+.o-comercial__gif-sequence {
+  position: relative;
   width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  filter: brightness(0.85) contrast(1.1);
-  transition: transform 0.6s ease;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.o-comercial__header-image:hover .o-comercial__img {
-  transform: scale(1.03);
+.o-comercial__gif-frame {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  animation: stopMotionGifComercial 2.4s infinite;
+}
+
+.o-comercial__gif-frame.frame-1 { animation-delay: 0s; }
+.o-comercial__gif-frame.frame-2 { animation-delay: 0.8s; }
+.o-comercial__gif-frame.frame-3 { animation-delay: 1.6s; }
+
+@keyframes stopMotionGifComercial {
+  0%, 33.33% { opacity: 1; }
+  33.34%, 100% { opacity: 0; }
 }
 
 .o-comercial__subtitle {
@@ -97,97 +104,33 @@
 }
 
 .o-comercial__intro {
-  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  font-size: clamp(1.25rem, 2.2vw, 1.4rem);
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
   font-weight: 300;
 }
 
-/* Body: 2-column layout */
+/* Body: Single column centered layout */
 .o-comercial__body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 80px;
-  align-items: start;
 }
 
-/* Left column — Blockquote */
-.o-comercial__feature {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.o-comercial__blockquote {
-  margin: 0;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-left: 3px solid var(--color-primary, #FFAB8C);
-  border-radius: 16px;
-  position: relative;
-}
-
-.o-comercial__blockquote-text {
-  font-family: var(--font-headings, 'Josefin Sans', sans-serif);
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  font-weight: 300;
-  line-height: 1.7;
-  color: #ffffff;
-  margin: 0;
-  font-style: italic;
-}
-
-/* Coppel institutional badge */
-.o-comercial__coppel-badge {
-  background: rgba(255, 171, 140, 0.06);
-  border: 1px solid rgba(255, 171, 140, 0.15);
-  border-radius: 16px;
-  padding: 28px 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  transition: background 0.4s ease, border-color 0.4s ease;
-}
-
-.o-comercial__coppel-badge:hover {
-  background: rgba(255, 171, 140, 0.1);
-  border-color: rgba(255, 171, 140, 0.3);
-}
-
-.o-comercial__coppel-label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--color-primary, #FFAB8C);
-  font-weight: 600;
-}
-
-.o-comercial__coppel-brand {
-  font-family: var(--font-headings, 'Josefin Sans', sans-serif);
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: #ffffff;
-  text-transform: uppercase;
-}
-
-.o-comercial__coppel-desc {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.5;
-}
-
-/* Right column — Brands */
+/* Brands section now takes center stage */
 .o-comercial__brands {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
 }
 
 .o-comercial__brands-title {
-  font-size: 0.75rem;
+  font-size: clamp(1.25rem, 1.5vw, 1.4rem);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: rgba(255, 255, 255, 0.45);
@@ -199,10 +142,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
 }
 
 .o-comercial__brand-pill {
-  font-size: 12px;
+  font-size: clamp(1.25rem, 1.5vw, 1.4rem);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -220,14 +164,43 @@
   color: var(--color-primary, #FFAB8C);
 }
 
-/* Currently on air */
-.o-comercial__currently {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 32px;
+/* The new Card layout for Currently on air */
+.o-comercial__currently-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  max-width: 1000px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.o-comercial__currently-image {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  position: relative;
+}
+
+.o-comercial__img-micro {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(0.2) brightness(0.9);
+}
+
+.o-comercial__currently-content {
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .o-comercial__currently-label {
-  font-size: 0.75rem;
+  font-size: clamp(1.25rem, 1.5vw, 1.4rem);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--color-primary, #FFAB8C);
@@ -263,7 +236,7 @@
 }
 
 .o-comercial__current-name {
-  font-size: 0.95rem;
+  font-size: clamp(1.25rem, 1.5vw, 1.4rem);
   color: rgba(255, 255, 255, 0.85);
   font-weight: 400;
 }
@@ -292,7 +265,18 @@
   }
 
   .o-comercial__body {
-    grid-template-columns: 1fr;
     gap: 50px;
+  }
+
+  .o-comercial__currently-card {
+    grid-template-columns: 1fr;
+  }
+
+  .o-comercial__currently-image {
+    min-height: 250px;
+  }
+
+  .o-comercial__currently-content {
+    padding: 30px 24px;
   }
 }

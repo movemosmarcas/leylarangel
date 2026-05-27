@@ -1,11 +1,12 @@
 .o-audio-gallery {
   position: relative;
   width: 100%;
-  min-height: 100vh;
   background-color: var(--color-black);
+  padding: 120px 5vw;
   display: flex;
   flex-direction: column;
-  z-index: 10;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .o-audio-gallery__header {
@@ -17,7 +18,9 @@
   font-family: var(--font-headings);
   font-size: clamp(2rem, 4vw, 3.5rem);
   color: var(--color-white);
-  letter-spacing: 0.1em;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin-bottom: 20px;
 }
 

@@ -1,42 +1,51 @@
 .o-soy-leyla {
   position: relative;
   width: 100%;
-  padding: 140px 0 50px 0; /* Reduced bottom padding to bring the logos section closer */
-  background-color: var(--color-black); /* Dark theme as requested */
+  padding: 120px 5vw;
+  background-color: var(--color-black);
   color: var(--color-white);
   overflow: hidden;
   z-index: 10;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .o-soy-leyla__container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 40px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 8vw, 80px);
   align-items: center;
-  gap: 8vw;
 }
 
 .o-soy-leyla__image-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  height: 70vh;
+  min-height: 450px;
+  max-height: 800px;
+  border-radius: 12px;
   overflow: hidden;
-  border-radius: 4px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
 }
 
 .o-soy-leyla__image {
   width: 100%;
-  height: 100%;
+  height: 120%; /* Extra height for internal parallax */
   object-fit: cover;
-  filter: grayscale(0.2);
+  object-position: center 30%;
+  filter: grayscale(0.1);
+  transform: translateY(-10%); /* Start slightly shifted up */
+  will-change: transform;
 }
 
 .o-soy-leyla__content {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  align-items: flex-start;
+  text-align: left;
+  gap: 20px;
+  max-width: 550px;
 }
 
 .o-soy-leyla__tag {
@@ -50,20 +59,21 @@
 
 .o-soy-leyla__title {
   font-family: var(--font-headings);
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
   line-height: 1.1;
-  font-weight: normal;
-  letter-spacing: 0.1em;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin: 0;
+  color: #ffffff;
 }
 
 .o-soy-leyla__bio {
   font-family: var(--font-body);
-  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-size: clamp(1.25rem, 2vw, 1.45rem);
   line-height: 1.6;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .o-soy-leyla__accent {
@@ -71,40 +81,31 @@
   font-weight: 600;
 }
 
+.o-soy-leyla__cta-container {
+  margin-top: 10px;
+}
+
+/* Responsive Fallbacks */
 @media (max-width: 992px) {
+  .o-soy-leyla {
+    padding: 100px 20px;
+  }
+
   .o-soy-leyla__container {
     grid-template-columns: 1fr;
-    gap: 60px;
-    text-align: center;
+    gap: 40px;
   }
-  
+
   .o-soy-leyla__image-wrapper {
-    max-width: 500px;
+    height: 50vh;
+    min-height: 350px;
+    max-width: 550px;
     margin: 0 auto;
   }
-  
+
   .o-soy-leyla__content {
+    margin: 0 auto;
     align-items: center;
-  }
-}
-
-.o-soy-leyla__cta-container {
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-}
-
-@media (max-width: 992px) {
-  .o-soy-leyla__cta-container {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 768px) {
-  .o-soy-leyla {
-    padding: 80px 0 30px 0; /* Adjusted for mobile viewports */
-  }
-  .o-soy-leyla__container {
-    padding: 0 24px;
+    text-align: center;
   }
 }

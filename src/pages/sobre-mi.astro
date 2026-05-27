@@ -1,5 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+import pixarLogo from '../assets/img/Pixar_logo.svg.png';
+import cocaColaLogo from '../assets/img/Coca-Cola_logo_white.png';
+import nickelodeonLogo from '../assets/img/Nickelodeon_2009_logo.svg.png';
+import disneyLogo from '../assets/img/Disney_logo.png';
+
+const brands = [
+  { name: 'Disney', logo: disneyLogo.src },
+  { name: 'Netflix', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg' },
+  { name: 'HBO Max', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/17/HBO_Max_Logo.svg' },
+  { name: 'Warner Bros', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Warner_Bros_logo.svg' },
+  { name: 'Nickelodeon', logo: nickelodeonLogo.src },
+  { name: 'Coca-Cola', logo: cocaColaLogo.src },
+  { name: 'Sony', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Sony_logo.svg' },
+  { name: 'Pixar', logo: pixarLogo.src, customStyle: 'max-width: 200px; max-height: 80px;' },
+];
 ---
 
 <Layout headerType="dark">
@@ -19,7 +35,7 @@ import Layout from "../layouts/Layout.astro";
         </p>
       </div>
       <div class="o-sm-hero__image-wrap">
-        <img src="/img/hero-horizontal.png" alt="Leyla Rangel" class="o-sm-hero__image" />
+        <img src="/img/leyla-y-micro.png" alt="Leyla Rangel" class="o-sm-hero__image" />
         <div class="o-sm-hero__image-overlay"></div>
       </div>
     </header>
@@ -39,7 +55,7 @@ import Layout from "../layouts/Layout.astro";
 
             </p>
             <p class="o-sm-bio__paragraph">
-              Actualmente es la <strong class="o-sm-bio__accent">voz institucional de Coppel</strong>.
+              Actualmente soy la <strong class="o-sm-bio__accent">voz institucional de Coppel</strong>.
             </p>
             <p class="o-sm-bio__paragraph">
               Desde 2020 colaboro con <strong>Audible</strong> y <strong>Penguin Random House</strong> como narradora de muchos de sus títulos en versiones para audiolibro.
@@ -153,17 +169,23 @@ import Layout from "../layouts/Layout.astro";
         <section class="o-sm-section">
           <h2 class="o-sm-section__title">
             <span class="o-sm-section__title-line">Marcas</span>
-            <span class="o-sm-section__title-sub">con las que ha colaborado</span>
+            <span class="o-sm-section__title-sub">con las que he colaborado</span>
           </h2>
-          <div class="o-sm-brands">
-            {[
-              'Disney', 'Pixar', 'Dreamworks', 'Ghibli', 'Marvel', 'Warner', 'Sony', 'Netflix',
-              'Mercedes Benz', 'Coca Cola', 'Telcel', 'Target', 'Naturella', 'Evenflo', 'Mattel',
-              'Allegra', "Mac & Cheese de Kraft", 'AutoZone', "M&M's Verde", "L'Oréal", 'Coppel',
-              'Audible', 'Penguin Random House'
-            ].map((brand) => (
-              <span class="a-sm-brand-pill">{brand}</span>
-            ))}
+          <div class="o-sm-brands-carousel-container">
+            <div class="o-sm-brands-carousel">
+              <div class="o-sm-brands-track">
+                {[...brands, ...brands, ...brands, ...brands].map((brand) => (
+                    <div class="o-sm-brand-card">
+                      <img 
+                        src={brand.logo} 
+                        alt={brand.name} 
+                        class="o-sm-brand-logo" 
+                        style={brand.customStyle || ''} 
+                      />
+                    </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
@@ -306,7 +328,7 @@ import Layout from "../layouts/Layout.astro";
   }
 
   .o-sm-bio__paragraph {
-    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    font-size: clamp(1.25rem, 1.8vw, 1.45rem);
     line-height: 1.8;
     color: rgba(255,255,255,0.65);
     margin: 0 0 24px;
@@ -314,7 +336,7 @@ import Layout from "../layouts/Layout.astro";
   }
 
   .o-sm-bio__paragraph--lead {
-    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    font-size: clamp(1.25rem, 2vw, 1.45rem);
     color: rgba(255,255,255,0.8);
   }
 
@@ -401,7 +423,7 @@ import Layout from "../layouts/Layout.astro";
 
   .o-sm-section__title-sub {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -526,31 +548,55 @@ import Layout from "../layouts/Layout.astro";
     margin: 0;
   }
 
-  /* Brands cloud */
-  .o-sm-brands {
+  /* Brands carousel */
+  .o-sm-brands-carousel-container {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .o-sm-brands-carousel {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    overflow: hidden;
+    /* Mask for the fading edges */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+
+  .o-sm-brands-track {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    width: max-content;
+    animation: marquee-sm 30s linear infinite;
   }
 
-  .a-sm-brand-pill {
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(255,255,255,0.65);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 6px;
-    padding: 7px 16px;
-    transition: all 0.3s ease;
-    cursor: default;
+  .o-sm-brand-card {
+    width: 250px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 40px;
   }
 
-  .a-sm-brand-pill:hover {
-    background: rgba(255, 171, 140, 0.08);
-    border-color: rgba(255, 171, 140, 0.25);
-    color: var(--color-primary, #FFAB8C);
+  @keyframes marquee-sm {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .o-sm-brand-logo {
+    max-width: 140px;
+    max-height: 50px;
+    width: auto;
+    height: auto;
+    filter: brightness(0) invert(1); /* White logos */
+    opacity: 0.5;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .o-sm-brand-card:hover .o-sm-brand-logo {
+    opacity: 1;
+    transform: scale(1.05);
   }
 
   /* Back button */
@@ -612,3 +658,133 @@ import Layout from "../layouts/Layout.astro";
     }
   }
 </style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initSobreMiAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero Animations (Load)
+    const heroTl = gsap.timeline();
+    
+    // Unroll effect for the hero image (similar to demos)
+    heroTl.fromTo('.o-sm-hero__image-wrap',
+      {
+        clipPath: 'inset(0% 0% 100% 0%)',
+        y: -40,
+        opacity: 0
+      },
+      {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        y: 0,
+        opacity: 1,
+        duration: 1.4,
+        ease: 'power4.out',
+      }
+    );
+
+    heroTl.fromTo('.o-sm-hero__eyebrow, .o-sm-hero__title, .o-sm-hero__tagline',
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: 'power3.out' },
+      '-=0.8'
+    );
+
+    // Subtle parallax on hero image during scroll
+    gsap.to('.o-sm-hero__image', {
+      yPercent: 15,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.o-sm-hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    // Bio Paragraphs
+    gsap.fromTo('.o-sm-bio__paragraph',
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.o-sm-bio',
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Stats Strip
+    gsap.fromTo('.m-sm-stat',
+      { opacity: 0, scale: 0.95, y: 20 },
+      {
+        opacity: 1, scale: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'back.out(1.2)',
+        scrollTrigger: {
+          trigger: '.o-sm-stats',
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // General Sections Reveal (Titles and Content)
+    gsap.utils.toArray('.o-sm-section').forEach((section: any) => {
+      const titleLine = section.querySelector('.o-sm-section__title-line');
+      const titleSub = section.querySelector('.o-sm-section__title-sub');
+      
+      const secTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+
+      if (titleLine && titleSub) {
+        secTl.fromTo([titleLine, titleSub],
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
+        );
+      }
+
+      // If it's characters
+      const characters = section.querySelectorAll('.m-sm-character');
+      if (characters.length) {
+        secTl.fromTo(characters,
+          { opacity: 0, x: -10 },
+          { opacity: 1, x: 0, duration: 0.4, stagger: 0.05, ease: 'power2.out' },
+          '-=0.3'
+        );
+      }
+
+      // If it's films
+      const films = section.querySelectorAll('.m-sm-film');
+      if (films.length) {
+        secTl.fromTo(films,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' },
+          '-=0.3'
+        );
+      }
+
+      // If it's brands carousel
+      const brandCarousel = section.querySelector('.o-sm-brands-carousel-container');
+      if (brandCarousel) {
+        secTl.fromTo(brandCarousel,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+          '-=0.2'
+        );
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSobreMiAnimations);
+  } else {
+    initSobreMiAnimations();
+  }
+  document.addEventListener('astro:page-load', initSobreMiAnimations);
+</script>

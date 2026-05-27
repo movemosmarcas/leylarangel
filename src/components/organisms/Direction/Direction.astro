@@ -165,6 +165,27 @@ const works = await getDirectionWorks();
       '-=0.7'
     );
 
+    // Subtle entrance animation for the photo to match the "demos" feel
+    gsap.fromTo('.o-direction__photo-frame',
+      {
+        clipPath: 'inset(0% 0% 100% 0%)',
+        y: -40,
+        opacity: 0
+      },
+      {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        y: 0,
+        opacity: 1,
+        duration: 1.4,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: '.o-direction__header-photo',
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
     // Staggered fade, scale and reveal for each card individually
     gsap.utils.toArray('.o-direction__card-wrapper').forEach((wrapper: any) => {
       const card = wrapper.querySelector('.o-direction__card');

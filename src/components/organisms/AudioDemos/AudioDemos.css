@@ -28,7 +28,9 @@
 .o-audio-demos__title {
   font-family: var(--font-headings);
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--color-black);
 }
 

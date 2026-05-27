@@ -1,9 +1,10 @@
 .o-ultimas-historias {
-  background-color: #000000;
-  padding: 120px 4vw;
+  background-color: var(--color-black, #000000);
+  padding: 120px 5vw;
   position: relative;
   overflow: hidden;
   z-index: 20;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Subtle decorative radial gradient behind content */

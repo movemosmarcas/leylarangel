@@ -1,6 +1,8 @@
 .o-brand-cloud {
-  background-color: var(--color-white); /* Back to pure white */
-  padding: 30px 0 120px 0; /* Reduced top padding to bring it closer to SoyLeyla, maintained bottom padding for next section */
+  width: 100%;
+  padding: 120px 0;
+  background-color: var(--color-black);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   color: var(--color-black);
   position: relative;
   overflow: hidden;
