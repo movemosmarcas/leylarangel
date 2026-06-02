@@ -1,0 +1,26 @@
+---
+import './HistoriasHeader.css';
+
+export interface Props {
+  data?: {
+    subtitle: string;
+    title: string;
+    description: string;
+  };
+}
+
+const { data } = Astro.props;
+const subtitle = data?.subtitle || "Leyla Rangel • Historias";
+const title = data?.title || "Explorando el Arte de la Voz";
+const description = data?.description || "Reflexiones, vivencias y el fascinante viaje detrás del doblaje, la dirección de actores y la locución profesional.";
+---
+
+<div class="o-historias-header">
+  <div class="o-historias-header__container">
+    <span class="a-historias-subtitle">{subtitle}</span>
+    <h1 class="o-historias-header__title">{title}</h1>
+    <p class="o-historias-header__desc">
+      {description}
+    </p>
+  </div>
+</div>

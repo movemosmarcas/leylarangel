@@ -1,0 +1,118 @@
+---
+import './SobreMiDirection.css';
+import SobreMiFilm from '../../molecules/SobreMiFilm/SobreMiFilm.astro';
+
+export interface Props {
+  data?: {
+    titleLine: string;
+    titleSub: string;
+    list: {
+      title: string;
+      studio: string;
+      year: string;
+      note: string;
+      badge?: string;
+    }[];
+  };
+}
+
+const { data } = Astro.props;
+
+const defaultList = [
+  {
+    title: 'El Niño y la Garza',
+    studio: 'Ghibli',
+    year: '2023',
+    note: 'Yo dirigí la versión española, ganadora del Oscar a Mejor Cinta Animada.',
+    badge: 'OSCAR'
+  },
+  {
+    title: 'Robot Salvaje',
+    studio: 'Dreamworks',
+    year: '2024',
+    note: 'Yo dirigí la versión española; la película animada con más nominaciones a los Globos de Oro y nominada al Oscar 2025 incluyendo Mejor Película Animada.',
+    badge: 'OSCAR NOM'
+  },
+  {
+    title: 'La Tumba de las Luciérnagas',
+    studio: 'Ghibli · Netflix',
+    year: '2024',
+    note: 'Yo dirigí la versión española de esta cinta emblemática de Ghibli, disponible en Netflix.',
+  },
+  {
+    title: 'Memorias de un Caracol',
+    studio: 'Adam Elliot',
+    year: '2025',
+    note: 'Yo dirigí la versión española, nominada a los premios de la Academia en 2025.',
+    badge: 'OSCAR NOM'
+  },
+];
+
+const titleLine = data?.titleLine || "Dirección";
+const titleSub = data?.titleSub || "Doblaje Animación";
+const films = data?.list || defaultList;
+---
+
+<section class="o-sm-section o-sm-section--direction">
+  <h2 class="o-sm-section__title">
+    <span class="o-sm-section__title-line">{titleLine}</span>
+    <span class="o-sm-section__title-sub">{titleSub}</span>
+  </h2>
+  <div class="o-sm-direction">
+    {films.map((film) => (
+      <SobreMiFilm
+        title={film.title}
+        studio={film.studio}
+        year={film.year}
+        note={film.note}
+        badge={film.badge}
+      />
+    ))}
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initSobreMiDirectionAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = document.querySelector('.o-sm-section--direction');
+    if (!section) return;
+
+    const titleLine = section.querySelector('.o-sm-section__title-line');
+    const titleSub = section.querySelector('.o-sm-section__title-sub');
+    
+    const secTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+
+    if (titleLine && titleSub) {
+      secTl.fromTo([titleLine, titleSub],
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
+      );
+    }
+
+    const films = section.querySelectorAll('.m-sm-film');
+    if (films.length) {
+      secTl.fromTo(films,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' },
+        '-=0.3'
+      );
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSobreMiDirectionAnimations);
+  } else {
+    initSobreMiDirectionAnimations();
+  }
+  document.addEventListener('astro:page-load', initSobreMiDirectionAnimations);
+</script>

@@ -1,0 +1,23 @@
+{
+  "title": "THE SOUND GALLERY",
+  "demos": [
+    { 
+      "id": "comercial-gallery",
+      "title": "COMERCIAL", 
+      "category": "Voz Institucional",
+      "image": "/img/Carita-demo-1.png",
+      "file": "/audio/demo-comercial.mp3",
+      "date": "MAR 25, 2025",
+      "titleLabel": "TACTILE FUTURES"
+    },
+    { 
+      "id": "doblaje-gallery",
+      "title": "DOBLAJE", 
+      "category": "Interpretación",
+      "image": "/img/Carita-demo-2.png",
+      "file": "/audio/demo-doblaje.mp3",
+      "date": "MAY 15, 2025",
+      "titleLabel": "SONIC EMOTIONS"
+    }
+  ]
+}

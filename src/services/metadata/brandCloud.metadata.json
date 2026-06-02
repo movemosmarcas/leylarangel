@@ -1,0 +1,12 @@
+{
+  "brands": [
+    { "name": "Disney", "logo": "/img/Disney_logo.png" },
+    { "name": "Netflix", "logo": "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
+    { "name": "HBO Max", "logo": "https://upload.wikimedia.org/wikipedia/commons/1/17/HBO_Max_Logo.svg" },
+    { "name": "Warner Bros", "logo": "https://upload.wikimedia.org/wikipedia/commons/6/64/Warner_Bros_logo.svg" },
+    { "name": "Nickelodeon", "logo": "/img/Nickelodeon_2009_logo.svg.png" },
+    { "name": "Coca-Cola", "logo": "/img/Coca-Cola_logo_white.png" },
+    { "name": "Sony", "logo": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Sony_logo.svg" },
+    { "name": "Pixar", "logo": "/img/Pixar_logo.svg.png", "customStyle": "max-width: 200px; max-height: 80px;" }
+  ]
+}

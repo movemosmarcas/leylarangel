@@ -1,0 +1,48 @@
+/* Header Section */
+.o-historias-header {
+  position: relative;
+  padding: 80px 40px 60px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: radial-gradient(circle at center bottom, rgba(255, 171, 140, 0.04) 0%, transparent 70%);
+}
+
+.o-historias-header__container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.a-historias-subtitle {
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-primary, #FFAB8C);
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.o-historias-header__title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+}
+
+.o-historias-header__desc {
+  font-size: clamp(1.25rem, 2vw, 1.4rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .o-historias-header {
+    padding: 100px 24px 40px;
+  }
+}

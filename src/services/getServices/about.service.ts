@@ -1,10 +1,13 @@
-import { aboutMetadata } from '../metadata/about.metadata';
+import { getAPI } from '../api';
 
 /**
- * Simulates fetching About data from an external API or CMS.
+ * Retrieves the full About page metadata details from the WordPress API
  */
 export const getAboutData = async () => {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 50));
-  return aboutMetadata;
+  try {
+    return await getAPI('headless/v1/leyla/pages/sobre-mi');
+  } catch (error) {
+    console.error('Error fetching about page data:', error);
+    return {};
+  }
 };

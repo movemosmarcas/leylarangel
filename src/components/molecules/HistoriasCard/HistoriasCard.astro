@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+import './HistoriasCard.css';
+
+export interface Props {
+  slug: string;
+  title: string;
+  excerpt: string;
+  author: string;
+  authorAvatar: string;
+  date: string;
+  readTime?: string;
+  category?: { name: string }[];
+  coverImage: any;
+}
+
+const { slug, title, excerpt, author, authorAvatar, date, readTime, category, coverImage } = Astro.props;
+
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+---
+
+<article class="m-historias-card" onclick={`window.location.href='/historias/${slug}'`}>
+  <div class="m-historias-card__content">
+    <div class="m-historias-card__meta-row">
+      <div class="m-historias-card__categories">
+        {category?.map((cat) => (
+          <span class="a-badge-tag">{cat.name}</span>
+        ))}
+      </div>
+      {readTime && (
+        <span class="m-historias-card__read-time">• {readTime}</span>
+      )}
+    </div>
+
+    <h2 class="m-historias-card__title">
+      <a href={`/historias/${slug}`} class="m-historias-card__title-link">
+        {title}
+      </a>
+    </h2>
+
+    <p class="m-historias-card__excerpt">{excerpt}</p>
+
+    <div class="m-historias-card__footer-row">
+      <div class="m-historias-card__author-info">
+        <img src={authorAvatar} alt={author} class="a-avatar-img" />
+        <div class="m-historias-card__meta-details">
+          <span class="a-meta-label">Escrito por</span>
+          <span class="a-meta-value">{author}</span>
+        </div>
+      </div>
+
+      <div class="m-historias-card__date-info">
+        <div class="m-historias-card__meta-details">
+          <span class="a-meta-label">Publicado el</span>
+          <span class="a-meta-value">{formatDate(date)}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-historias-card__cover-wrap">
+    <Image 
+      src={coverImage} 
+      alt={title} 
+      width={800} 
+      height={500} 
+      class="m-historias-card__cover-img"
+    />
+  </div>
+</article>

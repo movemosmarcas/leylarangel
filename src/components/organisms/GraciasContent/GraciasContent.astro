@@ -1,0 +1,35 @@
+---
+import './GraciasContent.css';
+
+export interface Props {
+  data?: {
+    title: string;
+    description: string;
+    backText: string;
+    backUrl: string;
+  };
+}
+
+const { data } = Astro.props;
+const title = data?.title || "¡Mensaje Enviado!";
+const description = data?.description || "Gracias por ponerte en contacto. Tu mensaje ha sido recibido y me comunicaré contigo a la brevedad posible.";
+const backText = data?.backText || "← Volver al inicio";
+const backUrl = data?.backUrl || "/";
+---
+
+<div class="o-gracias-content">
+  <div class="o-gracias-content__inner">
+    <!-- SVG icon check inside circle -->
+    <div class="o-gracias-content__icon">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+    </div>
+
+    <h1 class="o-gracias-content__title">{title}</h1>
+    <p class="o-gracias-content__desc">{description}</p>
+
+    <a href={backUrl} class="a-gracias-btn">{backText}</a>
+  </div>
+</div>

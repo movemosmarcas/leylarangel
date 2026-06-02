@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/organisms/Hero/Hero.astro";
 import TextReveal from "../components/molecules/TextReveal/TextReveal.astro";
 import CharacterCarousel from "../components/organisms/CharacterCarousel/CharacterCarousel.astro";
-import AudioDemos from "../components/organisms/AudioDemos/AudioDemos.astro";
 import AudioGallery from "../components/organisms/AudioGallery/AudioGallery.astro";
 import SoyLeyla from "../components/organisms/SoyLeyla/SoyLeyla.astro";
 import BrandCloud from "../components/organisms/BrandCloud/BrandCloud.astro";
@@ -11,20 +10,40 @@ import Direction from "../components/organisms/Direction/Direction.astro";
 import Testimonials from "../components/organisms/Testimonials/Testimonials.astro";
 import UltimasHistorias from "../components/organisms/UltimasHistorias/UltimasHistorias.astro";
 import Comercial from "../components/organisms/Comercial/Comercial.astro";
+
+import { getHeroBannerData } from "../services/getServices/heroBanner.service";
+import { getTextRevealData } from "../services/getServices/textReveal.service";
+import { getCharacterCarouselData } from "../services/getServices/characterCarousel.service";
+import { getSoyLeylaData } from "../services/getServices/soyLeyla.service";
+import { getBrandCloudData } from "../services/getServices/brandCloud.service";
+import { getAudioGalleryData } from "../services/getServices/audioGallery.service";
+import { getComercialData } from "../services/getServices/comercial.service";
+import { getTestimonialsData } from "../services/getServices/testimonials.service";
+import { getUltimasHistoriasData } from "../services/getServices/ultimasHistorias.service";
+
+const heroData = await getHeroBannerData();
+const textRevealData = await getTextRevealData();
+const characterCarouselData = await getCharacterCarouselData();
+const soyLeylaData = await getSoyLeylaData();
+const brandCloudData = await getBrandCloudData();
+const audioGalleryData = await getAudioGalleryData();
+const comercialData = await getComercialData();
+const testimonialsData = await getTestimonialsData();
+const ultimasHistoriasData = await getUltimasHistoriasData();
 ---
 
 <Layout>
   <div class="u-dark-theme">
-    <Hero />
-    <TextReveal />
-    <CharacterCarousel />
-    <SoyLeyla />
-    <BrandCloud />
-    <AudioGallery />
+    <Hero data={heroData} />
+    <TextReveal data={textRevealData} />
+    <CharacterCarousel data={characterCarouselData} />
+    <SoyLeyla data={soyLeylaData} />
+    <BrandCloud data={brandCloudData} />
+    <AudioGallery data={audioGalleryData} />
     <Direction />
-    <Comercial />
-    <Testimonials />
-    <UltimasHistorias />
+    <Comercial data={comercialData} />
+    <Testimonials data={testimonialsData} />
+    <UltimasHistorias data={ultimasHistoriasData} />
   </div>
 </Layout>
 

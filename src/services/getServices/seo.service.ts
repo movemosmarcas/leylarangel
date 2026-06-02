@@ -1,17 +1,38 @@
-import { seoMetadata } from '../metadata/seo.metadata';
+import { getAPI } from '../api';
 
-/**
- * Simulates fetching SEO data from an external API or CMS.
- */
-export const getSeoData = async (pageRoute: string) => {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 50));
-  
-  const pageMetadata = seoMetadata[pageRoute as keyof typeof seoMetadata] || seoMetadata.home;
-  
-  return {
-    ...seoMetadata.default,
-    ...pageMetadata
-  };
+const defaultSeo = {
+  siteName: "Leyla Rangel | Locutora Profesional & Directora de Doblaje",
+  author: "Leyla Rangel",
+  themeColor: "#FFAB8E",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  ogImage: "/img/hero-bg.png",
+  favicon: "/favicon.png"
 };
 
+/**
+ * Fetches SEO metadata dynamically from the WordPress pages API
+ */
+export const getSeoData = async (pageRoute: string) => {
+  try {
+    const slug = pageRoute === 'home' ? 'inicio' : (pageRoute === 'sobremi' ? 'sobre-mi' : pageRoute);
+    const data = await getAPI(`headless/v1/leyla/pages/${slug}`);
+    
+    const pageSeo = data?.seo_meta || data?.seo || {};
+    
+    // Convert comma-separated string to list if necessary
+    let keywords = pageSeo.keywords || [];
+    if (typeof keywords === 'string') {
+      keywords = keywords.split(',').map((k: string) => k.trim());
+    }
+
+    return {
+      ...defaultSeo,
+      ...pageSeo,
+      keywords
+    };
+  } catch (error) {
+    console.error('Error fetching SEO data, returning defaults:', error);
+    return defaultSeo;
+  }
+};

@@ -1,24 +1,41 @@
 ---
 import './SoyLeyla.css';
 import Btn from '../../atoms/Btn/Btn.astro';
+
+export interface Props {
+  data?: {
+    tag: string;
+    title: string;
+    description: string;
+    ctaText: string;
+    ctaUrl: string;
+    image: string;
+  };
+}
+
+const { data } = Astro.props;
+const tag = data?.tag || 'Sobre mí';
+const title = data?.title || 'SOY LEYLA RANGEL';
+const description = data?.description || 'Con más de <span class="o-soy-leyla__accent">33 años de trayectoria</span>, he prestado mi voz para dar vida a personajes icónicos en el cine y la televisión. Mi pasión es contar historias a través de la interpretación vocal, fusionando técnica y emoción para conectar con audiencias de todo el mundo. Desde grandes producciones de <span class="o-soy-leyla__accent">Disney</span> hasta campañas publicitarias globales.';
+const ctaText = data?.ctaText || 'Conoce más sobre mí';
+const ctaUrl = data?.ctaUrl || '/sobre-mi';
+const image = data?.image || '/img/leyla-bn.png';
 ---
 
 <section class="o-soy-leyla" id="sobre-mi">
   <div class="o-soy-leyla__container">
     <div class="o-soy-leyla__image-wrapper">
-      <img src="/img/leyla-bn.png" alt="Leyla Rangel" class="o-soy-leyla__image" />
+      <img src={image} alt={title} class="o-soy-leyla__image" />
     </div>
     
     <div class="o-soy-leyla__content">
-      <span class="o-soy-leyla__tag">Sobre mí</span>
-      <h2 class="o-soy-leyla__title">SOY LEYLA RANGEL</h2>
+      <span class="o-soy-leyla__tag">{tag}</span>
+      <h2 class="o-soy-leyla__title">{title}</h2>
       <div class="o-soy-leyla__bio">
-        <p>
-          Con más de <span class="o-soy-leyla__accent">33 años de trayectoria</span>, he prestado mi voz para dar vida a personajes icónicos en el cine y la televisión. Mi pasión es contar historias a través de la interpretación vocal, fusionando técnica y emoción para conectar con audiencias de todo el mundo. Desde grandes producciones de <span class="o-soy-leyla__accent">Disney</span> hasta campañas publicitarias globales.
-        </p>
+        <p set:html={description} />
       </div>
       <div class="o-soy-leyla__cta-container">
-        <Btn text="Conoce más sobre mí" url="/sobre-mi" variant="secondary" className="o-soy-leyla__btn" />
+        <Btn text={ctaText} url={ctaUrl} variant="secondary" className="o-soy-leyla__btn" />
       </div>
     </div>
   </div>

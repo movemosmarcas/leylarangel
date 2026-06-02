@@ -1,0 +1,27 @@
+---
+import './PostFooter.css';
+
+export interface Props {
+  slug: string;
+  title: string;
+}
+
+const { slug, title } = Astro.props;
+---
+
+<footer class="o-post-footer">
+  <div class="o-post-footer__container">
+    <div class="o-post-footer__share">
+      <span class="o-post-footer__share-label">Compartir:</span>
+      <div class="o-post-footer__social-links">
+        <a href={`https://twitter.com/intent/tweet?url=https://leylarangel.com/historias/${slug}&text=${encodeURIComponent(title)}`} target="_blank" rel="noopener noreferrer" class="a-social-btn" aria-label="Compartir en X (Twitter)">X</a>
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=https://leylarangel.com/historias/${slug}`} target="_blank" rel="noopener noreferrer" class="a-social-btn" aria-label="Compartir en Facebook">FB</a>
+        <a href={`https://www.linkedin.com/shareArticle?mini=true&url=https://leylarangel.com/historias/${slug}&title=${encodeURIComponent(title)}`} target="_blank" rel="noopener noreferrer" class="a-social-btn" aria-label="Compartir en LinkedIn">IN</a>
+      </div>
+    </div>
+    
+    <div class="o-post-footer__navigation">
+      <a href="/historias" class="a-post-back-btn">← Ver más historias</a>
+    </div>
+  </div>
+</footer>

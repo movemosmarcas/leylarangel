@@ -1,0 +1,43 @@
+.m-sm-stat {
+  padding: 32px 24px;
+  background: rgba(255,255,255,0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.3s ease;
+}
+
+.m-sm-stat:last-child {
+  border-right: none;
+}
+
+.m-sm-stat:hover {
+  background: rgba(255, 171, 140, 0.04);
+}
+
+.m-sm-stat__number {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300;
+  color: var(--color-primary, #FFAB8C);
+  line-height: 1;
+}
+
+.m-sm-stat__label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .m-sm-stat {
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .m-sm-stat:nth-child(2n) {
+    border-right: none;
+  }
+}

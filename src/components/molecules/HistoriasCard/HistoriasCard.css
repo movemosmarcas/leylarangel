@@ -1,0 +1,199 @@
+/* Horizontal card component */
+.m-historias-card {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  align-items: stretch;
+  background: rgba(10, 10, 10, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 40px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Hover states - glowing glass lift effect */
+.m-historias-card:hover {
+  transform: translateY(-8px);
+  background: rgba(15, 15, 15, 0.85);
+  border-color: rgba(255, 171, 140, 0.25);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
+              0 0 40px rgba(255, 171, 140, 0.08);
+}
+
+/* Left column - Content */
+.m-historias-card__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.m-historias-card__meta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.m-historias-card__categories {
+  display: flex;
+  gap: 8px;
+}
+
+/* Glassmorphic tags */
+.a-badge-tag {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  padding: 5px 14px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.m-historias-card:hover .a-badge-tag {
+  background: rgba(255, 171, 140, 0.1);
+  border-color: rgba(255, 171, 140, 0.2);
+  color: var(--color-primary, #FFAB8C);
+}
+
+.m-historias-card__read-time {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.05em;
+}
+
+/* Card Title */
+.m-historias-card__title {
+  margin: 0 0 16px;
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  text-transform: none; /* Keep natural casing for article titles */
+  letter-spacing: normal;
+}
+
+.m-historias-card__title-link {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.m-historias-card:hover .m-historias-card__title-link {
+  color: var(--color-primary, #FFAB8C);
+}
+
+/* Card Excerpt */
+.m-historias-card__excerpt {
+  font-size: clamp(1.25rem, 1.8vw, 1.35rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 32px 0;
+  font-weight: 300;
+}
+
+/* Card Footer Info */
+.m-historias-card__footer-row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 24px;
+  margin-top: auto;
+}
+
+.m-historias-card__author-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Avatar image */
+.a-avatar-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #111;
+}
+
+.m-historias-card__meta-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.a-meta-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.a-meta-value {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Right column - Cover Image Wrapper */
+.m-historias-card__cover-wrap {
+  flex: 0 0 45%;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background-color: #0f0f0f;
+  min-height: 250px;
+  display: flex;
+}
+
+.m-historias-card__cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.m-historias-card:hover .m-historias-card__cover-img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+  .m-historias-card {
+    flex-direction: column-reverse;
+    gap: 32px;
+    padding: 30px;
+    border-radius: 16px;
+  }
+
+  .m-historias-card__cover-wrap {
+    flex: none;
+    width: 100%;
+    height: 240px;
+    min-height: auto;
+  }
+
+  .m-historias-card__footer-row {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .m-historias-card {
+    padding: 20px;
+  }
+  
+  .m-historias-card__footer-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}

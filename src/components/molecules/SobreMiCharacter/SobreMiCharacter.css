@@ -1,0 +1,28 @@
+.m-sm-character {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 22px 28px;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-right: 1px solid rgba(255,255,255,0.04);
+  transition: background 0.3s ease;
+}
+
+.m-sm-character:hover {
+  background: rgba(255, 171, 140, 0.04);
+}
+
+.m-sm-character__name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.02em;
+}
+
+.m-sm-character__work {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-primary, #FFAB8C);
+}

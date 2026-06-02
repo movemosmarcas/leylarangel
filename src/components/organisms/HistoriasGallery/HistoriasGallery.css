@@ -1,0 +1,21 @@
+/* Gallery section grid */
+.o-historias-gallery {
+  padding: 80px 40px 0;
+}
+
+.o-historias-gallery__container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.o-historias-gallery__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+@media (max-width: 900px) {
+  .o-historias-gallery {
+    padding: 40px 24px 0;
+  }
+}

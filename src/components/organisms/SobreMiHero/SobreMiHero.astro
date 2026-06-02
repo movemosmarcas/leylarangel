@@ -1,0 +1,82 @@
+---
+import './SobreMiHero.css';
+
+export interface Props {
+  data?: {
+    eyebrow: string;
+    title: string;
+    tagline: string;
+    image: string;
+    imageAlt: string;
+  };
+}
+
+const { data } = Astro.props;
+const eyebrow = data?.eyebrow || 'Sobre mí';
+const title = data?.title || 'YO SOY LEYLA RANGEL';
+const tagline = data?.tagline || 'Actriz·Doblajista·Directora.<br /><em>Yo soy la voz detrás de las historias que marcaron tu vida.</em>';
+const image = data?.image || '/img/leyla-y-micro.png';
+const imageAlt = data?.imageAlt || 'Leyla Rangel';
+---
+
+<header class="o-sm-hero">
+  <div class="o-sm-hero__container">
+    <span class="o-sm-hero__eyebrow">{eyebrow}</span>
+    <h1 class="o-sm-hero__title">{title}</h1>
+    <p class="o-sm-hero__tagline" set:html={tagline.replace('\n', '<br />')} />
+  </div>
+  <div class="o-sm-hero__image-wrap">
+    <img src={image} alt={imageAlt} class="o-sm-hero__image" />
+    <div class="o-sm-hero__image-overlay"></div>
+  </div>
+</header>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initSobreMiHeroAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const heroTl = gsap.timeline();
+    
+    heroTl.fromTo('.o-sm-hero__image-wrap',
+      {
+        clipPath: 'inset(0% 0% 100% 0%)',
+        y: -40,
+        opacity: 0
+      },
+      {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        y: 0,
+        opacity: 1,
+        duration: 1.4,
+        ease: 'power4.out',
+      }
+    );
+
+    heroTl.fromTo('.o-sm-hero__eyebrow, .o-sm-hero__title, .o-sm-hero__tagline',
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: 'power3.out' },
+      '-=0.8'
+    );
+
+    gsap.to('.o-sm-hero__image', {
+      yPercent: 15,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.o-sm-hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSobreMiHeroAnimations);
+  } else {
+    initSobreMiHeroAnimations();
+  }
+  document.addEventListener('astro:page-load', initSobreMiHeroAnimations);
+</script>

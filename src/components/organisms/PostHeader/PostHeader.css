@@ -1,0 +1,136 @@
+/* Centered Header Section */
+.o-post-header {
+  padding: 80px 24px 40px;
+  text-align: center;
+  background: radial-gradient(circle at center top, rgba(255, 171, 140, 0.05) 0%, transparent 60%);
+}
+
+.o-post-header__container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.o-post-header__meta-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.o-post-header__categories {
+  display: flex;
+  gap: 8px;
+}
+
+/* Glassmorphic tags */
+.a-badge-tag {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  padding: 5px 14px;
+  border-radius: 20px;
+}
+
+.o-post-header__read-time {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.05em;
+}
+
+/* Huge sleek title */
+.o-post-header__title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin: 0 0 20px 0;
+  text-transform: none;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+
+/* Description/Subtitle underneath title */
+.o-post-header__subtitle {
+  font-size: clamp(1.25rem, 2.2vw, 1.45rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 740px;
+  margin: 0 auto 40px;
+}
+
+/* Author & date metadata bar */
+.o-post-header__author-bar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 40px;
+}
+
+.o-post-header__author-info,
+.o-post-header__date-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.a-avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.o-post-header__meta-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.a-meta-label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.a-meta-value {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.o-post-header__divider {
+  width: 1px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .o-post-header {
+    padding: 100px 16px 30px;
+  }
+
+  .o-post-header__author-bar {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 20px;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .o-post-header__divider {
+    display: none;
+  }
+}

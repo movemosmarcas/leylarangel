@@ -1,0 +1,70 @@
+.m-sm-film {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.4s ease;
+}
+
+.m-sm-film:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255, 171, 140, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,171,140,0.06);
+}
+
+.m-sm-film__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.m-sm-film__meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.m-sm-film__studio {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-primary, #FFAB8C);
+  font-weight: 600;
+}
+
+.m-sm-film__year {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.05em;
+}
+
+.m-sm-film__badge {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #D4AF37;
+  border: 1px solid rgba(212,175,55,0.4);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-weight: 700;
+}
+
+.m-sm-film__title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.m-sm-film__note {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.45);
+  margin: 0;
+}

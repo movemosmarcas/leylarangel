@@ -1,10 +1,24 @@
 ---
 import './UltimasHistorias.css';
-import { mockPosts } from '../../../services/posts';
+import { getWordPressPosts } from '../../../services/posts';
 import { Image } from 'astro:assets';
 
+export interface Props {
+  data?: {
+    subtitle: string;
+    title: string;
+    viewAllText: string;
+  };
+}
+
+const { data } = Astro.props;
+const subtitle = data?.subtitle || "Reflexiones & Doblaje";
+const title = data?.title || "Últimas Historias";
+const viewAllText = data?.viewAllText || "Ver Todas";
+
 // Get the latest 2 posts
-const latestPosts = mockPosts.slice(0, 2);
+const posts = await getWordPressPosts();
+const latestPosts = posts.slice(0, 2);
 
 const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString("es-ES", {
@@ -14,8 +28,8 @@ const formatDate = (dateString: string) => {
   });
 };
 
-const getSlug = (title: string) => {
-  return title
+const getSlug = (titleStr: string) => {
+  return titleStr
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -27,8 +41,8 @@ const getSlug = (title: string) => {
 <section class="o-ultimas-historias" id="historias">
   <div class="o-ultimas-historias__container">
     <div class="o-ultimas-historias__header">
-      <span class="o-ultimas-historias__subtitle">Reflexiones & Doblaje</span>
-      <h2 class="o-ultimas-historias__title">Últimas Historias</h2>
+      <span class="o-ultimas-historias__subtitle">{subtitle}</span>
+      <h2 class="o-ultimas-historias__title">{title}</h2>
     </div>
 
     <div class="o-ultimas-historias__grid">
@@ -92,7 +106,7 @@ const getSlug = (title: string) => {
 
     <div class="o-ultimas-historias__actions">
       <a href="/historias" class="a-historias-view-all-btn">
-        Ver Todas
+        {viewAllText}
       </a>
     </div>
   </div>

@@ -1,0 +1,53 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getPostBySlug, getStaticPaths as getAllSlugs } from "../../../services/posts";
+import './slug.css';
+
+import PostHeader from "../../../components/organisms/PostHeader/PostHeader.astro";
+import PostCover from "../../../components/organisms/PostCover/PostCover.astro";
+import PostBody from "../../../components/organisms/PostBody/PostBody.astro";
+import PostFooter from "../../../components/organisms/PostFooter/PostFooter.astro";
+
+export const prerender = true;
+
+// This tells Astro which paths to pre-render at build time
+export async function getStaticPaths() {
+  return getAllSlugs();
+}
+
+const { slug } = Astro.params;
+// Ensure slug is a string
+const postData = await getPostBySlug(slug as string);
+
+if (!postData) {
+  return Astro.redirect('/404');
+}
+
+const coverImage = postData.featured_image;
+const authorAvatar = postData.author_avatar || "/img/hero-vertical.png";
+---
+
+<Layout headerType="dark">
+  <article class="u-post-page">
+    <a href="/historias" class="a-post-logo-link" aria-label="Volver a Historias">
+      <img src="/img/logo-leyla-blanco.png" alt="Leyla Rangel Logo" class="a-post-logo" />
+    </a>
+    
+    <PostHeader 
+      title={postData.title}
+      subtitle={postData.subtitle}
+      author={postData.author}
+      authorAvatar={authorAvatar}
+      date={postData.date}
+      readTime={postData.read_time}
+      category={postData.category}
+    />
+
+    <PostCover coverImage={coverImage} title={postData.title} />
+
+    <PostBody content={postData.content} />
+
+    <PostFooter slug={slug as string} title={postData.title} />
+
+  </article>
+</Layout>

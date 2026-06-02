@@ -1,0 +1,56 @@
+---
+import './SobreMiStats.css';
+import SobreMiStat from '../../molecules/SobreMiStat/SobreMiStat.astro';
+
+export interface Props {
+  data?: {
+    number: string;
+    label: string;
+  }[];
+}
+
+const { data } = Astro.props;
+
+const defaultStats = [
+  { number: "38+", label: "Años de trayectoria" },
+  { number: "33+", label: "Años en doblaje" },
+  { number: "2006", label: "Debut en teatro nacional" },
+  { number: "4", label: "Direcciones Ghibli / Dreamworks recientes" }
+];
+
+const stats = data || defaultStats;
+---
+
+<div class="o-sm-stats">
+  {stats.map((stat) => (
+    <SobreMiStat number={stat.number} label={stat.label} />
+  ))}
+</div>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initSobreMiStatsAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo('.m-sm-stat',
+      { opacity: 0, scale: 0.95, y: 20 },
+      {
+        opacity: 1, scale: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'back.out(1.2)',
+        scrollTrigger: {
+          trigger: '.o-sm-stats',
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSobreMiStatsAnimations);
+  } else {
+    initSobreMiStatsAnimations();
+  }
+  document.addEventListener('astro:page-load', initSobreMiStatsAnimations);
+</script>

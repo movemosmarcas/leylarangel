@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+import './PostCover.css';
+
+export interface Props {
+  coverImage: any;
+  title: string;
+}
+
+const { coverImage, title } = Astro.props;
+---
+
+<div class="o-post-cover">
+  <div class="o-post-cover__inner">
+    <Image 
+      src={coverImage} 
+      alt={title} 
+      width={1200} 
+      height={700} 
+      class="o-post-cover__img"
+    />
+  </div>
+</div>

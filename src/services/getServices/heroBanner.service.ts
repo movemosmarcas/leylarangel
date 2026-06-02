@@ -1,10 +1,14 @@
-import { heroBannerMetadata } from '../metadata/heroBanner.metadata';
+import { getAPI } from '../api';
 
 /**
- * Simulates fetching HeroBanner data from an external API or CMS.
+ * Retrieves HeroBanner data from the WordPress API
  */
 export const getHeroBannerData = async () => {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 50));
-  return heroBannerMetadata;
+  try {
+    const data = await getAPI('headless/v1/leyla/pages/inicio');
+    return data?.hero_banner || {};
+  } catch (error) {
+    console.error('Error fetching hero banner data:', error);
+    return {};
+  }
 };

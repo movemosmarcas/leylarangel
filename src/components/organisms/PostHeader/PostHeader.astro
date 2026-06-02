@@ -1,0 +1,63 @@
+---
+import './PostHeader.css';
+
+export interface Props {
+  title: string;
+  subtitle?: string;
+  author: string;
+  authorAvatar: string;
+  date: string;
+  readTime?: string;
+  category?: { name: string }[];
+}
+
+const { title, subtitle, author, authorAvatar, date, readTime, category } = Astro.props;
+
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+---
+
+<header class="o-post-header">
+  <div class="o-post-header__container">
+    <div class="o-post-header__meta-row">
+      <div class="o-post-header__categories">
+        {category?.map((cat) => (
+          <span class="a-badge-tag">{cat.name}</span>
+        ))}
+      </div>
+      {readTime && (
+        <span class="o-post-header__read-time">• {readTime}</span>
+      )}
+    </div>
+
+    <h1 class="o-post-header__title">{title}</h1>
+    
+    {subtitle && (
+      <p class="o-post-header__subtitle">{subtitle}</p>
+    )}
+
+    <div class="o-post-header__author-bar">
+      <div class="o-post-header__author-info">
+        <img src={authorAvatar} alt={author} class="a-avatar-img" />
+        <div class="o-post-header__meta-details">
+          <span class="a-meta-label">Escrito por</span>
+          <span class="a-meta-value">{author}</span>
+        </div>
+      </div>
+
+      <div class="o-post-header__divider"></div>
+
+      <div class="o-post-header__date-info">
+        <div class="o-post-header__meta-details">
+          <span class="a-meta-label">Publicado el</span>
+          <span class="a-meta-value">{formatDate(date)}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

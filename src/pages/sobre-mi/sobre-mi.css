@@ -1,0 +1,73 @@
+/* Base */
+.u-sobre-mi-page {
+  position: relative;
+  background: #000000;
+  color: #ffffff;
+  min-height: 100vh;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.a-sm-logo-link {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  z-index: 100;
+  transition: transform 0.4s ease;
+}
+
+.a-sm-logo-link:hover {
+  transform: scale(1.04);
+}
+
+.a-sm-logo {
+  width: 290px;
+  height: auto;
+  display: block;
+}
+
+/* =====================
+   MAIN CONTENT
+===================== */
+.o-sm-main {
+  padding: 100px 0 120px;
+}
+
+.o-sm-main__container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Back button */
+.o-sm-back {
+  text-align: center;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.a-sm-back-btn {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.a-sm-back-btn:hover {
+  color: var(--color-primary, #FFAB8C);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .a-sm-logo-link {
+    top: 20px;
+    left: 20px;
+  }
+  .a-sm-logo {
+    width: 180px;
+  }
+  .o-sm-main__container {
+    padding: 0 24px;
+  }
+}

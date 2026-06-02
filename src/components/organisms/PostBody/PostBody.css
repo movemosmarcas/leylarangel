@@ -1,0 +1,62 @@
+/* Article Content */
+.o-post-body {
+  max-width: 760px;
+  margin: 0 auto 60px;
+  padding: 0 24px;
+}
+
+.o-post-body__content {
+  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 300;
+}
+
+.o-post-body__content p {
+  margin-bottom: 2em;
+}
+
+.o-post-body__content h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.2rem);
+  font-weight: 400;
+  margin: 2em 0 1em;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.o-post-body__content h3 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(1.4rem, 2vw, 1.6rem);
+  font-weight: 400;
+  margin: 1.5em 0 1em;
+  color: #ffffff;
+}
+
+.o-post-body__content ul,
+.o-post-body__content ol {
+  margin-bottom: 2em;
+  padding-left: 1.5em;
+}
+
+.o-post-body__content li {
+  margin-bottom: 0.5em;
+}
+
+.o-post-body__content blockquote {
+  margin: 2.5em 0;
+  padding: 24px 32px;
+  border-left: 2px solid var(--color-primary, #FFAB8C);
+  background: rgba(255, 171, 140, 0.05);
+  border-radius: 0 12px 12px 0;
+  font-style: italic;
+  font-size: 1.1em;
+  color: #ffffff;
+}
+
+.o-post-body__content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 2em 0;
+}

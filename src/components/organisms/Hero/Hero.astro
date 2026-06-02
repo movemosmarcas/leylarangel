@@ -1,14 +1,31 @@
 ---
 import './Hero.css';
+
+export interface Props {
+  data?: {
+    logo: string;
+    backgroundImage: string;
+    titleLine1: string;
+    titleLine2: string;
+    ctaText: string;
+  };
+}
+
+const { data } = Astro.props;
+const logo = data?.logo || '/img/logo-leyla.png';
+const backgroundImage = data?.backgroundImage || '/img/hero-horizontal.png';
+const titleLine1 = data?.titleLine1 || 'VOICE';
+const titleLine2 = data?.titleLine2 || 'ARTIST';
+const ctaText = data?.ctaText || 'Conóceme';
 ---
 
 <section class="o-hero">
   <div class="o-hero__fixed-bg">
     <div class="o-hero__salmon-panel">
-      <img src="/img/logo-leyla.png" alt="Leyla Rangel Logo" class="o-hero__logo" />
+      <img src={logo} alt="Leyla Rangel Logo" class="o-hero__logo" />
     </div>
     <div class="o-hero__image-panel">
-      <img src="/img/hero-horizontal.png" alt="Leyla Rangel" class="o-hero__image" style="object-position: center center;" />
+      <img src={backgroundImage} alt="Leyla Rangel" class="o-hero__image" style="object-position: center center;" />
     </div>
 
 
@@ -16,12 +33,12 @@ import './Hero.css';
     <!-- Title is now INSIDE the sticky container to be clipped by its overflow -->
     <div class="o-hero__title-container">
       <h1 class="o-hero__title">
-        <span class="o-hero__title-line o-hero__title-line--bold">VOICE</span>
-        <span class="o-hero__title-line o-hero__title-line--thin">ARTIST</span>
+        <span class="o-hero__title-line o-hero__title-line--bold">{titleLine1}</span>
+        <span class="o-hero__title-line o-hero__title-line--thin">{titleLine2}</span>
       </h1>
       
       <div class="o-hero__cta">
-        <span class="o-hero__cta-text">Conóceme</span>
+        <span class="o-hero__cta-text">{ctaText}</span>
         <div class="o-hero__scroll-indicator">
           <div class="o-hero__scroll-dot"></div>
         </div>

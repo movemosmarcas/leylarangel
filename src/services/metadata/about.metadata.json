@@ -1,0 +1,93 @@
+{
+  "logo": "/img/logo-leyla-blanco.png",
+  "logoAlt": "Leyla Rangel Logo",
+  "backButtonText": "← Volver al inicio",
+  "hero": {
+    "eyebrow": "Sobre mí",
+    "title": "YO SOY LEYLA RANGEL",
+    "tagline": "Actriz·Doblajista·Directora.\nYo soy la voz detrás de las historias que marcaron tu vida.",
+    "image": "/img/leyla-y-micro.png",
+    "imageAlt": "Leyla Rangel"
+  },
+  "bio": {
+    "paragraphs": [
+      "Me gradué en <strong>CasAzul</strong> donde estudié actuación. Debuté en 2006 con la Compañía Nacional de Teatro, interpretando el papel protagónico en la obra <em>\"Susana y los Jóvenes\"</em> de Jorge Ibargüengoitia.",
+      "Con cerca de <strong>38 años</strong> de experiencia en los medios audiovisuales y más de <strong>33 años</strong> dentro de la especialidad del doblaje y la locución comercial, he colaborado con marcas internacionales como Disney, Pixar, DreamWorks, Ghibli, Marvel, Warner, Sony, M&M’s, Mercedes Benz, Coca‑Cola, Naturella, AutoZone, L’Oréal, Mattel y Netflix, entre muchas otras.",
+      "Actualmente soy la <strong class=\"o-sm-bio__accent\">voz institucional de Coppel</strong>.",
+      "Desde 2020 colaboro con <strong>Audible</strong> y <strong>Penguin Random House</strong> como narradora de muchos de sus títulos en versiones para audiolibro."
+    ]
+  },
+  "stats": [
+    { "number": "38+", "label": "Años de trayectoria" },
+    { "number": "33+", "label": "Años en doblaje" },
+    { "number": "2006", "label": "Debut en teatro nacional" },
+    { "number": "4", "label": "Direcciones Ghibli / Dreamworks recientes" }
+  ],
+  "characters": {
+    "titleLine": "Personajes",
+    "titleSub": "Icónicos",
+    "list": [
+      { "character": "Hermione Granger", "work": "Harry Potter" },
+      { "character": "Ahsoka Tano", "work": "Star Wars" },
+      { "character": "Shuri", "work": "Pantera Negra · Marvel" },
+      { "character": "Violeta Parr", "work": "Los Increíbles" },
+      { "character": "Astrid Hofferson", "work": "Cómo Entrenar a tu Dragón" },
+      { "character": "Charlotte", "work": "La Princesa y el Sapo" },
+      { "character": "Raven", "work": "La Casa de Raven y Es tan Raven" },
+      { "character": "Kim Possible", "work": "Kim Posible" },
+      { "character": "Rory Gilmore", "work": "Gilmore Girls" },
+      { "character": "Hazel Grace Lancaster", "work": "Bajo la Misma Estrella" },
+      { "character": "Capitán Teemo", "work": "League of Legends" },
+      { "character": "Han Mi-nyeo", "work": "Los Juegos del Calamar" },
+      { "character": "Gloria", "work": "Barbie (la película)" },
+      { "character": "Sofía Falcone", "work": "El Pingüino · DC & HBO" }
+    ]
+  },
+  "direction": {
+    "titleLine": "Dirección",
+    "titleSub": "Doblaje Animación",
+    "list": [
+      {
+        "title": "El Niño y la Garza",
+        "studio": "Ghibli",
+        "year": "2023",
+        "note": "Yo dirigí la versión española, ganadora del Oscar a Mejor Cinta Animada.",
+        "badge": "OSCAR"
+      },
+      {
+        "title": "Robot Salvaje",
+        "studio": "Dreamworks",
+        "year": "2024",
+        "note": "Yo dirigí la versión española; la película animada con más nominaciones a los Globos de Oro y nominada al Oscar 2025 incluyendo Mejor Película Animada.",
+        "badge": "OSCAR NOM"
+      },
+      {
+        "title": "La Tumba de las Luciérnagas",
+        "studio": "Ghibli · Netflix",
+        "year": "2024",
+        "note": "Yo dirigí la versión española de esta cinta emblemática de Ghibli, disponible en Netflix."
+      },
+      {
+        "title": "Memorias de un Caracol",
+        "studio": "Adam Elliot",
+        "year": "2025",
+        "note": "Yo dirigí la versión española, nominada a los premios de la Academia en 2025.",
+        "badge": "OSCAR NOM"
+      }
+    ]
+  },
+  "brands": {
+    "titleLine": "Marcas",
+    "titleSub": "con las que he colaborado",
+    "list": [
+      { "name": "Disney", "logo": "/img/Disney_logo.png" },
+      { "name": "Netflix", "logo": "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
+      { "name": "HBO Max", "logo": "https://upload.wikimedia.org/wikipedia/commons/1/17/HBO_Max_Logo.svg" },
+      { "name": "Warner Bros", "logo": "https://upload.wikimedia.org/wikipedia/commons/6/64/Warner_Bros_logo.svg" },
+      { "name": "Nickelodeon", "logo": "/img/Nickelodeon_2009_logo.svg.png" },
+      { "name": "Coca-Cola", "logo": "/img/Coca-Cola_logo_white.png" },
+      { "name": "Sony", "logo": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Sony_logo.svg" },
+      { "name": "Pixar", "logo": "/img/Pixar_logo.svg.png", "customStyle": "max-width: 200px; max-height: 80px;" }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+---
+import './SobreMiStat.css';
+
+export interface Props {
+  number: string;
+  label: string;
+}
+
+const { number, label } = Astro.props;
+---
+
+<div class="m-sm-stat">
+  <span class="m-sm-stat__number">{number}</span>
+  <span class="m-sm-stat__label">{label}</span>
+</div>

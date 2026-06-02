@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import './sobre-mi.css';
+
+import SobreMiHero from "../../components/organisms/SobreMiHero/SobreMiHero.astro";
+import SobreMiBio from "../../components/organisms/SobreMiBio/SobreMiBio.astro";
+import SobreMiStats from "../../components/organisms/SobreMiStats/SobreMiStats.astro";
+import SobreMiCharacters from "../../components/organisms/SobreMiCharacters/SobreMiCharacters.astro";
+import SobreMiDirection from "../../components/organisms/SobreMiDirection/SobreMiDirection.astro";
+import SobreMiBrands from "../../components/organisms/SobreMiBrands/SobreMiBrands.astro";
+
+import { getAboutData } from "../../services/getServices/about.service";
+
+const aboutData = await getAboutData();
+---
+
+<Layout headerType="dark">
+  <div class="u-sobre-mi-page">
+    <a href="/" class="a-sm-logo-link" aria-label="Ir a Inicio">
+      <img src={aboutData.logo} alt={aboutData.logoAlt} class="a-sm-logo" />
+    </a>
+
+    <!-- HERO HEADER -->
+    <SobreMiHero data={aboutData.hero} />
+
+    <!-- BIO SECTION -->
+    <main class="o-sm-main">
+      <div class="o-sm-main__container">
+
+        <SobreMiBio data={aboutData.bio} />
+        <SobreMiStats data={aboutData.stats} />
+        <SobreMiCharacters data={aboutData.characters} />
+        <SobreMiDirection data={aboutData.direction} />
+        <SobreMiBrands data={aboutData.brands} />
+
+        <!-- Back button -->
+        <div class="o-sm-back">
+          <a href="/" class="a-sm-back-btn">{aboutData.backButtonText}</a>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+</Layout>

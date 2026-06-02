@@ -946,6 +946,17 @@ function Button() {
 - **Maintain sync**: When adding metadata, immediately create the corresponding service
 - **Test both paths**: When migrating to API, test both local and remote data sources
 
+### 7.5 Page Routing and Component Refactoring (Astro)
+- **Folder-based Routing**: Every page should be created as a directory containing an `index.astro` and a dedicated `.css` file (e.g., `src/pages/sobre-mi/index.astro` and `src/pages/sobre-mi/sobre-mi.css`), except for the root `index.astro` which remains in place.
+- **Component Extraction**: Inline HTML sections in pages that follow BEMIT classes (`o-`, `m-`, `a-`) must be systematically extracted into their corresponding components within `src/components/organisms/`, `src/components/molecules/`, etc.
+- **Style and Logic Encapsulation**: Extracted components must have their own `.css` file for styles and `<script>` tags for their specific interactions (e.g., GSAP animations), keeping the page file clean and the components highly cohesive and reusable.
+
+### 7.6 Service-First Metadata Content Rule (Meta Reto)
+- **Zero Hardcoded Data in Components/Pages**: Every single text block, header, bio paragraph, brand list, audio track list, image URL, or CTA link on any page MUST be retrieved dynamically from a service in `src/services/getServices/`.
+- **Metadata Structure**: For every new page or component containing content, create a metadata file inside `src/services/metadata/` in JSON or TS format, and a corresponding service function in `src/services/getServices/` to return this metadata.
+- **Orchestration at Page Level**: Astro pages (`src/pages/**/*.astro`) must act as orchestrators. They fetch the data in their frontmatter using the services and pass it down as props to the presentational components.
+- **Strict Separation of Concerns**: Components must be completely pure and presentational. They must accept their content via a `data` prop instead of containing hardcoded text or assets, allowing seamless migration to external API headless CMS endpoints in the future.
+
 ---
 
 ## 8. Conclusion

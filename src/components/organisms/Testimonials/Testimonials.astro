@@ -1,7 +1,22 @@
 ---
 import './Testimonials.css';
 
-const testimonials = [
+export interface Props {
+  data?: {
+    title: string;
+    testimonials: {
+      quote: string;
+      name: string;
+      title: string;
+      image: string;
+      bgColor: string;
+    }[];
+  };
+}
+
+const { data } = Astro.props;
+
+const defaultTestimonials = [
   {
     quote: "Trabajar con Leyla fue como encontrar la pieza que le faltaba a nuestro rompecabezas. Su voz le dio vida y alma a nuestro proyecto.",
     name: "Sarah Conor",
@@ -24,6 +39,9 @@ const testimonials = [
     bgColor: "#BCCFC3"
   }
 ];
+
+const title = data?.title || "La voz elegida por marcas que no temen destacar.";
+const testimonials = data?.testimonials || defaultTestimonials;
 ---
 
 <section class="o-testimonials" id="testimonios">
@@ -31,7 +49,7 @@ const testimonials = [
     <header class="o-testimonials__header">
       <h2 class="o-testimonials__title">
         {
-          "La voz elegida por marcas que no temen destacar.".split(" ").map((word) => (
+          title.split(" ").map((word) => (
             <span class="a-word-reveal">{word} </span>
           ))
         }

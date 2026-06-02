@@ -1,0 +1,93 @@
+---
+import './SobreMiCharacters.css';
+import SobreMiCharacter from '../../molecules/SobreMiCharacter/SobreMiCharacter.astro';
+
+export interface Props {
+  data?: {
+    titleLine: string;
+    titleSub: string;
+    list: { character: string; work: string }[];
+  };
+}
+
+const { data } = Astro.props;
+
+const defaultList = [
+  { character: 'Hermione Granger', work: 'Harry Potter' },
+  { character: 'Ahsoka Tano', work: 'Star Wars' },
+  { character: 'Shuri', work: 'Pantera Negra · Marvel' },
+  { character: 'Violeta Parr', work: 'Los Increíbles' },
+  { character: 'Astrid Hofferson', work: 'Cómo Entrenar a tu Dragón' },
+  { character: 'Charlotte', work: 'La Princesa y el Sapo' },
+  { character: 'Raven', work: 'La Casa de Raven y Es tan Raven' },
+  { character: 'Kim Possible', work: 'Kim Posible' },
+  { character: 'Rory Gilmore', work: 'Gilmore Girls' },
+  { character: 'Hazel Grace Lancaster', work: 'Bajo la Misma Estrella' },
+  { character: 'Capitán Teemo', work: 'League of Legends' },
+  { character: 'Han Mi-nyeo', work: 'Los Juegos del Calamar' },
+  { character: 'Gloria', work: 'Barbie (la película)' },
+  { character: 'Sofía Falcone', work: 'El Pingüino · DC & HBO' },
+];
+
+const titleLine = data?.titleLine || "Personajes";
+const titleSub = data?.titleSub || "Icónicos";
+const characters = data?.list || defaultList;
+---
+
+<section class="o-sm-section o-sm-section--characters">
+  <h2 class="o-sm-section__title">
+    <span class="o-sm-section__title-line">{titleLine}</span>
+    <span class="o-sm-section__title-sub">{titleSub}</span>
+  </h2>
+  <div class="o-sm-characters">
+    {characters.map((item) => (
+      <SobreMiCharacter character={item.character} work={item.work} />
+    ))}
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initSobreMiCharactersAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = document.querySelector('.o-sm-section--characters');
+    if (!section) return;
+
+    const titleLine = section.querySelector('.o-sm-section__title-line');
+    const titleSub = section.querySelector('.o-sm-section__title-sub');
+    
+    const secTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+
+    if (titleLine && titleSub) {
+      secTl.fromTo([titleLine, titleSub],
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
+      );
+    }
+
+    const characters = section.querySelectorAll('.m-sm-character');
+    if (characters.length) {
+      secTl.fromTo(characters,
+        { opacity: 0, x: -10 },
+        { opacity: 1, x: 0, duration: 0.4, stagger: 0.05, ease: 'power2.out' },
+        '-=0.3'
+      );
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSobreMiCharactersAnimations);
+  } else {
+    initSobreMiCharactersAnimations();
+  }
+  document.addEventListener('astro:page-load', initSobreMiCharactersAnimations);
+</script>

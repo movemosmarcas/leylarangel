@@ -1,3 +1,5 @@
+import { getAPI } from './api';
+
 export interface Post {
   id: string;
   title: string;
@@ -67,7 +69,7 @@ export const mockPosts: Post[] = [
     youtube_id: 'ePqGjM2hF5o',
     category: [{ name: 'Locución' }, { name: 'Comercial' }],
     tags: ['locucion', 'publicidad', 'marcas', 'marketing'],
-    content: `<p>En la locución comercial, el tiempo es nuestro competidor más feroz. Tienes 15 o 30 segundos para conectar, inspirar y transmitir un mensaje claro a la audiencia. Aquí, la precisión vocal y la capacidad de sugerir emociones inmediatas a través del tono son cruciales.</p>
+    content: `<p>En la locución comercial, el tiempo es nuestro competidor más feroz. Tienes 15 o 30 segundos para conectar, inspirar y transmitir un message claro a la audiencia. Aquí, la precisión vocal y la capacidad de sugerir emociones inmediatas a través del tono son cruciales.</p>
 <h2>Menos es Más: El Tono Conversacional Moderno</h2>
 <p>La locución comercial tradicional con tonos hiper-exaltados y artificiales ha quedado atrás. Hoy en día, las marcas buscan voces reales, conversacionales y empáticas. Voces que te hablen como una amiga o un mentor, no como un vendedor impersonal.</p>
 <blockquote>"La locución moderna busca la autenticidad. La voz debe sonar honesta, fluida y con la textura natural del habla cotidiana."</blockquote>
@@ -75,16 +77,90 @@ export const mockPosts: Post[] = [
   }
 ];
 
+/**
+ * Fetches all story posts from the WordPress CPT API, falling back to mock posts on error
+ */
+export async function getWordPressPosts(): Promise<Post[]> {
+  try {
+    const data = await getAPI<Post[]>('headless/v1/leyla/historias');
+    if (data && Array.isArray(data) && data.length > 0) {
+      return data;
+    }
+    return mockPosts;
+  } catch (error) {
+    console.error('Error fetching stories from WordPress, returning mock fallback:', error);
+    return mockPosts;
+  }
+}
+
+/**
+ * Fetches a single story post by slug from the WordPress API, falling back to mock posts on error
+ */
+export async function getPostBySlug(slug: string): Promise<Post | undefined> {
+  try {
+    const normalizedSlug = slug.replace(/^\/blog\//, '').replace(/^\/historias\//, '').replace(/^\//, '');
+    const data = await getAPI<Post>(`headless/v1/leyla/historias/${normalizedSlug}`);
+    if (data && data.title) {
+      return data;
+    }
+    
+    // Fallback to searching mock posts
+    return mockPosts.find(p => {
+      const pSlug = p.title
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+      return pSlug === normalizedSlug;
+    });
+  } catch (error) {
+    console.error(`Error fetching story [slug: ${slug}]:`, error);
+    return mockPosts.find(p => {
+      const pSlug = p.title
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+      return pSlug === normalizedSlug;
+    });
+  }
+}
+
+/**
+ * Retrieves a list of posts or single post formatted inside an array
+ */
 export async function getListPost(type: string, count: number, slug: string): Promise<Post[]> {
-  const normalizedSlug = slug.replace(/^\/blog\//, '').replace(/^\/historias\//, '').replace(/^\//, '');
-  const found = mockPosts.find(p => {
-    const pSlug = p.title
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
-    return pSlug === normalizedSlug;
-  });
-  return found ? [found] : [mockPosts[0]];
+  const post = await getPostBySlug(slug);
+  return post ? [post] : [];
+}
+
+/**
+ * Generates static paths for Astro build
+ */
+export async function getStaticPaths() {
+  try {
+    const posts = await getWordPressPosts();
+    return posts.map(p => {
+      const slug = p.title
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+      return { params: { slug } };
+    });
+  } catch (error) {
+    console.error('Error generating static paths:', error);
+    return mockPosts.map(p => {
+      const slug = p.title
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+      return { params: { slug } };
+    });
+  }
 }

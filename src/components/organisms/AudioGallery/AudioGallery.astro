@@ -1,7 +1,24 @@
 ---
 import './AudioGallery.css';
 
-const demos = [
+export interface Props {
+  data?: {
+    title: string;
+    demos: {
+      id: string;
+      title: string;
+      category: string;
+      image: string;
+      file: string;
+      date: string;
+      titleLabel: string;
+    }[];
+  };
+}
+
+const { data } = Astro.props;
+
+const defaultDemos = [
   { 
     id: 'comercial-gallery',
     title: 'COMERCIAL', 
@@ -21,13 +38,16 @@ const demos = [
     titleLabel: 'SONIC EMOTIONS'
   }
 ];
+
+const title = data?.title || "THE SOUND GALLERY";
+const demos = data?.demos || defaultDemos;
 ---
 
 <section class="o-audio-gallery" id="demos">
   <header class="o-audio-gallery__header">
     <h2 class="o-audio-gallery__title">
       {
-        "THE SOUND GALLERY".split(" ").map((word) => (
+        title.split(" ").map((word) => (
           <span class="a-word-reveal">{word} </span>
         ))
       }

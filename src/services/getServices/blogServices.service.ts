@@ -1,4 +1,4 @@
-import { blogServicesMetadata } from '../metadata/blogServices.metadata';
+import blogServicesMetadata from '../metadata/blogServices.metadata.json';
 
 /**
  * Simulates fetching Blog Services data from an external API or CMS.

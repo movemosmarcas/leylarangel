@@ -1,0 +1,22 @@
+{
+  "subtitle": "Locución Comercial",
+  "title": "La Voz que Mueve Marcas",
+  "intro": "Con más de 33 años conectando marcas con audiencias a través del poder de mi voz, llevo mis interpretaciones desde grandes corporativos hasta campañas globales. Para mí, la locución comercial es el arte de comunicar en segundos lo que una marca representa para siempre.",
+  "images": [
+    { "src": "/img/logo1.png", "alt": "Leyla Rangel Animación 1", "class": "frame-1" },
+    { "src": "/img/logo2.png", "alt": "Leyla Rangel Animación 2", "class": "frame-2" },
+    { "src": "/img/logo3.png", "alt": "Leyla Rangel Animación 3", "class": "frame-3" }
+  ],
+  "brandsTitle": "Marcas con las que he colaborado",
+  "brands": [
+    "Disney", "Pixar", "Dreamworks", "Ghibli", "Marvel",
+    "Warner", "Sony", "Netflix", "Mercedes Benz", "Coca Cola",
+    "Telcel", "Target", "Naturella", "Evenflo", "Mattel"
+  ],
+  "currentlyCard": {
+    "image": "/img/leyla-y-micro.png",
+    "imageAlt": "Leyla en cabina grabando",
+    "label": "Actualmente en el aire",
+    "items": ["Allegra", "Mac & Cheese de Kraft", "AutoZone", "M&M's Verde", "L'Oréal", "Coppel"]
+  }
+}

@@ -1,0 +1,56 @@
+---
+import './SobreMiBio.css';
+
+export interface Props {
+  data?: {
+    paragraphs: string[];
+  };
+}
+
+const { data } = Astro.props;
+
+const defaultParagraphs = [
+  'Me gradué en <strong>CasAzul</strong> donde estudié actuación. Debuté en 2006 con la Compañía Nacional de Teatro, interpretando el papel protagónico en la obra <em>"Susana y los Jóvenes"</em> de Jorge Ibargüengoitia.',
+  'Con cerca de <strong>38 años</strong> de experiencia en los medios audiovisuales y más de <strong>33 años</strong> dentro de la especialidad del doblaje y la locución comercial, he colaborado con marcas internacionales como Disney, Pixar, DreamWorks, Ghibli, Marvel, Warner, Sony, M&M’s, Mercedes Benz, Coca‑Cola, Naturella, AutoZone, L’Oréal, Mattel y Netflix, entre muchas otras.',
+  'Actualmente soy la <strong class="o-sm-bio__accent">voz institucional de Coppel</strong>.',
+  'Desde 2020 colaboro con <strong>Audible</strong> y <strong>Penguin Random House</strong> como narradora de muchos de sus títulos en versiones para audiolibro.'
+];
+
+const paragraphs = data?.paragraphs || defaultParagraphs;
+---
+
+<section class="o-sm-bio">
+  <div class="o-sm-bio__text">
+    {paragraphs.map((p, index) => (
+      <p class={`o-sm-bio__paragraph ${index === 0 ? 'o-sm-bio__paragraph--lead' : ''}`} set:html={p} />
+    ))}
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initSobreMiBioAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo('.o-sm-bio__paragraph',
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.o-sm-bio',
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSobreMiBioAnimations);
+  } else {
+    initSobreMiBioAnimations();
+  }
+  document.addEventListener('astro:page-load', initSobreMiBioAnimations);
+</script>

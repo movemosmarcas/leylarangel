@@ -1,0 +1,38 @@
+/* Base layout styling */
+.u-historias-page {
+  position: relative;
+  background-color: #000000;
+  color: #ffffff;
+  min-height: 100vh;
+  padding-top: 140px; /* Leave space for the sticky header */
+  padding-bottom: 120px;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.a-historias-logo-link {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  z-index: 100;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.a-historias-logo-link:hover {
+  transform: scale(1.05);
+}
+
+.a-historias-logo {
+  width: 290px;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .a-historias-logo-link {
+    top: 20px;
+    left: 20px;
+  }
+  .a-historias-logo {
+    width: 180px;
+  }
+}

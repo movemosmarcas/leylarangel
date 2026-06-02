@@ -1,0 +1,25 @@
+---
+import './SobreMiFilm.css';
+
+export interface Props {
+  title: string;
+  studio: string;
+  year: string;
+  note: string;
+  badge?: string;
+}
+
+const { title, studio, year, note, badge } = Astro.props;
+---
+
+<div class="m-sm-film">
+  <div class="m-sm-film__header">
+    <div class="m-sm-film__meta">
+      <span class="m-sm-film__studio">{studio}</span>
+      <span class="m-sm-film__year">{year}</span>
+    </div>
+    {badge && <span class="m-sm-film__badge">{badge}</span>}
+  </div>
+  <h3 class="m-sm-film__title">{title}</h3>
+  <p class="m-sm-film__note">{note}</p>
+</div>

@@ -1,7 +1,11 @@
-import { mockPosts } from "./posts";
+import { getWordPressPosts } from "./posts";
 
+/**
+ * Retrieves all story slugs asynchronously from WordPress CPT
+ */
 export async function getAllSlugs(type: string): Promise<string[]> {
-  return mockPosts.map(p => {
+  const posts = await getWordPressPosts();
+  return posts.map(p => {
     return p.title
       .toLowerCase()
       .normalize("NFD")

@@ -1,0 +1,42 @@
+---
+import './HistoriasGallery.css';
+import HistoriasCard from '../../molecules/HistoriasCard/HistoriasCard.astro';
+import { getWordPressPosts } from "../../../services/posts";
+
+const mockPosts = await getWordPressPosts();
+
+const getSlug = (title: string) => {
+  return title
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+};
+---
+
+<main class="o-historias-gallery">
+  <div class="o-historias-gallery__container">
+    <div class="o-historias-gallery__grid">
+      {mockPosts.map((post) => {
+        const slug = getSlug(post.title);
+        const coverImage = post.featured_image;
+        const authorAvatar = post.author_avatar || "/img/hero-vertical.png";
+        
+        return (
+          <HistoriasCard 
+            slug={slug}
+            title={post.title}
+            excerpt={post.excerpt}
+            author={post.author}
+            authorAvatar={authorAvatar}
+            date={post.date}
+            readTime={post.read_time}
+            category={post.category}
+            coverImage={coverImage}
+          />
+        );
+      })}
+    </div>
+  </div>
+</main>

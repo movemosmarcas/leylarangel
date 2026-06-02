@@ -1,7 +1,7 @@
-import { formContactMetadata } from '../metadata/formContact.metadata';
+import formContactMetadata from '../metadata/formContact.metadata.json';
 
 /**
- * Simulates fetching FormContact data from an external API or CMS.
+ * Retrieves FormContact data.
  */
 export const getFormContactData = async () => {
   // Simulate network delay

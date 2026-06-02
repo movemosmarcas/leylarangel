@@ -1,0 +1,15 @@
+---
+import './SobreMiCharacter.css';
+
+export interface Props {
+  character: string;
+  work: string;
+}
+
+const { character, work } = Astro.props;
+---
+
+<div class="m-sm-character">
+  <span class="m-sm-character__name">{character}</span>
+  <span class="m-sm-character__work">{work}</span>
+</div>

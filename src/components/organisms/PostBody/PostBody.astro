@@ -1,0 +1,13 @@
+---
+import './PostBody.css';
+
+export interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+---
+
+<div class="o-post-body">
+  <div class="o-post-body__content" set:html={content} />
+</div>

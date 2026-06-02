@@ -1,5 +1,51 @@
 ---
 import './Comercial.css';
+
+export interface Props {
+  data?: {
+    subtitle: string;
+    title: string;
+    intro: string;
+    images: { src: string; alt: string; class: string }[];
+    brandsTitle: string;
+    brands: string[];
+    currentlyCard: {
+      image: string;
+      imageAlt: string;
+      label: string;
+      items: string[];
+    };
+  };
+}
+
+const { data } = Astro.props;
+
+const defaultImages = [
+  { src: "/img/logo1.png", alt: "Leyla Rangel Animación 1", class: "frame-1" },
+  { src: "/img/logo2.png", alt: "Leyla Rangel Animación 2", class: "frame-2" },
+  { src: "/img/logo3.png", alt: "Leyla Rangel Animación 3", class: "frame-3" }
+];
+
+const defaultBrands = [
+  'Disney', 'Pixar', 'Dreamworks', 'Ghibli', 'Marvel',
+  'Warner', 'Sony', 'Netflix', 'Mercedes Benz', 'Coca Cola',
+  'Telcel', 'Target', 'Naturella', 'Evenflo', 'Mattel'
+];
+
+const defaultCurrentlyCard = {
+  image: "/img/leyla-y-micro.png",
+  imageAlt: "Leyla en cabina grabando",
+  label: "Actualmente en el aire",
+  items: ['Allegra', 'Mac & Cheese de Kraft', 'AutoZone', "M&M's Verde", "L'Oréal", 'Coppel']
+};
+
+const subtitle = data?.subtitle || "Locución Comercial";
+const title = data?.title || "La Voz que Mueve Marcas";
+const intro = data?.intro || "Con más de 33 años conectando marcas con audiencias a través del poder de mi voz, llevo mis interpretaciones desde grandes corporativos hasta campañas globales. Para mí, la locución comercial es el arte de comunicar en segundos lo que una marca representa para siempre.";
+const images = data?.images || defaultImages;
+const brandsTitle = data?.brandsTitle || "Marcas con las que he colaborado";
+const brands = data?.brands || defaultBrands;
+const currentlyCard = data?.currentlyCard || defaultCurrentlyCard;
 ---
 
 <section class="o-comercial" id="comercial">
@@ -8,30 +54,24 @@ import './Comercial.css';
     <div class="o-comercial__header">
       <div class="o-comercial__header-image">
         <div class="o-comercial__gif-sequence">
-          <img src="/img/logo1.png" alt="Leyla Rangel Animación 1" class="o-comercial__gif-frame frame-1" />
-          <img src="/img/logo2.png" alt="Leyla Rangel Animación 2" class="o-comercial__gif-frame frame-2" />
-          <img src="/img/logo3.png" alt="Leyla Rangel Animación 3" class="o-comercial__gif-frame frame-3" />
+          {images.map((img) => (
+            <img src={img.src} alt={img.alt} class={`o-comercial__gif-frame ${img.class}`} />
+          ))}
         </div>
       </div>
       <div class="o-comercial__header-text">
-        <span class="o-comercial__subtitle">Locución Comercial</span>
-        <h2 class="o-comercial__title">La Voz que<br /><em>Mueve Marcas</em></h2>
-        <p class="o-comercial__intro">
-          Con más de <strong>33 años</strong> conectando marcas con audiencias a través del poder de mi voz, llevo mis interpretaciones desde grandes corporativos hasta campañas globales. Para mí, la locución comercial es el arte de comunicar en segundos lo que una marca representa para siempre.
-        </p>
+        <span class="o-comercial__subtitle">{subtitle}</span>
+        <h2 class="o-comercial__title" set:html={title.replace("Mueve Marcas", "<em>Mueve Marcas</em>").replace(" que ", " que<br />")} />
+        <p class="o-comercial__intro" set:html={intro} />
       </div>
     </div>
 
     <div class="o-comercial__body">
       <!-- Top section: Brands Grid -->
       <div class="o-comercial__brands">
-        <p class="o-comercial__brands-title">Marcas con las que he colaborado</p>
+        <p class="o-comercial__brands-title">{brandsTitle}</p>
         <div class="o-comercial__brands-grid">
-          {[
-            'Disney', 'Pixar', 'Dreamworks', 'Ghibli', 'Marvel',
-            'Warner', 'Sony', 'Netflix', 'Mercedes Benz', 'Coca Cola',
-            'Telcel', 'Target', 'Naturella', 'Evenflo', 'Mattel'
-          ].map((brand) => (
+          {brands.map((brand) => (
             <span class="o-comercial__brand-pill">{brand}</span>
           ))}
         </div>
@@ -40,12 +80,12 @@ import './Comercial.css';
       <!-- Bottom section: Currently on air + Image Card -->
       <div class="o-comercial__currently-card">
         <div class="o-comercial__currently-image">
-          <img src="/img/leyla-y-micro.png" alt="Leyla en cabina grabando" class="o-comercial__img-micro" />
+          <img src={currentlyCard.image} alt={currentlyCard.imageAlt} class="o-comercial__img-micro" />
         </div>
         <div class="o-comercial__currently-content">
-          <span class="o-comercial__currently-label">Actualmente en el aire</span>
+          <span class="o-comercial__currently-label">{currentlyCard.label}</span>
           <div class="o-comercial__currently-grid">
-            {['Allegra', 'Mac & Cheese de Kraft', 'AutoZone', "M&M's Verde", "L'Oréal", 'Coppel'].map((brand) => (
+            {currentlyCard.items.map((brand) => (
               <div class="o-comercial__current-item">
                 <span class="o-comercial__current-dot"></span>
                 <span class="o-comercial__current-name">{brand}</span>

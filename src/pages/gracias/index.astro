@@ -1,0 +1,14 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import './gracias.css';
+import GraciasContent from "../../components/organisms/GraciasContent/GraciasContent.astro";
+import { getGraciasData } from "../../services/getServices/gracias.service";
+
+const graciasData = await getGraciasData();
+---
+
+<Layout headerType="dark">
+  <div class="u-gracias-page">
+    <GraciasContent data={graciasData} />
+  </div>
+</Layout>

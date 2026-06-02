@@ -1,0 +1,80 @@
+/* Footer Section (Share & Back) */
+.o-post-footer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.o-post-footer__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.o-post-footer__share {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.o-post-footer__share-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.o-post-footer__social-links {
+  display: flex;
+  gap: 10px;
+}
+
+.a-social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.a-social-btn:hover {
+  background: rgba(255, 171, 140, 0.15);
+  border-color: rgba(255, 171, 140, 0.3);
+  color: var(--color-primary, #FFAB8C);
+  transform: translateY(-2px);
+}
+
+.a-post-back-btn {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 12px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.a-post-back-btn:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+@media (max-width: 600px) {
+  .o-post-footer__container {
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    text-align: center;
+  }
+}

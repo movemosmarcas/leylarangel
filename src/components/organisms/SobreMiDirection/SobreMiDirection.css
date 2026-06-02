@@ -1,0 +1,12 @@
+/* Direction films */
+.o-sm-direction {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .o-sm-direction {
+    grid-template-columns: 1fr;
+  }
+}

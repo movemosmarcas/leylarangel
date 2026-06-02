@@ -2,19 +2,25 @@
 import './Direction.css';
 import Title from '../../atoms/Title/Title.astro';
 import Paragraph from '../../atoms/Paragraph/Paragraph.astro';
-import { getDirectionWorks } from '../../../services/getServices/getDirection.js';
+import { getDirectionData } from '../../../services/getServices/getDirection.js';
 
-const works = await getDirectionWorks();
+const directionData = await getDirectionData();
+const subtitle = directionData?.subtitle || "Trayectoria Creativa";
+const titleText = directionData?.title || "Dirección de Doblaje";
+const description = directionData?.description || "Liderando el arte de la interpretación vocal y la dirección artística en proyectos de animación de clase mundial para estudios legendarios como Studio Ghibli y Dreamworks.";
+const photo = directionData?.photo || "/img/hero-vertical.png";
+const photoAlt = directionData?.photoAlt || "Leyla Rangel - Directora de Doblaje";
+const works = directionData?.works || [];
 ---
 
 <section class="o-direction" id="direccion">
   <div class="o-direction__container">
     <div class="o-direction__header">
       <div class="o-direction__header-text">
-        <span class="o-direction__subtitle">Trayectoria Creativa</span>
-        <Title text="Dirección de Doblaje" level={2} size="xl" className="o-direction__title" shouldReveal={true} />
+        <span class="o-direction__subtitle">{subtitle}</span>
+        <Title text={titleText} level={2} size="xl" className="o-direction__title" shouldReveal={true} />
         <Paragraph 
-          text="Liderando el arte de la interpretación vocal y la dirección artística en proyectos de animación de clase mundial para estudios legendarios como Studio Ghibli y Dreamworks." 
+          text={description} 
           size="lg" 
           className="o-direction__description" 
         />
@@ -22,8 +28,8 @@ const works = await getDirectionWorks();
       <div class="o-direction__header-photo">
         <div class="o-direction__photo-frame">
           <img 
-            src="/img/hero-vertical.png" 
-            alt="Leyla Rangel - Directora de Doblaje" 
+            src={photo} 
+            alt={photoAlt} 
             class="o-direction__photo" 
             loading="eager"
           />
