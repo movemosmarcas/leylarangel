@@ -9,12 +9,12 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   integrations: [react()],
-  site: "https://valeriaarenas.com/",
+  site: "/",
   base: "/",
 
   vite: {
     plugins: [tailwindcss()]
   },
   output: "server",
-  adapter: cloudflare(),
+  adapter: cloudflare({ imageService: 'cloudflare' }),
 });

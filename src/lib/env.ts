@@ -1,4 +1,4 @@
-const domain = 'https://admin.valeriaarenas.com/wp-json' 
+const domain = 'https://lightcyan-chicken-628904.hostingersite.com/wp-json'
 const nameSpace = '/headless-api/v1'
 
 const ROUTES = {
