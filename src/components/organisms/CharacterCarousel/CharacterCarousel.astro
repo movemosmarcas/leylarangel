@@ -3,7 +3,7 @@ import './CharacterCarousel.css';
 
 export interface Props {
   data?: {
-    revealTextLines: string[];
+    revealTextLines: { line: string }[];
     row1: { src: string; alt: string }[];
     row2: { src: string; alt: string }[];
   };
@@ -11,32 +11,9 @@ export interface Props {
 
 const { data } = Astro.props;
 
-const defaultRevealLines = [
-  "Porque llevo más de 33 años",
-  "doblando personajes que aún",
-  "hoy llevas en el corazón"
-];
-
-const defaultRow1 = [
-  { src: '/img/personajes/ahsoka-main_88c206d7.jpeg', alt: 'Ahsoka' },
-  { src: '/img/personajes/Violeta.png', alt: 'Violeta' },
-  { src: '/img/personajes/1_obDCz57X7D2Kd1XvcdI0Iw.jpg?v=2', alt: 'Kim Possible' },
-  { src: '/img/personajes/image-0.jpeg', alt: 'Personaje' },
-  { src: '/img/personajes/Adelante4.jpeg', alt: 'Personaje' },
-];
-
-const defaultRow2 = [
-  { src: '/img/personajes/Adelante4.jpeg', alt: 'Personaje' },
-  { src: '/img/personajes/ahsoka-main_88c206d7.jpeg', alt: 'Ahsoka' },
-  { src: '/img/personajes/Violeta.png', alt: 'Violeta' },
-  { src: '/img/personajes/image-0.jpeg', alt: 'Personaje' },
-  { src: '/img/personajes/Atras.jpeg', alt: 'Personaje' },
-  { src: '/img/personajes/Atras2.jpeg', alt: 'Personaje' },
-];
-
-const revealTextLines = data?.revealTextLines || defaultRevealLines;
-const row1 = data?.row1 || defaultRow1;
-const row2 = data?.row2 || defaultRow2;
+const revealTextLines = data?.revealTextLines || [];
+const row1 = data?.row1 || [];
+const row2 = data?.row2 || [];
 ---
 
 <section class="o-char-carousel">
@@ -44,9 +21,9 @@ const row2 = data?.row2 || defaultRow2;
   <div class="o-char-carousel__reveal-text">
     <p class="o-char-carousel__paragraph">
       {
-        revealTextLines.map((line, index) => (
+        revealTextLines.map((item, index) => (
           <>
-            {line.split(" ").map((word) => (
+            {item.line && item.line.split(" ").map((word) => (
               <span class="o-char-carousel__word">{word} </span>
             ))}
             {index < revealTextLines.length - 1 && <br />}

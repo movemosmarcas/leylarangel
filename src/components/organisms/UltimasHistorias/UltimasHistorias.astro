@@ -12,9 +12,9 @@ export interface Props {
 }
 
 const { data } = Astro.props;
-const subtitle = data?.subtitle || "Reflexiones & Doblaje";
-const title = data?.title || "Últimas Historias";
-const viewAllText = data?.viewAllText || "Ver Todas";
+const subtitle = data?.subtitle || "";
+const title = data?.title || "";
+const viewAllText = data?.viewAllText || "";
 
 // Get the latest 2 posts
 const posts = await getWordPressPosts();

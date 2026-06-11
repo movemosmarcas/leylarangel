@@ -9,7 +9,6 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   integrations: [react()],
-  site: "/",
   base: "/",
 
   vite: {

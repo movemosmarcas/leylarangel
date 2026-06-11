@@ -12,11 +12,11 @@ export interface Props {
 }
 
 const { data } = Astro.props;
-const logo = data?.logo || '/img/logo-leyla.png';
-const backgroundImage = data?.backgroundImage || '/img/hero-horizontal.png';
-const titleLine1 = data?.titleLine1 || 'VOICE';
-const titleLine2 = data?.titleLine2 || 'ARTIST';
-const ctaText = data?.ctaText || 'Conóceme';
+const logo = data?.logo || '';
+const backgroundImage = data?.backgroundImage || '';
+const titleLine1 = data?.titleLine1 || '';
+const titleLine2 = data?.titleLine2 || '';
+const ctaText = data?.ctaText || '';
 ---
 
 <section class="o-hero">

@@ -3,26 +3,21 @@ import './TextReveal.css';
 
 export interface Props {
   data?: {
-    lines: string[];
+    lines: { line: string }[];
   };
 }
 
 const { data } = Astro.props;
-const defaultLines = [
-  "Si algún día fuiste un niño",
-  "enamorado de las historias",
-  "seguramente ya me conoces"
-];
-const lines = data?.lines || defaultLines;
+const lines = data?.lines || [];
 ---
 
 <section class="m-text-reveal" id="doblaje">
   <div class="m-text-reveal__container">
     <p class="m-text-reveal__paragraph">
       {
-        lines.map((line, index) => (
+        lines.map((item, index) => (
           <>
-            {line.split(" ").map((word) => (
+            {item.line && item.line.split(" ").map((word) => (
               <span class="m-text-reveal__word">{word} </span>
             ))}
             {index < lines.length - 1 && <br />}

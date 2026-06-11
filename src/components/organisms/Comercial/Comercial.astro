@@ -3,49 +3,35 @@ import './Comercial.css';
 
 export interface Props {
   data?: {
-    subtitle: string;
-    title: string;
-    intro: string;
-    images: { src: string; alt: string; class: string }[];
-    brandsTitle: string;
-    brands: string[];
-    currentlyCard: {
+    subtitle?: string;
+    title?: string;
+    intro?: string;
+    images?: { src: string; alt: string; class: string }[];
+    brandsTitle?: string;
+    brands?: { name: string }[];
+    currentlyCard?: {
       image: string;
       imageAlt: string;
       label: string;
-      items: string[];
+      items: { name: string }[];
     };
   };
 }
 
 const { data } = Astro.props;
 
-const defaultImages = [
-  { src: "/img/logo1.png", alt: "Leyla Rangel Animación 1", class: "frame-1" },
-  { src: "/img/logo2.png", alt: "Leyla Rangel Animación 2", class: "frame-2" },
-  { src: "/img/logo3.png", alt: "Leyla Rangel Animación 3", class: "frame-3" }
-];
-
-const defaultBrands = [
-  'Disney', 'Pixar', 'Dreamworks', 'Ghibli', 'Marvel',
-  'Warner', 'Sony', 'Netflix', 'Mercedes Benz', 'Coca Cola',
-  'Telcel', 'Target', 'Naturella', 'Evenflo', 'Mattel'
-];
-
-const defaultCurrentlyCard = {
-  image: "/img/leyla-y-micro.png",
-  imageAlt: "Leyla en cabina grabando",
-  label: "Actualmente en el aire",
-  items: ['Allegra', 'Mac & Cheese de Kraft', 'AutoZone', "M&M's Verde", "L'Oréal", 'Coppel']
+const subtitle = data?.subtitle || "";
+const title = data?.title || "";
+const intro = data?.intro || "";
+const images = data?.images || [];
+const brandsTitle = data?.brandsTitle || "";
+const brands = data?.brands || [];
+const currentlyCard = data?.currentlyCard || {
+  image: "",
+  imageAlt: "",
+  label: "",
+  items: []
 };
-
-const subtitle = data?.subtitle || "Locución Comercial";
-const title = data?.title || "La Voz que Mueve Marcas";
-const intro = data?.intro || "Con más de 33 años conectando marcas con audiencias a través del poder de mi voz, llevo mis interpretaciones desde grandes corporativos hasta campañas globales. Para mí, la locución comercial es el arte de comunicar en segundos lo que una marca representa para siempre.";
-const images = data?.images || defaultImages;
-const brandsTitle = data?.brandsTitle || "Marcas con las que he colaborado";
-const brands = data?.brands || defaultBrands;
-const currentlyCard = data?.currentlyCard || defaultCurrentlyCard;
 ---
 
 <section class="o-comercial" id="comercial">
@@ -72,7 +58,7 @@ const currentlyCard = data?.currentlyCard || defaultCurrentlyCard;
         <p class="o-comercial__brands-title">{brandsTitle}</p>
         <div class="o-comercial__brands-grid">
           {brands.map((brand) => (
-            <span class="o-comercial__brand-pill">{brand}</span>
+            <span class="o-comercial__brand-pill">{brand.name}</span>
           ))}
         </div>
       </div>
@@ -88,7 +74,7 @@ const currentlyCard = data?.currentlyCard || defaultCurrentlyCard;
             {currentlyCard.items.map((brand) => (
               <div class="o-comercial__current-item">
                 <span class="o-comercial__current-dot"></span>
-                <span class="o-comercial__current-name">{brand}</span>
+                <span class="o-comercial__current-name">{brand.name}</span>
               </div>
             ))}
           </div>

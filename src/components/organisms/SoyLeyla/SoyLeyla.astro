@@ -14,12 +14,12 @@ export interface Props {
 }
 
 const { data } = Astro.props;
-const tag = data?.tag || 'Sobre mí';
-const title = data?.title || 'SOY LEYLA RANGEL';
-const description = data?.description || 'Con más de <span class="o-soy-leyla__accent">33 años de trayectoria</span>, he prestado mi voz para dar vida a personajes icónicos en el cine y la televisión. Mi pasión es contar historias a través de la interpretación vocal, fusionando técnica y emoción para conectar con audiencias de todo el mundo. Desde grandes producciones de <span class="o-soy-leyla__accent">Disney</span> hasta campañas publicitarias globales.';
-const ctaText = data?.ctaText || 'Conoce más sobre mí';
-const ctaUrl = data?.ctaUrl || '/sobre-mi';
-const image = data?.image || '/img/leyla-bn.png';
+const tag = data?.tag || '';
+const title = data?.title || '';
+const description = data?.description || '';
+const ctaText = data?.ctaText || '';
+const ctaUrl = data?.ctaUrl || '';
+const image = data?.image || '';
 ---
 
 <section class="o-soy-leyla" id="sobre-mi">
