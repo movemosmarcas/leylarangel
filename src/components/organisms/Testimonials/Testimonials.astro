@@ -16,32 +16,8 @@ export interface Props {
 
 const { data } = Astro.props;
 
-const defaultTestimonials = [
-  {
-    quote: "Trabajar con Leyla fue como encontrar la pieza que le faltaba a nuestro rompecabezas. Su voz le dio vida y alma a nuestro proyecto.",
-    name: "Sarah Conor",
-    title: "Founder, Clonify",
-    image: "/img/testimonio-1-new.jpg",
-    bgColor: "#F3E7D7"
-  },
-  {
-    quote: "Leyla no solo graba una voz, ella entiende la intención detrás del texto. Elevó nuestro comercial a un nivel completamente nuevo y sofisticado.",
-    name: "Bruce Lee",
-    title: "Director Creativo, Maiz",
-    image: "/img/testimonio-2-new.jpg",
-    bgColor: "#B2A0CA"
-  },
-  {
-    quote: "Desde el primer concepto hasta el lanzamiento, Leyla nos entregó un trabajo con claridad, creatividad y estilo. Nunca habíamos sonado tan profesionales.",
-    name: "John Headphone",
-    title: "CEO, Marcom",
-    image: "/img/testimonio-3-new.jpg",
-    bgColor: "#BCCFC3"
-  }
-];
-
-const title = data?.title || "La voz elegida por marcas que no temen destacar.";
-const testimonials = data?.testimonials || defaultTestimonials;
+const title = data?.title || "";
+const testimonials = data?.testimonials || [];
 ---
 
 <section class="o-testimonials" id="testimonios">

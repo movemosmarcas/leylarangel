@@ -12,9 +12,9 @@ export interface Props {
 }
 
 const { data } = Astro.props;
-const subtitle = data?.subtitle || "Reflexiones & Doblaje";
-const title = data?.title || "Últimas Historias";
-const viewAllText = data?.viewAllText || "Ver Todas";
+const subtitle = data?.subtitle || "";
+const title = data?.title || "";
+const viewAllText = data?.viewAllText || "";
 
 // Get the latest 2 posts
 const posts = await getWordPressPosts();
@@ -47,9 +47,9 @@ const getSlug = (titleStr: string) => {
 
     <div class="o-ultimas-historias__grid">
       {latestPosts.map((post) => {
-        const slug = getSlug(post.title);
+        const slug = post.slug || getSlug(post.title);
         const coverImage = post.featured_image;
-        const authorAvatar = post.author_avatar || "/img/hero-vertical.png";
+        const authorAvatar = post.avatar || "/img/hero-vertical.png";
 
         return (
           <article 
@@ -76,8 +76,8 @@ const getSlug = (titleStr: string) => {
             <div class="m-historia-mini-card__content">
               <div class="m-historia-mini-card__meta">
                 <span class="m-historia-mini-card__date">{formatDate(post.date)}</span>
-                {post.read_time && (
-                  <span class="m-historia-mini-card__read-time">• {post.read_time}</span>
+                {post.reading_time && (
+                  <span class="m-historia-mini-card__read-time">• {post.reading_time} min</span>
                 )}
               </div>
 

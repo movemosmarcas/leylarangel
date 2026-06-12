@@ -2,15 +2,25 @@
 import './Direction.css';
 import Title from '../../atoms/Title/Title.astro';
 import Paragraph from '../../atoms/Paragraph/Paragraph.astro';
-import { getDirectionData } from '../../../services/getServices/getDirection.js';
 
-const directionData = await getDirectionData();
-const subtitle = directionData?.subtitle || "Trayectoria Creativa";
-const titleText = directionData?.title || "Dirección de Doblaje";
-const description = directionData?.description || "Liderando el arte de la interpretación vocal y la dirección artística en proyectos de animación de clase mundial para estudios legendarios como Studio Ghibli y Dreamworks.";
-const photo = directionData?.photo || "/img/hero-vertical.png";
-const photoAlt = directionData?.photoAlt || "Leyla Rangel - Directora de Doblaje";
-const works = directionData?.works || [];
+export interface Props {
+  data?: {
+    subtitle?: string;
+    title?: string;
+    description?: string;
+    photo?: string;
+    photoAlt?: string;
+    works?: any[];
+  };
+}
+
+const { data } = Astro.props;
+const subtitle = data?.subtitle || "";
+const titleText = data?.title || "";
+const description = data?.description || "";
+const photo = data?.photo || "";
+const photoAlt = data?.photoAlt || "";
+const works = data?.works || [];
 ---
 
 <section class="o-direction" id="direccion">

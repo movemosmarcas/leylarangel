@@ -11,25 +11,27 @@ import Testimonials from "../components/organisms/Testimonials/Testimonials.astr
 import UltimasHistorias from "../components/organisms/UltimasHistorias/UltimasHistorias.astro";
 import Comercial from "../components/organisms/Comercial/Comercial.astro";
 
-import { getHeroBannerData } from "../services/getServices/heroBanner.service";
-import { getTextRevealData } from "../services/getServices/textReveal.service";
-import { getCharacterCarouselData } from "../services/getServices/characterCarousel.service";
-import { getSoyLeylaData } from "../services/getServices/soyLeyla.service";
-import { getBrandCloudData } from "../services/getServices/brandCloud.service";
-import { getAudioGalleryData } from "../services/getServices/audioGallery.service";
-import { getComercialData } from "../services/getServices/comercial.service";
-import { getTestimonialsData } from "../services/getServices/testimonials.service";
-import { getUltimasHistoriasData } from "../services/getServices/ultimasHistorias.service";
+import { getPagina } from "../services/paginas";
 
-const heroData = await getHeroBannerData();
-const textRevealData = await getTextRevealData();
-const characterCarouselData = await getCharacterCarouselData();
-const soyLeylaData = await getSoyLeylaData();
-const brandCloudData = await getBrandCloudData();
-const audioGalleryData = await getAudioGalleryData();
-const comercialData = await getComercialData();
-const testimonialsData = await getTestimonialsData();
-const ultimasHistoriasData = await getUltimasHistoriasData();
+const pageResponse = await getPagina("inicio");
+
+// Verificación segura para evitar que la página colapse en blanco si la API falla o cambia
+const pageData = Array.isArray(pageResponse) && pageResponse.length > 0 
+  ? pageResponse[0].fields || {} 
+  : (pageResponse?.fields || {});
+
+const heroData = pageData?.hero_banner || {};
+
+const textRevealData = pageData?.text_reveal || {};
+const characterCarouselData = pageData?.character_carousel || {};
+const soyLeylaData = pageData?.soy_leyla || {};
+const brandCloudData = pageData?.brand_cloud || {};
+const audioGalleryData = pageData?.audio_gallery || {};
+const directionData = pageData?.direction || {};
+const comercialData = pageData?.comercial || {};
+
+const testimonialsData = pageData?.testimonials_group || {};
+const ultimasHistoriasData = pageData?.ultimas_historias || {};
 ---
 
 <Layout>
@@ -40,13 +42,9 @@ const ultimasHistoriasData = await getUltimasHistoriasData();
     <SoyLeyla data={soyLeylaData} />
     <BrandCloud data={brandCloudData} />
     <AudioGallery data={audioGalleryData} />
-    <Direction />
+    <Direction data={directionData} />
     <Comercial data={comercialData} />
     <Testimonials data={testimonialsData} />
     <UltimasHistorias data={ultimasHistoriasData} />
   </div>
 </Layout>
-
-
-
-

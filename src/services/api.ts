@@ -1,10 +1,12 @@
-const BASE_URL = import.meta.env.PUBLIC_WP_API_URL || 'http://leyla-rangel.local/wp-json';
+const BASE_URL = 'https://lightcyan-chicken-628904.hostingersite.com';
 
 /**
  * Perform a GET request to the WordPress API
  */
 export async function getAPI<T = any>(endpoint: string): Promise<T> {
-  const url = `${BASE_URL.replace(/\/$/, '')}/${endpoint.replace(/^\//, '')}`;
+  const url = endpoint.startsWith('http') 
+    ? endpoint 
+    : `${BASE_URL.replace(/\/$/, '')}/wp-json/${endpoint.replace(/^\//, '')}`;
   try {
     const res = await fetch(url, {
       method: 'GET',

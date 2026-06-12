@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import './historias.css';
+import "./historias.css";
 import HistoriasHeader from "../../components/organisms/HistoriasHeader/HistoriasHeader.astro";
 import HistoriasGallery from "../../components/organisms/HistoriasGallery/HistoriasGallery.astro";
 import { getHistoriasPageData } from "../../services/getServices/historias.service";
@@ -11,12 +11,15 @@ const pageData = await getHistoriasPageData();
 <Layout headerType="dark">
   <div class="u-historias-page">
     <a href="/" class="a-historias-logo-link" aria-label="Ir a Inicio">
-      <img src={pageData.logo} alt={pageData.logoAlt} class="a-historias-logo" />
+      <img
+        src={pageData?.fields?.logo}
+        alt={pageData?.fields?.logo_alt}
+        class="a-historias-logo"
+      />
     </a>
-    
-    <HistoriasHeader data={pageData} />
+
+    <HistoriasHeader data={pageData?.fields} />
 
     <HistoriasGallery />
-
   </div>
 </Layout>

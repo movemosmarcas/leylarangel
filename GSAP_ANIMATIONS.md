@@ -1,4 +1,4 @@
-# Animaciones GSAP - Proyecto Valeria
+# Animaciones GSAP
 
 Este proyecto utiliza **GSAP (GreenSock Animation Platform)** para crear animaciones fluidas y modernas, optimizadas para **Server-Side Rendering (SSR)** con Astro.
 
