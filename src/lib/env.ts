@@ -12,5 +12,4 @@ const ROUTES = {
     SEARCH: domain + nameSpace + '/search',
     FORM: domain + nameSpace + '/form'
 }
-
 export default ROUTES
