@@ -1,6 +1,7 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import { getPostBySlug, getStaticPaths as getAllSlugs } from "../../../services/posts";
+import { getPostBySlug } from "../../../services/posts";
+import { getAllSlugs } from "../../../services/allSlugs";
 import './slug.css';
 
 import PostHeader from "../../../components/organisms/PostHeader/PostHeader.astro";
@@ -12,7 +13,8 @@ export const prerender = true;
 
 // This tells Astro which paths to pre-render at build time
 export async function getStaticPaths() {
-  return getAllSlugs();
+  const slugs = await getAllSlugs('historias');
+  return slugs.map(slug => ({ params: { slug } }));
 }
 
 const { slug } = Astro.params;
@@ -24,7 +26,7 @@ if (!postData) {
 }
 
 const coverImage = postData.featured_image;
-const authorAvatar = postData.author_avatar || "/img/hero-vertical.png";
+const authorAvatar = postData.avatar || "/img/hero-vertical.png";
 ---
 
 <Layout headerType="dark">
@@ -35,11 +37,11 @@ const authorAvatar = postData.author_avatar || "/img/hero-vertical.png";
     
     <PostHeader 
       title={postData.title}
-      subtitle={postData.subtitle}
+      subtitle={postData.fields?.subtitle}
       author={postData.author}
       authorAvatar={authorAvatar}
       date={postData.date}
-      readTime={postData.read_time}
+      readTime={postData.reading_time?.toString() + " min"}
       category={postData.category}
     />
 

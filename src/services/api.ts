@@ -4,7 +4,9 @@ const BASE_URL = 'https://lightcyan-chicken-628904.hostingersite.com';
  * Perform a GET request to the WordPress API
  */
 export async function getAPI<T = any>(endpoint: string): Promise<T> {
-  const url = `${BASE_URL.replace(/\/$/, '')}/wp-json/${endpoint.replace(/^\//, '')}`;
+  const url = endpoint.startsWith('http') 
+    ? endpoint 
+    : `${BASE_URL.replace(/\/$/, '')}/wp-json/${endpoint.replace(/^\//, '')}`;
   try {
     const res = await fetch(url, {
       method: 'GET',
