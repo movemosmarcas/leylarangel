@@ -1,4 +1,4 @@
-const domain = 'https://lightcyan-chicken-628904.hostingersite.com/wp-json'
+const domain = 'https://admin.leylarangel.com/wp-json'
 const nameSpace = '/headless/v1'
 
 const ROUTES = {
