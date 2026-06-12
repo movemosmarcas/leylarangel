@@ -1,6 +1,6 @@
 {
 	"main": "@astrojs/cloudflare/entrypoints/server",
-	"name": "cupula",
+	"name": "leylarangel",
   "compatibility_date": "2025-12-08",
   "compatibility_flags": [
     "nodejs_compat",
