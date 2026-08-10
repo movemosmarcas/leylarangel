@@ -9,12 +9,11 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   integrations: [react()],
-  site: "https://valeriaarenas.com/",
+  site: "https://leylarangel.com/", // Reemplaza con tu dominio final
   base: "/",
 
   vite: {
     plugins: [tailwindcss()]
   },
-  output: "server",
-  adapter: cloudflare(),
+  // output: 'static' is the default, ideal para Hostinger
 });

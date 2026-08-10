@@ -35,10 +35,12 @@
   }
 
   .a-float-contact:hover {
-    background-color: #FFFFFF; /* Solid white background fill on hover */
-    color: #1A1A1A; /* Text changes to dark charcoal for maximum contrast */
+    background: transparent;
+    color: var(--color-primary, #FFAB8C);
     transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.25), 0 4px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 30px rgba(255, 171, 140, 0.3), inset 0 0 15px rgba(255, 171, 140, 0.1);
+    text-shadow: 0 0 12px rgba(255, 171, 140, 0.8);
+    border-color: var(--color-primary, #FFAB8C);
   }
 
   .a-float-contact:active {

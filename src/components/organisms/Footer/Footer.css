@@ -127,6 +127,18 @@
   user-select: none;
 }
 
+/* Disclaimer */
+.o-footer__disclaimer {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto 10px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: rgba(26, 26, 26, 0.55);
+}
+
 /* Bottom footer copyrights */
 .o-footer__bottom {
   width: 100%;

@@ -35,7 +35,7 @@ const brands = [
         </p>
       </div>
       <div class="o-sm-hero__image-wrap">
-        <img src="/img/leyla-y-micro.png" alt="Leyla Rangel" class="o-sm-hero__image" />
+        <img src="/img/sobre-mi-bg.png" alt="Leyla Rangel" class="o-sm-hero__image" />
         <div class="o-sm-hero__image-overlay"></div>
       </div>
     </header>
@@ -91,24 +91,27 @@ const brands = [
           </h2>
           <div class="o-sm-characters">
             {[
-              { character: 'Hermione Granger', work: 'Harry Potter' },
-              { character: 'Ahsoka Tano', work: 'Star Wars' },
-              { character: 'Shuri', work: 'Pantera Negra · Marvel' },
-              { character: 'Violeta Parr', work: 'Los Increíbles' },
-              { character: 'Astrid Hofferson', work: 'Cómo Entrenar a tu Dragón' },
-              { character: 'Charlotte', work: 'La Princesa y el Sapo' },
-              { character: 'Raven', work: 'La Casa de Raven y Es tan Raven' },
-              { character: 'Kim Possible', work: 'Kim Posible' },
-              { character: 'Rory Gilmore', work: 'Gilmore Girls' },
+              { character: 'Hermione Granger', work: 'Harry Potter y el Misterio del Príncipe' },
+              { character: 'Ahsoka', work: 'El Libro de Boba Fett (Luke y Ahsoka)' },
+              { character: 'Charlotte LaBouff', work: 'La Princesa y el Sapo' },
+              { character: 'Violeta Parr', work: 'Los Increíbles 2' },
+              { character: 'Raven', work: 'Es tan Raven (Intro)' },
+              { character: 'Kim', work: 'Kim Posible' },
               { character: 'Hazel Grace Lancaster', work: 'Bajo la Misma Estrella' },
-              { character: 'Capitán Teemo', work: 'League of Legends' },
-              { character: 'Han Mi-nyeo', work: 'Los Juegos del Calamar' },
-              { character: 'Gloria', work: 'Barbie (la película)' },
-              { character: 'Sofía Falcone', work: 'El Pingüino · DC & HBO' },
+              { character: 'Entrapta', work: 'She-Ra y las Princesas del Poder' },
+              { character: 'Luan Loud', work: 'La Casa Loud' },
+              { character: 'Sweetie Belle', work: 'My Little Pony' },
             ].map((item) => (
               <div class="m-sm-character">
-                <span class="m-sm-character__name">{item.character}</span>
-                <span class="m-sm-character__work">{item.work}</span>
+                <div class="m-sm-character__info">
+                  <span class="m-sm-character__name">{item.character}</span>
+                  <span class="m-sm-character__work">{item.work}</span>
+                </div>
+                <button class="m-sm-character__play-btn" aria-label={`Reproducir demo de ${item.character}`}>
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </button>
               </div>
             ))}
           </div>
@@ -443,17 +446,25 @@ const brands = [
 
   .m-sm-character {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     padding: 22px 28px;
     background: rgba(255,255,255,0.02);
     border-bottom: 1px solid rgba(255,255,255,0.04);
     border-right: 1px solid rgba(255,255,255,0.04);
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    cursor: pointer;
   }
 
   .m-sm-character:hover {
-    background: rgba(255, 171, 140, 0.04);
+    background: rgba(255, 171, 140, 0.08);
+  }
+
+  .m-sm-character__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .m-sm-character__name {
@@ -468,6 +479,32 @@ const brands = [
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--color-primary, #FFAB8C);
+  }
+
+  .m-sm-character__play-btn {
+    background: transparent;
+    border: 1px solid var(--color-primary, #FFAB8C);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary, #FFAB8C);
+    transition: all 0.3s ease;
+    opacity: 0.5;
+  }
+
+  .m-sm-character__play-btn svg {
+    margin-left: 2px;
+  }
+
+  .m-sm-character:hover .m-sm-character__play-btn {
+    opacity: 1;
+    background: var(--color-primary, #FFAB8C);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 171, 140, 0.4);
+    transform: scale(1.1);
   }
 
   /* Direction films */
@@ -623,7 +660,11 @@ const brands = [
   @media (max-width: 768px) {
     .a-sm-logo-link {
       top: 20px;
-      left: 20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      display: block;
+      transform: none;
     }
     .a-sm-logo {
       width: 180px;
@@ -635,6 +676,10 @@ const brands = [
 
     .o-sm-main__container {
       padding: 0 24px;
+    }
+
+    .o-sm-bio__text {
+      text-align: center;
     }
 
     .o-sm-stats {
@@ -651,6 +696,11 @@ const brands = [
 
     .o-sm-characters {
       grid-template-columns: 1fr;
+    }
+
+    .o-sm-section__title {
+      align-items: center;
+      text-align: center;
     }
 
     .o-sm-direction {

@@ -23,24 +23,15 @@ import './Comercial.css';
     </div>
 
     <div class="o-comercial__body">
-      <!-- Top section: Brands Grid -->
-      <div class="o-comercial__brands">
-        <p class="o-comercial__brands-title">Marcas con las que he colaborado</p>
-        <div class="o-comercial__brands-grid">
-          {[
-            'Disney', 'Pixar', 'Dreamworks', 'Ghibli', 'Marvel',
-            'Warner', 'Sony', 'Netflix', 'Mercedes Benz', 'Coca Cola',
-            'Telcel', 'Target', 'Naturella', 'Evenflo', 'Mattel'
-          ].map((brand) => (
-            <span class="o-comercial__brand-pill">{brand}</span>
-          ))}
-        </div>
-      </div>
-
-      <!-- Bottom section: Currently on air + Image Card -->
+      <!-- Top section: Currently on air + Image Card -->
       <div class="o-comercial__currently-card">
-        <div class="o-comercial__currently-image">
-          <img src="/img/leyla-y-micro.png" alt="Leyla en cabina grabando" class="o-comercial__img-micro" />
+        <div class="o-comercial__currently-image" style="position: relative; display: flex; align-items: center; background: #000; overflow: hidden; border-radius: 12px;">
+          <video src="/video/DemoLeyla_070726.mp4" class="o-comercial__currently-video" preload="metadata" playsinline controls></video>
+          <button class="o-comercial__play-overlay" aria-label="Reproducir video" type="button">
+            <svg viewBox="0 0 24 24" width="48" height="48" stroke="none" fill="white" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </button>
         </div>
         <div class="o-comercial__currently-content">
           <span class="o-comercial__currently-label">Actualmente en el aire</span>
@@ -52,6 +43,20 @@ import './Comercial.css';
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      <!-- Bottom section: Brands Grid -->
+      <div class="o-comercial__brands">
+        <p class="o-comercial__brands-title">Marcas con las que he colaborado</p>
+        <div class="o-comercial__brands-grid">
+          {[
+            'Disney', 'Pixar', 'Dreamworks', 'Ghibli', 'Marvel',
+            'Warner', 'Sony', 'Netflix', 'Mercedes Benz', 'Coca Cola',
+            'Telcel', 'Target', 'Naturella', 'Evenflo', 'Mattel'
+          ].map((brand) => (
+            <span class="o-comercial__brand-pill">{brand}</span>
+          ))}
         </div>
       </div>
     </div>
@@ -127,6 +132,28 @@ import './Comercial.css';
     );
 
     // Image Parallax Effect (Removed per user request)
+    
+    // Play Button Overlay Logic
+    const playOverlay = document.querySelector('.o-comercial__play-overlay');
+    const video = document.querySelector('.o-comercial__currently-video');
+    
+    if (playOverlay && video) {
+      playOverlay.addEventListener('click', () => {
+        // Hide overlay and play video
+        playOverlay.style.display = 'none';
+        video.play();
+      });
+
+      // Optionally show overlay if video ends or is paused (though native controls usually handle this well enough, 
+      // some prefer to just hide the custom overlay permanently once started).
+      video.addEventListener('play', () => {
+        playOverlay.style.display = 'none';
+      });
+      video.addEventListener('pause', () => {
+        // We can show it again on pause if desired, but let's keep it simple and just show it initially
+        // to not clash with native controls pausing.
+      });
+    }
   }
 
   if (document.readyState === 'loading') {

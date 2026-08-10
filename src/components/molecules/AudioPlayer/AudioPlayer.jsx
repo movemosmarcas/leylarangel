@@ -33,6 +33,7 @@ const AudioPlayer = ({ content, title }) => {
             borderRadius: '50%',
             width: '48px',
             height: '48px',
+            flexShrink: 0,
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',

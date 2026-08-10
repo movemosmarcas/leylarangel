@@ -190,6 +190,7 @@ const shareUrl = typeof window !== 'undefined' ? window.location.href : `https:/
     min-height: 100vh;
     padding-top: 140px; /* Space for the header */
     font-family: 'Josefin Sans', sans-serif;
+    overflow-x: hidden;
   }
 
   /* Centered Header Section */
@@ -461,6 +462,8 @@ const shareUrl = typeof window !== 'undefined' ? window.location.href : `https:/
   /* Paragraph spacing */
   .o-post-body__content :global(p) {
     margin-bottom: 32px;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   /* Headings inside content */
@@ -578,7 +581,11 @@ const shareUrl = typeof window !== 'undefined' ? window.location.href : `https:/
   @media (max-width: 768px) {
     .a-post-logo-link {
       top: 20px;
-      left: 20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      display: block;
+      transform: none;
     }
     .a-post-logo {
       width: 180px;

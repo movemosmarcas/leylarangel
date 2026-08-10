@@ -8,7 +8,7 @@ import './Hero.css';
       <img src="/img/logo-leyla.png" alt="Leyla Rangel Logo" class="o-hero__logo" />
     </div>
     <div class="o-hero__image-panel">
-      <img src="/img/hero-horizontal.png" alt="Leyla Rangel" class="o-hero__image" style="object-position: center center;" />
+      <img src="/img/hero-imagen.png" alt="Leyla Rangel" class="o-hero__image" style="object-position: center center;" />
     </div>
 
 
@@ -44,11 +44,14 @@ import './Hero.css';
     gsap.registerPlugin(ScrollTrigger);
 
     // Entrance animation for Logo and Title
-    gsap.to('.o-hero__logo', {
-      opacity: 1,
-      duration: 1.5,
-      ease: 'power3.out'
-    });
+    gsap.fromTo('.o-hero__logo',
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power3.out'
+      }
+    );
 
     // Staggered blur reveal for "VOICE" and "ARTIST"
     gsap.fromTo('.o-hero__title-line',
@@ -68,31 +71,32 @@ import './Hero.css';
       }
     );
 
-    // Unified Parallax for both panels - Balanced to avoid excessive zooming
-    const parallaxValue = -120; 
+    // Unified Parallax for both panels (Desktop Only)
+    if (window.innerWidth > 768) {
+      const parallaxValue = -120; 
+      gsap.to(['.o-hero__salmon-panel', '.o-hero__image-panel'], {
+        y: parallaxValue,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.o-hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
 
-    gsap.to(['.o-hero__salmon-panel', '.o-hero__image-panel'], {
-      y: parallaxValue,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.o-hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
-      }
-    });
-
-    // Title Container Parallax (EXTREME movement for maximum depth effect)
-    gsap.to('.o-hero__title-container', {
-      y: 600, // Very strong movement to make the parallax "pop"
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.o-hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
-      }
-    });
+      // Title Container Parallax (EXTREME movement for maximum depth effect)
+      gsap.to('.o-hero__title-container', {
+        y: 600, // Very strong movement to make the parallax "pop"
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.o-hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
+    }
   }
 
   // Ejecutar cuando el DOM esté listo o en transiciones de Astro

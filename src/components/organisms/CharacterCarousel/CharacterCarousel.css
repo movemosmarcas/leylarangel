@@ -115,7 +115,6 @@
 }
 
 .o-char-carousel__word {
-  opacity: 0; /* Hidden by default to allow for the entrance animation */
   display: inline-block;
   white-space: pre;
   will-change: filter, opacity, transform;
@@ -124,5 +123,36 @@
 @media (max-width: 768px) {
   .o-char-carousel__item {
     flex: 0 0 250px;
+  }
+
+  .o-char-carousel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .o-char-carousel__inner {
+    order: 1;
+  }
+
+  .o-char-carousel__reveal-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    order: 2;
+    padding: 0 30px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  .o-char-carousel__paragraph {
+    font-size: 24px;
+  }
+
+  .o-char-carousel__row--2 {
+    -webkit-mask-image: none;
+    mask-image: none;
+    background-color: var(--color-white);
   }
 }

@@ -114,6 +114,11 @@
     margin-bottom: 30vh;
   }
   
+  .o-testimonials__image {
+    object-fit: contain !important;
+    object-position: center bottom !important;
+  }
+  
   .o-testimonials__content-col {
     padding: 30px 30px 60px;
   }
