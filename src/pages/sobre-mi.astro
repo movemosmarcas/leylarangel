@@ -15,6 +15,7 @@ const brands = [
   { name: 'Coca-Cola', logo: cocaColaLogo.src },
   { name: 'Sony', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Sony_logo.svg' },
   { name: 'Pixar', logo: pixarLogo.src, customStyle: 'max-width: 200px; max-height: 80px;' },
+  { name: 'Studio Ghibli', logo: '/img/Studio_Ghibli.svg' },
 ];
 ---
 
@@ -91,27 +92,35 @@ const brands = [
           </h2>
           <div class="o-sm-characters">
             {[
-              { character: 'Hermione Granger', work: 'Harry Potter y el Misterio del Príncipe' },
-              { character: 'Ahsoka', work: 'El Libro de Boba Fett (Luke y Ahsoka)' },
-              { character: 'Charlotte LaBouff', work: 'La Princesa y el Sapo' },
-              { character: 'Violeta Parr', work: 'Los Increíbles 2' },
-              { character: 'Raven', work: 'Es tan Raven (Intro)' },
-              { character: 'Kim', work: 'Kim Posible' },
-              { character: 'Hazel Grace Lancaster', work: 'Bajo la Misma Estrella' },
-              { character: 'Entrapta', work: 'She-Ra y las Princesas del Poder' },
-              { character: 'Luan Loud', work: 'La Casa Loud' },
-              { character: 'Sweetie Belle', work: 'My Little Pony' },
+              { character: 'Hermione Granger', work: 'Harry Potter y el Misterio del Príncipe', audio: '/audio/Hermione.mp3' },
+              { character: 'Ahsoka', work: 'El Libro de Boba Fett (Luke y Ahsoka)', audio: '/audio/Ahsoka.mp3' },
+              { character: 'Charlotte LaBouff', work: 'La Princesa y el Sapo', audio: '/audio/La princesa y el sapo.mp3' },
+              { character: 'Violeta Parr', work: 'Los Increíbles 2', audio: '/audio/Los-Increibles.mp3' },
+              { character: 'Raven', work: 'Es tan Raven (Intro)', audio: '/audio/Raven.mp3' },
+              { character: 'Kim', work: 'Kim Posible', audio: '/audio/Kim.mp3' },
+              { character: 'Hazel Grace Lancaster', work: 'Bajo la Misma Estrella', audio: '/audio/Hazel.mp3' },
+              { character: 'Entrapta', work: 'She-Ra y las Princesas del Poder', audio: '/audio/Entrapta.mp3' },
+              { character: 'Luan Loud', work: 'La Casa Loud', audio: '/audio/Luan.mp3' },
+              { character: 'Sweetie Belle', work: 'My Little Pony', audio: '/audio/Sweetie.mp3' },
             ].map((item) => (
               <div class="m-sm-character">
                 <div class="m-sm-character__info">
                   <span class="m-sm-character__name">{item.character}</span>
                   <span class="m-sm-character__work">{item.work}</span>
                 </div>
-                <button class="m-sm-character__play-btn" aria-label={`Reproducir demo de ${item.character}`}>
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </button>
+                {item.audio ? (
+                  <button class="m-sm-character__play-btn" aria-label={`Reproducir demo de ${item.character}`} data-audio={item.audio}>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                  </button>
+                ) : (
+                  <button class="m-sm-character__play-btn" aria-label={`Demo no disponible`} disabled style="opacity: 0.3; cursor: not-allowed;">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                  </button>
+                )}
               </div>
             ))}
           </div>
@@ -171,8 +180,8 @@ const brands = [
         <!-- Marcas -->
         <section class="o-sm-section">
           <h2 class="o-sm-section__title">
-            <span class="o-sm-section__title-line">Marcas</span>
-            <span class="o-sm-section__title-sub">con las que he colaborado</span>
+            <span class="o-sm-section__title-line">Marcas que</span>
+            <span class="o-sm-section__title-sub">llevan mi doblaje</span>
           </h2>
           <div class="o-sm-brands-carousel-container">
             <div class="o-sm-brands-carousel">
@@ -482,6 +491,7 @@ const brands = [
   }
 
   .m-sm-character__play-btn {
+    flex-shrink: 0; /* Prevents the button from being squished by long text */
     background: transparent;
     border: 1px solid var(--color-primary, #FFAB8C);
     border-radius: 50%;
@@ -831,10 +841,63 @@ const brands = [
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSobreMiAnimations);
-  } else {
-    initSobreMiAnimations();
+  let currentAudio = null;
+  let currentBtn = null;
+
+  const playIcon = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>`;
+  const pauseIcon = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/></svg>`;
+
+  function initAudioPlayers() {
+    const playBtns = document.querySelectorAll('.m-sm-character__play-btn[data-audio]');
+    
+    const resetAllBtns = () => {
+      playBtns.forEach(b => b.innerHTML = playIcon);
+    };
+
+    playBtns.forEach(btn => {
+      btn.onclick = () => {
+        const audioUrl = btn.getAttribute('data-audio');
+        if (!audioUrl) return;
+        
+        if (currentAudio && currentBtn === btn) {
+          if (currentAudio.paused) {
+            currentAudio.play();
+            btn.innerHTML = pauseIcon;
+          } else {
+            currentAudio.pause();
+            btn.innerHTML = playIcon;
+          }
+          return;
+        }
+        
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+          resetAllBtns();
+        }
+        
+        currentAudio = new Audio(audioUrl);
+        currentBtn = btn;
+        
+        currentAudio.onended = () => {
+          btn.innerHTML = playIcon;
+        };
+
+        currentAudio.play();
+        btn.innerHTML = pauseIcon;
+      };
+    });
   }
-  document.addEventListener('astro:page-load', initSobreMiAnimations);
+
+  function initAll() {
+    initSobreMiAnimations();
+    initAudioPlayers();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+  } else {
+    initAll();
+  }
+  document.addEventListener('astro:page-load', initAll);
 </script>

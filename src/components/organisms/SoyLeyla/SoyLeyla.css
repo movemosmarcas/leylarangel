@@ -6,7 +6,6 @@
   color: var(--color-white);
   overflow: hidden;
   z-index: 10;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .o-soy-leyla__container {
@@ -17,7 +16,21 @@
   gap: clamp(40px, 8vw, 80px);
   align-items: center;
 }
+.o-soy-leyla__media-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
+.o-soy-leyla__video-credit {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: right;
+  font-style: italic;
+  margin: 0;
+  padding: 0 10px;
+}
 .o-soy-leyla__image-wrapper {
   position: relative;
   width: 100%;

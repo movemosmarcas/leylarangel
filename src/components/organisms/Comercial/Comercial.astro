@@ -1,5 +1,24 @@
 ---
 import './Comercial.css';
+import cocaColaLogo from '../../../assets/img/Coca-Cola_logo_white.png';
+import mymLogo from '../../../assets/img/mym.png';
+import lorealLogo from '../../../assets/img/LOreal-Logo.png';
+import coppelLogo from '../../../assets/img/Coppel_2025.svg';
+import mercedesLogo from '../../../assets/img/Mercedes-Benz_Logo_2010.svg';
+import telcelLogo from '../../../assets/img/telcel2.png';
+import evenfloLogo from '../../../assets/img/evenflo-logo.avif';
+import mattelLogo from '../../../assets/img/mattel.png';
+
+const currentlyOnAirBrands = [
+  { name: "M&M's", logo: mymLogo.src, solidBg: true },
+  { name: 'Coca-Cola', logo: cocaColaLogo.src },
+  { name: "L'Oréal", logo: lorealLogo.src, solidBg: true },
+  { name: 'Coppel', logo: coppelLogo.src, solidBg: true },
+  { name: 'Mercedes Benz', logo: mercedesLogo.src },
+  { name: 'Telcel', logo: telcelLogo.src, solidBg: true, customStyle: 'transform: scale(1.8);' },
+  { name: 'Evenflo', logo: evenfloLogo.src },
+  { name: 'Mattel', logo: mattelLogo.src, solidBg: true }
+];
 ---
 
 <section class="o-comercial" id="comercial">
@@ -25,40 +44,65 @@ import './Comercial.css';
     <div class="o-comercial__body">
       <!-- Top section: Currently on air + Image Card -->
       <div class="o-comercial__currently-card">
-        <div class="o-comercial__currently-image" style="position: relative; display: flex; align-items: center; background: #000; overflow: hidden; border-radius: 12px;">
-          <video src="/video/DemoLeyla_070726.mp4" class="o-comercial__currently-video" preload="metadata" playsinline controls></video>
-          <button class="o-comercial__play-overlay" aria-label="Reproducir video" type="button">
-            <svg viewBox="0 0 24 24" width="48" height="48" stroke="none" fill="white" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="5 3 19 12 5 21 5 3"></polygon>
-            </svg>
-          </button>
+        <div class="o-comercial__currently-image" style="position: relative; display: flex; align-items: center; justify-content: center; background: transparent; overflow: hidden; border-radius: 12px; width: 100%;">
+          <div class="o-audio-gallery__panel" data-audio-id="comercial-gallery" style="width: 100%; max-width: 800px; margin: 0 auto;">
+            <div class="o-audio-gallery__art-wrapper">
+              <div class="o-audio-gallery__art-piece" style="aspect-ratio: 2/1; margin: 0 auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+                <div class="o-audio-gallery__art-inner">
+                  <img src="/img/Carita-Demo-COMERCIAL.jpg" alt="COMERCIAL" class="o-audio-gallery__image" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" />
+                </div>
+              </div>
+            </div>
+
+            <div class="o-audio-gallery__player">
+              <div class="o-audio-gallery__player-info">
+                <span class="o-audio-gallery__demo-cat">Voz Institucional</span>
+                <h3 class="o-audio-gallery__demo-title">COMERCIAL</h3>
+              </div>
+
+              <div class="o-audio-gallery__controls">
+                <audio id="audio-comercial-gallery" src="/audio/Leyla%20Rangel%20Demo%20Comercial.mp3"></audio>
+                
+                <button class="o-audio-gallery__play-btn" aria-label="Reproducir">
+                  <span class="o-audio-gallery__icon-play">▶</span>
+                  <span class="o-audio-gallery__icon-pause" style="display: none;">‖</span>
+                </button>
+                
+                <div class="o-audio-gallery__progress-wrap">
+                  <div class="o-audio-gallery__progress-bar"></div>
+                </div>
+                
+                <div class="o-audio-gallery__time">
+                  <span class="o-audio-gallery__current">0:00</span>
+                  <span class="o-audio-gallery__separator">/</span>
+                  <span class="o-audio-gallery__duration">0:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="o-comercial__currently-content">
-          <span class="o-comercial__currently-label">Actualmente en el aire</span>
-          <div class="o-comercial__currently-grid">
-            {['Allegra', 'Mac & Cheese de Kraft', 'AutoZone', "M&M's Verde", "L'Oréal", 'Coppel'].map((brand) => (
-              <div class="o-comercial__current-item">
-                <span class="o-comercial__current-dot"></span>
-                <span class="o-comercial__current-name">{brand}</span>
+          <span class="o-comercial__currently-label">Marcas que llevan mi voz comercial</span>
+          <div class="o-comercial__carousel-container">
+            <div class="o-comercial__carousel">
+              <div class="o-comercial__carousel-track">
+                {[...currentlyOnAirBrands, ...currentlyOnAirBrands, ...currentlyOnAirBrands].map((brand) => (
+                  <div class="o-comercial__carousel-card">
+                    <img 
+                      src={brand.logo} 
+                      alt={brand.name} 
+                      class={`o-comercial__carousel-logo ${brand.solidBg ? 'o-comercial__carousel-logo--solid-bg' : ''}`}
+                      style={brand.customStyle || ''} 
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Bottom section: Brands Grid -->
-      <div class="o-comercial__brands">
-        <p class="o-comercial__brands-title">Marcas con las que he colaborado</p>
-        <div class="o-comercial__brands-grid">
-          {[
-            'Disney', 'Pixar', 'Dreamworks', 'Ghibli', 'Marvel',
-            'Warner', 'Sony', 'Netflix', 'Mercedes Benz', 'Coca Cola',
-            'Telcel', 'Target', 'Naturella', 'Evenflo', 'Mattel'
-          ].map((brand) => (
-            <span class="o-comercial__brand-pill">{brand}</span>
-          ))}
-        </div>
-      </div>
+      <!-- Removed bottom section -->
     </div>
 
   </div>

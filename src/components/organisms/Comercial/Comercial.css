@@ -173,15 +173,12 @@
 
 /* The new Card layout for Currently on air */
 .o-comercial__currently-card {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
   width: 100%;
   max-width: 1000px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 .o-comercial__currently-image {
@@ -235,52 +232,82 @@
 }
 
 .o-comercial__currently-content {
-  padding: 40px 60px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: hidden; /* Garantiza que no se desborde horizontalmente */
 }
 
 .o-comercial__currently-label {
-  font-size: clamp(1.25rem, 1.5vw, 1.4rem);
+  font-size: clamp(0.9rem, 3vw, 1.4rem); /* Let it shrink down to 0.9rem on small screens */
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em; /* Slightly tighter to fit better */
   color: var(--color-primary, #FFAB8C);
   display: block;
+  width: 100%; /* Ensure it wraps */
+  text-align: center; /* Center the wrapped text */
   margin-bottom: 20px;
   font-weight: 600;
+  line-height: 1.5; /* Evita que se corte la parte superior de la fuente */
+  padding-top: 5px; /* Margen de seguridad para los ascendentes de la fuente */
+  padding-left: 20px; /* Margen a los lados para que no toque el borde */
+  padding-right: 20px;
 }
 
-.o-comercial__currently-grid {
+.o-comercial__carousel-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.o-comercial__carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.o-comercial__carousel-track {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  width: max-content;
+  animation: comercial-marquee 30s linear infinite;
 }
 
-.o-comercial__current-item {
+.o-comercial__carousel-card {
+  width: 250px;
+  height: 100px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  padding: 0 40px;
 }
 
-.o-comercial__current-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-primary, #FFAB8C);
-  flex-shrink: 0;
-  animation: pulse-dot 2.5s ease-in-out infinite;
+.o-comercial__carousel-logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.7); }
+.o-comercial__carousel-logo--solid-bg {
+  filter: grayscale(1) invert(1);
+  mix-blend-mode: screen;
 }
 
-.o-comercial__current-name {
-  font-size: clamp(1.25rem, 1.5vw, 1.4rem);
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: 400;
+.o-comercial__carousel-card:hover .o-comercial__carousel-logo {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+@keyframes comercial-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* Responsive */

@@ -193,6 +193,8 @@
 
 .o-header__socials {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 32px;
 }
 
@@ -321,5 +323,9 @@
   
   .o-header__nav-list {
     gap: 1.5vh;
+  }
+  
+  .o-header__socials {
+    gap: 16px;
   }
 }

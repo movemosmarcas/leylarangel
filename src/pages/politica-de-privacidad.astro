@@ -1,0 +1,110 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/organisms/Header/Header.astro";
+import Footer from "../components/organisms/Footer/Footer.astro";
+---
+
+<Layout title="Política de Privacidad | Leyla Rangel">
+  <Header />
+  
+  <main class="p-privacy">
+    <div class="p-privacy__container">
+      <h1 class="p-privacy__title">Política de Privacidad</h1>
+      <p class="p-privacy__date">Última actualización: Agosto de 2026</p>
+      
+      <div class="p-privacy__content">
+        <h2>1. Información que recopilamos</h2>
+        <p>En el sitio web de Leyla Rangel, respetamos tu privacidad. Solo recopilamos los datos personales que nos proporcionas voluntariamente al ponerte en contacto con nosotros a través de nuestros formularios o correos electrónicos (tales como nombre, correo electrónico y mensaje).</p>
+        
+        <h2>2. Uso de la información</h2>
+        <p>Los datos que compartes con nosotros son utilizados exclusivamente para:</p>
+        <ul>
+          <li>Responder a tus consultas o solicitudes de cotización.</li>
+          <li>Enviarte información relevante sobre proyectos de locución, doblaje o dirección.</li>
+          <li>Mejorar la experiencia de usuario en nuestro sitio web.</li>
+        </ul>
+        
+        <h2>3. Protección de tus datos</h2>
+        <p>Implementamos medidas de seguridad administrativas y técnicas para proteger tus datos personales contra accesos no autorizados, pérdida o alteración. No vendemos, alquilamos ni compartimos tu información con terceros, excepto cuando sea estrictamente requerido por la ley.</p>
+        
+        <h2>4. Tus derechos</h2>
+        <p>Tienes derecho a conocer qué datos personales tenemos de ti, para qué los utilizamos y las condiciones del uso que les damos (Acceso). Asimismo, es tu derecho solicitar la corrección de tu información personal en caso de que esté desactualizada, sea inexacta o incompleta (Rectificación); que la eliminemos de nuestros registros (Cancelación); así como oponerte al uso de tus datos personales para fines específicos (Oposición). Estos derechos se conocen como derechos ARCO.</p>
+        
+        <h2>5. Cambios a esta política</h2>
+        <p>Nos reservamos el derecho de efectuar en cualquier momento modificaciones o actualizaciones a la presente política de privacidad, para la atención de novedades legislativas o políticas internas. Estas modificaciones estarán disponibles al público a través de esta misma página.</p>
+        
+        <h2>6. Contacto</h2>
+        <p>Si deseas ejercer tus derechos ARCO o tienes alguna pregunta sobre esta política de tratamiento de datos, puedes contactarnos en cualquier momento a través de la sección de contacto de este sitio web.</p>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .p-privacy {
+    padding: 180px 24px 100px;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    min-height: 100vh;
+  }
+  
+  .p-privacy__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .p-privacy__title {
+    font-family: var(--font-headings);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    margin-bottom: 10px;
+    color: var(--color-primary, #FFAB8C);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .p-privacy__date {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  
+  .p-privacy__content h2 {
+    font-family: var(--font-headings);
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: var(--color-white);
+  }
+  
+  .p-privacy__content p,
+  .p-privacy__content li {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+  }
+  
+  .p-privacy__content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .p-privacy__content li {
+    margin-bottom: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .p-privacy {
+      padding: 140px 24px 80px;
+    }
+  }
+</style>

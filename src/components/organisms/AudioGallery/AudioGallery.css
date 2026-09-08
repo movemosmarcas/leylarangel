@@ -27,26 +27,36 @@
 .o-audio-gallery__grid {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: clamp(24px, 4vw, 60px);
-  width: 100%;
-  max-width: 960px;
+  max-width: 1000px;
   margin: 0 auto;
-  flex: 1;
-  padding: 0 40px 60px;
+  padding: 0 40px;
 }
 
 .o-audio-gallery__panel {
+  width: 100%;
   position: relative;
-  flex: 1;
-  height: auto;
-  min-height: 65vh; /* Compact vertical panels to match shorter cards */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px; /* Reduced horizontal/vertical space to pull cards closer */
-  overflow: hidden;
-  transition: flex 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  /* Glowing effect behind */
+  border-radius: 20px;
+}
+
+.o-audio-gallery__panel::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+  z-index: 0;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.o-audio-gallery__panel:hover::before {
+  opacity: 1;
 }
 
 .o-audio-gallery__panel::after {
@@ -72,8 +82,8 @@
 .o-audio-gallery__art-piece {
   position: relative;
   width: 100%;
-  max-width: 380px; /* Beautiful compact width */
-  aspect-ratio: 3 / 3.7; /* Significantly less tall aspect ratio for elegant proportions */
+  max-width: 800px; /* Horizontal format */
+  aspect-ratio: 2 / 1; /* Wide */
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
@@ -99,7 +109,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: bottom center; /* Ensures the face artwork at the bottom remains fully visible */
+  object-position: center; /* Center the image instead of forcing bottom */
 }
 
 /* Player Overlay */
@@ -208,7 +218,101 @@
   }
   
   .o-audio-gallery__panel {
-    min-height: auto; /* Shrinks stacked containers to natural card heights */
+    min-height: auto;
     padding: 12px 0;
+  }
+
+  .o-audio-gallery__art-piece {
+    aspect-ratio: auto;
+    height: 400px; /* Give it a fixed height on mobile */
+  }
+
+  .o-audio-gallery__image {
+    object-fit: contain; /* Ensure the whole image is visible */
+    object-position: center;
+  }
+}
+
+/* Video Modal Styles */
+.o-audio-gallery__modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.o-audio-gallery__modal.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.o-audio-gallery__modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+}
+
+.o-audio-gallery__modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 1000px;
+  background: #000;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  z-index: 10000;
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.o-audio-gallery__modal.is-active .o-audio-gallery__modal-content {
+  transform: scale(1);
+}
+
+.o-audio-gallery__iframe-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+}
+
+.o-audio-gallery__iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.o-audio-gallery__modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 10001;
+}
+
+@media (min-width: 1024px) {
+  .o-audio-gallery__modal-close {
+    right: -40px;
+    top: 0;
   }
 }

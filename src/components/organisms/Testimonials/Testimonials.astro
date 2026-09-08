@@ -3,25 +3,40 @@ import './Testimonials.css';
 
 const testimonials = [
   {
-    quote: "Trabajar con Leyla fue como encontrar la pieza que le faltaba a nuestro rompecabezas. Su voz le dio vida y alma a nuestro proyecto.",
-    name: "Sarah Conor",
-    title: "Founder, Clonify",
-    image: "/img/testimonio-1-new.jpg",
-    bgColor: "#F3E7D7"
+    quote: "Tengo la fortuna de trabajar con Leyla desde hace más de 10 años, y a lo largo de todo este tiempo, siempre ha superado mis expectativas en cualquier proyecto. Su profesionalismo es indudable, pero lo que realmente la distingue es la combinación de talento, atención al detalle y, principalmente, la sensibilidad que aporta en cada grabación. Sin importar la complejidad del texto, Leyla siempre tiene la mejor actitud, lo que hace las sesiones muy ligeras y efectivas. Definitivamente, una de las mejores actrices y locutoras de la industria.",
+    name: "Tamara Puente",
+    title: "Directora de Producción en Sound Map",
+    image: "/img/Tamara.jpeg",
+    mobileImage: "/img/Tamara-horizontal.jpg",
+    bgColor: "#F3E7D7",
+    imagePosition: "center 20%"
   },
   {
-    quote: "Leyla no solo graba una voz, ella entiende la intención detrás del texto. Elevó nuestro comercial a un nivel completamente nuevo y sofisticado.",
-    name: "Bruce Lee",
-    title: "Director Creativo, Maiz",
-    image: "/img/testimonio-2-new.jpg",
-    bgColor: "#B2A0CA"
+    quote: "Trabajar con Leyla es asegurar que cada detalle del proyecto será atendido con el mayor de los cuidados. Siempre tiene una propuesta creativa que sale de lo convencional y el entusiasmo que pone en todo momento sin duda contagia al equipo que trabajamos con ella.",
+    name: "Nihurka Zequera",
+    title: "Directora de Producción y Operaciones en New Art. New Art Group.",
+    image: "/img/Nihurka.png",
+    mobileImage: "/img/Nihurka-horizontal.jpg",
+    bgColor: "#B2A0CA",
+    imagePosition: "center bottom"
   },
   {
-    quote: "Desde el primer concepto hasta el lanzamiento, Leyla nos entregó un trabajo con claridad, creatividad y estilo. Nunca habíamos sonado tan profesionales.",
-    name: "John Headphone",
-    title: "CEO, Marcom",
-    image: "/img/testimonio-3-new.jpg",
-    bgColor: "#BCCFC3"
+    quote: "Trabajar con Leyla es una master class. Sea que te dirija, que actúe o cante, su nivel de precisión, compromiso y resultados es una experiencia siempre gratificante. Una rara combinación de talento, disciplina e inteligencia: de eso hay muy poco.",
+    name: "Gaby Cárdenas",
+    title: "Actriz/Cantante/Directora Musical",
+    image: "/img/Gavy.jpg",
+    mobileImage: "/img/Gavy-horizontal.jpg",
+    bgColor: "#BCCFC3",
+    imagePosition: "center 20%"
+  },
+  {
+    quote: "Trabajar con Leyla Rangel es trabajar con una de las voces más bonitas de México y de latinoamérica. Para mí es una de las mejores actrices que tiene nuestro país.\nHay mucha riqueza en sus tonos.\nEs una actriz que entiende perfectamente lo que busco como director. Además es una excelente directora y locutora también.",
+    name: "Pepe Toño Macías",
+    title: "Actor/ Locutor/Director de Doblaje",
+    image: "/img/PEPETONO.png",
+    mobileImage: "/img/PEPETONO-horizontal.jpg",
+    bgColor: "#D7E3F3",
+    imagePosition: "center top"
   }
 ];
 ---
@@ -42,7 +57,10 @@ const testimonials = [
       {testimonials.map((testimonio, index) => (
         <div class="o-testimonials__card" id={`testimonial-card-${index}`} style={`background-color: ${testimonio.bgColor};`}>
           <div class="o-testimonials__image-col">
-            <img src={testimonio.image} alt={testimonio.name} class="o-testimonials__image" />
+            <picture>
+              <source media="(max-width: 992px)" srcset={testimonio.mobileImage} />
+              <img src={testimonio.image} alt={testimonio.name} class="o-testimonials__image" style={`object-position: ${testimonio.imagePosition || 'center top'};`} />
+            </picture>
           </div>
           <div class="o-testimonials__content-col">
             <p class="o-testimonials__quote">"{testimonio.quote}"</p>

@@ -3,20 +3,12 @@ import './AudioGallery.css';
 
 const demos = [
   { 
-    id: 'comercial-gallery',
-    title: 'COMERCIAL', 
-    category: 'Voz Institucional',
-    image: '/img/Carita-demo-1.png',
-    file: '/audio/demo-comercial.mp3',
-    date: 'MAR 25, 2025',
-    titleLabel: 'TACTILE FUTURES'
-  },
-  { 
     id: 'doblaje-gallery',
     title: 'DOBLAJE', 
     category: 'Interpretación',
-    image: '/img/Carita-demo-2.png',
-    file: '/audio/demo-doblaje.mp3',
+    image: '/img/Carita-Demo-DOBLAJE.jpg',
+    mobileImage: '/img/Carita-demo-2.png',
+    videoUrl: 'https://www.youtube.com/embed/9E4rRHkrfGE?autoplay=1',
     date: 'MAY 15, 2025',
     titleLabel: 'SONIC EMOTIONS'
   }
@@ -24,15 +16,7 @@ const demos = [
 ---
 
 <section class="o-audio-gallery" id="demos">
-  <header class="o-audio-gallery__header">
-    <h2 class="o-audio-gallery__title">
-      {
-        "THE SOUND GALLERY".split(" ").map((word) => (
-          <span class="a-word-reveal">{word} </span>
-        ))
-      }
-    </h2>
-  </header>
+
 
   <div class="o-audio-gallery__grid">
     {demos.map((demo) => (
@@ -42,7 +26,10 @@ const demos = [
           <!-- Art Piece (The clean minimalist card) -->
           <div class="o-audio-gallery__art-piece">
             <div class="o-audio-gallery__art-inner">
-              <img src={demo.image} alt={demo.title} class="o-audio-gallery__image" />
+              <picture>
+                {demo.mobileImage && <source media="(max-width: 768px)" srcset={demo.mobileImage} />}
+                <img src={demo.image} alt={demo.title} class="o-audio-gallery__image" />
+              </picture>
             </div>
           </div>
         </div>
@@ -55,26 +42,41 @@ const demos = [
           </div>
 
           <div class="o-audio-gallery__controls">
-            <audio id={`audio-${demo.id}`} src={demo.file}></audio>
+            {demo.videoUrl ? null : <audio id={`audio-${demo.id}`} src={demo.file}></audio>}
             
-            <button class="o-audio-gallery__play-btn" aria-label="Reproducir">
+            <button class="o-audio-gallery__play-btn" aria-label="Reproducir" data-video-url={demo.videoUrl}>
               <span class="o-audio-gallery__icon-play">▶</span>
-              <span class="o-audio-gallery__icon-pause" style="display: none;">‖</span>
+              {demo.videoUrl ? null : <span class="o-audio-gallery__icon-pause" style="display: none;">‖</span>}
             </button>
             
-            <div class="o-audio-gallery__progress-wrap">
-              <div class="o-audio-gallery__progress-bar"></div>
-            </div>
-            
-            <div class="o-audio-gallery__time">
-              <span class="o-audio-gallery__current">0:00</span>
-              <span class="o-audio-gallery__separator">/</span>
-              <span class="o-audio-gallery__duration">0:00</span>
-            </div>
+            {demo.videoUrl ? null : (
+              <>
+                <div class="o-audio-gallery__progress-wrap">
+                  <div class="o-audio-gallery__progress-bar"></div>
+                </div>
+                
+                <div class="o-audio-gallery__time">
+                  <span class="o-audio-gallery__current">0:00</span>
+                  <span class="o-audio-gallery__separator">/</span>
+                  <span class="o-audio-gallery__duration">0:00</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
     ))}
+  </div>
+
+  <!-- Video Modal -->
+  <div class="o-audio-gallery__modal" id="videoModal">
+    <div class="o-audio-gallery__modal-overlay" id="videoModalOverlay"></div>
+    <div class="o-audio-gallery__modal-content">
+      <button class="o-audio-gallery__modal-close" id="videoModalClose" aria-label="Cerrar video">✕</button>
+      <div class="o-audio-gallery__iframe-container">
+        <iframe id="videoIframe" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -152,8 +154,7 @@ const demos = [
     document.querySelectorAll('.o-audio-gallery__panel').forEach(panel => {
       const audioId = panel.getAttribute('data-audio-id');
       if (!audioId) return;
-      const audio = panel.querySelector(`#audio-${audioId}`) as HTMLAudioElement;
-      if (!audio) return;
+      const audio = panel.querySelector(`#audio-${audioId}`) as HTMLAudioElement | null;
       
       const playBtn = panel.querySelector('.o-audio-gallery__play-btn');
       const playIcon = panel.querySelector('.o-audio-gallery__icon-play') as HTMLElement;
@@ -169,15 +170,19 @@ const demos = [
       };
 
       // Si los metadatos ya están listos
-      if (audio.duration && durationEl) {
+      if (audio && audio.duration && durationEl) {
         durationEl.textContent = formatTime(audio.duration);
       }
 
-      audio.addEventListener('loadedmetadata', () => {
-        if (durationEl) durationEl.textContent = formatTime(audio.duration);
-      });
+      if (audio) {
+        audio.addEventListener('loadedmetadata', () => {
+          if (durationEl) durationEl.textContent = formatTime(audio.duration);
+        });
+      }
 
       playBtn?.addEventListener('click', () => {
+        const videoUrl = playBtn.getAttribute('data-video-url');
+        
         // Pause all other audios (including from other sections)
         document.querySelectorAll('audio').forEach(otherAudio => {
           if (otherAudio !== audio) {
@@ -192,29 +197,60 @@ const demos = [
           }
         });
 
-        if (audio.paused) {
-          audio.play();
-          if (playIcon) playIcon.style.display = 'none';
-          if (pauseIcon) pauseIcon.style.display = 'block';
-        } else {
-          audio.pause();
-          if (playIcon) playIcon.style.display = 'block';
-          if (pauseIcon) pauseIcon.style.display = 'none';
+        if (videoUrl) {
+          // Open Modal logic
+          const modal = document.getElementById('videoModal');
+          const iframe = document.getElementById('videoIframe') as HTMLIFrameElement;
+          if (modal && iframe) {
+            iframe.src = videoUrl;
+            modal.classList.add('is-active');
+            document.body.style.overflow = 'hidden';
+          }
+        } else if (audio) {
+          // Normal Audio play logic
+          if (audio.paused) {
+            audio.play();
+            if (playIcon) playIcon.style.display = 'none';
+            if (pauseIcon) pauseIcon.style.display = 'block';
+          } else {
+            audio.pause();
+            if (playIcon) playIcon.style.display = 'block';
+            if (pauseIcon) pauseIcon.style.display = 'none';
+          }
         }
       });
 
-      audio.addEventListener('timeupdate', () => {
-        const progress = (audio.currentTime / audio.duration) * 100;
-        if (progressBar) progressBar.style.width = `${progress}%`;
-        if (currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
-      });
+      if (audio) {
+        audio.addEventListener('timeupdate', () => {
+          const progress = (audio.currentTime / audio.duration) * 100;
+          if (progressBar) progressBar.style.width = `${progress}%`;
+          if (currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
+        });
 
-      audio.addEventListener('ended', () => {
-        if (playIcon) playIcon.style.display = 'block';
-        if (pauseIcon) pauseIcon.style.display = 'none';
-        if (progressBar) progressBar.style.width = '0%';
-      });
+        audio.addEventListener('ended', () => {
+          if (playIcon) playIcon.style.display = 'block';
+          if (pauseIcon) pauseIcon.style.display = 'none';
+          if (progressBar) progressBar.style.width = '0%';
+        });
+      }
     });
+
+    // Modal Close Logic
+    const modal = document.getElementById('videoModal');
+    const modalOverlay = document.getElementById('videoModalOverlay');
+    const modalClose = document.getElementById('videoModalClose');
+    const iframe = document.getElementById('videoIframe') as HTMLIFrameElement;
+
+    const closeModal = () => {
+      if (modal) {
+        modal.classList.remove('is-active');
+        document.body.style.overflow = '';
+        if (iframe) iframe.src = ''; // Stop video when closing
+      }
+    };
+
+    modalOverlay?.addEventListener('click', closeModal);
+    modalClose?.addEventListener('click', closeModal);
   }
 
   // Ejecutar cuando el DOM esté listo o en transiciones de Astro
