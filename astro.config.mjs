@@ -8,12 +8,13 @@ import cloudflare from '@astrojs/cloudflare';
 // https://astro.build/config
 
 export default defineConfig({
+  output: 'server',
+  adapter: cloudflare(),
   integrations: [react()],
-  site: "https://leylarangel.com/", // Reemplaza con tu dominio final
+  site: "https://leylarangel.com/",
   base: "/",
 
   vite: {
     plugins: [tailwindcss()]
   },
-  // output: 'static' is the default, ideal para Hostinger
 });
