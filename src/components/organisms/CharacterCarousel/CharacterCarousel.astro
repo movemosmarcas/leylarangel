@@ -82,21 +82,20 @@ const row2 = [
   function initCharacterCarousel() {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Row 1: Move Left (Reduced distance for subtlety)
+    // Row 1: Move Left
     gsap.to('.o-char-carousel__row--1 .o-char-carousel__track--left', {
-      x: '-25%', /* Less distance = Slower movement */
+      x: '-60%', /* Increased distance = Faster movement */
       ease: 'none',
       scrollTrigger: {
         trigger: '.o-char-carousel',
         start: 'top bottom',
         end: 'bottom top',
-        scrub: 2 /* Higher value = Smoother, more delayed/elegant feel */
+        scrub: 1 /* Lower value = More responsive */
       }
     });
 
     // Row 2: Moves Right
-    // Reduced initial offset and target for subtlety
-    gsap.set('.o-char-carousel__track--right', { x: '-25%' });
+    gsap.set('.o-char-carousel__track--right', { x: '-60%' });
     gsap.to('.o-char-carousel__track--right', {
       x: '0%',
       ease: 'none',
@@ -104,7 +103,7 @@ const row2 = [
         trigger: '.o-char-carousel',
         start: 'top bottom',
         end: 'bottom top',
-        scrub: 2
+        scrub: 1
       }
     });
 

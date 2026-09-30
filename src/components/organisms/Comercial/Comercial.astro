@@ -44,42 +44,85 @@ const currentlyOnAirBrands = [
     <div class="o-comercial__body">
       <!-- Top section: Currently on air + Image Card -->
       <div class="o-comercial__currently-card">
-        <div class="o-comercial__currently-image" style="position: relative; display: flex; align-items: center; justify-content: center; background: transparent; overflow: hidden; border-radius: 12px; width: 100%;">
-          <div class="o-audio-gallery__panel" data-audio-id="comercial-gallery" style="width: 100%; max-width: 800px; margin: 0 auto;">
-            <div class="o-audio-gallery__art-wrapper">
-              <div class="o-audio-gallery__art-piece" style="aspect-ratio: 2/1; margin: 0 auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
-                <div class="o-audio-gallery__art-inner">
-                  <img src="/img/Carita-Demo-COMERCIAL.jpg" alt="COMERCIAL" class="o-audio-gallery__image" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" />
+        <div class="o-comercial__media-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; width: 100%; max-width: 1200px; margin: 0 auto;">
+          
+          <!-- Audio Element -->
+          <div class="o-comercial__currently-image" style="position: relative; display: flex; align-items: center; justify-content: center; background: transparent; overflow: hidden; border-radius: 12px; width: 100%;">
+            <div class="o-audio-gallery__panel" data-audio-id="comercial-gallery" style="width: 100%;">
+              <div class="o-audio-gallery__art-wrapper">
+                <div class="o-audio-gallery__art-piece" style="aspect-ratio: 2/1; margin: 0 auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+                  <div class="o-audio-gallery__art-inner">
+                    <img src="/img/Carita-Demo-COMERCIAL.jpg" alt="COMERCIAL" class="o-audio-gallery__image" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="o-audio-gallery__player">
-              <div class="o-audio-gallery__player-info">
-                <span class="o-audio-gallery__demo-cat">Voz Institucional</span>
-                <h3 class="o-audio-gallery__demo-title">COMERCIAL</h3>
-              </div>
-
-              <div class="o-audio-gallery__controls">
-                <audio id="audio-comercial-gallery" src="/audio/Leyla%20Rangel%20Demo%20Comercial.mp3"></audio>
-                
-                <button class="o-audio-gallery__play-btn" aria-label="Reproducir">
-                  <span class="o-audio-gallery__icon-play">▶</span>
-                  <span class="o-audio-gallery__icon-pause" style="display: none;">‖</span>
-                </button>
-                
-                <div class="o-audio-gallery__progress-wrap">
-                  <div class="o-audio-gallery__progress-bar"></div>
+              <div class="o-audio-gallery__player">
+                <div class="o-audio-gallery__player-info">
+                  <span class="o-audio-gallery__demo-cat">Voz Institucional</span>
+                  <h3 class="o-audio-gallery__demo-title">COMERCIAL</h3>
                 </div>
-                
-                <div class="o-audio-gallery__time">
-                  <span class="o-audio-gallery__current">0:00</span>
-                  <span class="o-audio-gallery__separator">/</span>
-                  <span class="o-audio-gallery__duration">0:00</span>
+
+                <div class="o-audio-gallery__controls">
+                  <audio id="audio-comercial-gallery" src="/audio/Leyla%20Rangel%20Demo%20Comercial.mp3"></audio>
+                  
+                  <button class="o-audio-gallery__play-btn" aria-label="Reproducir">
+                    <span class="o-audio-gallery__icon-play">▶</span>
+                    <span class="o-audio-gallery__icon-pause" style="display: none;">‖</span>
+                  </button>
+                  
+                  <div class="o-audio-gallery__progress-wrap">
+                    <div class="o-audio-gallery__progress-bar"></div>
+                  </div>
+                  
+                  <div class="o-audio-gallery__time">
+                    <span class="o-audio-gallery__current">0:00</span>
+                    <span class="o-audio-gallery__separator">/</span>
+                    <span class="o-audio-gallery__duration">0:00</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Video Element -->
+          <div class="o-comercial__currently-image" style="position: relative; display: flex; align-items: center; justify-content: center; background: transparent; overflow: hidden; border-radius: 12px; width: 100%;">
+            <div class="o-audio-gallery__panel" data-audio-id="comercial-video" style="width: 100%;">
+              <div class="o-audio-gallery__art-wrapper">
+                <div class="o-audio-gallery__art-piece" style="aspect-ratio: 2/1; margin: 0 auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+                  <div class="o-audio-gallery__art-inner">
+                    <img src="/img/Carita-Demo-COMERCIAL.jpg" alt="COMERCIAL VIDEO" class="o-audio-gallery__image" style="width: 100%; height: 100%; object-fit: cover; object-position: center; filter: hue-rotate(200deg);" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="o-audio-gallery__player">
+                <div class="o-audio-gallery__player-info">
+                  <span class="o-audio-gallery__demo-cat">Voz Institucional</span>
+                  <h3 class="o-audio-gallery__demo-title">COMERCIAL (VIDEO)</h3>
+                </div>
+
+                <div class="o-audio-gallery__controls">
+                  
+                  <button class="o-audio-gallery__play-btn" data-video-url="https://www.youtube.com/embed/yzuXm5L88G0?autoplay=1" aria-label="Reproducir Video">
+                    <span class="o-audio-gallery__icon-play">▶</span>
+                  </button>
+                  
+                  <!-- Fake progress bar for visual consistency -->
+                  <div class="o-audio-gallery__progress-wrap" style="opacity: 0.5;">
+                    <div class="o-audio-gallery__progress-bar" style="width: 100%;"></div>
+                  </div>
+                  
+                  <div class="o-audio-gallery__time" style="opacity: 0.5;">
+                    <span class="o-audio-gallery__current">Ver</span>
+                    <span class="o-audio-gallery__separator">-</span>
+                    <span class="o-audio-gallery__duration">Video</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <div class="o-comercial__currently-content">
           <span class="o-comercial__currently-label">Marcas que llevan mi voz comercial</span>

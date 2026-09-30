@@ -6,7 +6,7 @@ const testimonials = [
     quote: "Tengo la fortuna de trabajar con Leyla desde hace más de 10 años, y a lo largo de todo este tiempo, siempre ha superado mis expectativas en cualquier proyecto. Su profesionalismo es indudable, pero lo que realmente la distingue es la combinación de talento, atención al detalle y, principalmente, la sensibilidad que aporta en cada grabación. Sin importar la complejidad del texto, Leyla siempre tiene la mejor actitud, lo que hace las sesiones muy ligeras y efectivas. Definitivamente, una de las mejores actrices y locutoras de la industria.",
     name: "Tamara Puente",
     title: "Directora de Producción en Sound Map",
-    image: "/img/Tamara.jpeg",
+    image: "/img/Tamara2.png",
     mobileImage: "/img/Tamara-horizontal.jpg",
     bgColor: "#F3E7D7",
     imagePosition: "center 20%"
@@ -15,7 +15,7 @@ const testimonials = [
     quote: "Trabajar con Leyla es asegurar que cada detalle del proyecto será atendido con el mayor de los cuidados. Siempre tiene una propuesta creativa que sale de lo convencional y el entusiasmo que pone en todo momento sin duda contagia al equipo que trabajamos con ella.",
     name: "Nihurka Zequera",
     title: "Directora de Producción y Operaciones en New Art. New Art Group.",
-    image: "/img/Nihurka.png",
+    image: "/img/Nihurka2.jpeg",
     mobileImage: "/img/Nihurka-horizontal.jpg",
     bgColor: "#B2A0CA",
     imagePosition: "center bottom"
@@ -37,6 +37,13 @@ const testimonials = [
     mobileImage: "/img/PEPETONO-horizontal.jpg",
     bgColor: "#D7E3F3",
     imagePosition: "center top"
+  },
+  {
+    quote: "El nivel de talento, compromiso y profesionalismo de Leyla Rangel es de otro mundo. Un verdadero placer trabajar con ella todos los días",
+    name: "Cipriano Escartín",
+    title: "AD Publicidad (Coppel)",
+    bgColor: "#EAE5E0",
+    noImage: true
   }
 ];
 ---
@@ -56,19 +63,31 @@ const testimonials = [
     <div class="o-testimonials__cards">
       {testimonials.map((testimonio, index) => (
         <div class="o-testimonials__card" id={`testimonial-card-${index}`} style={`background-color: ${testimonio.bgColor};`}>
-          <div class="o-testimonials__image-col">
-            <picture>
-              <source media="(max-width: 992px)" srcset={testimonio.mobileImage} />
-              <img src={testimonio.image} alt={testimonio.name} class="o-testimonials__image" style={`object-position: ${testimonio.imagePosition || 'center top'};`} />
-            </picture>
-          </div>
-          <div class="o-testimonials__content-col">
-            <p class="o-testimonials__quote">"{testimonio.quote}"</p>
-            <div class="o-testimonials__author">
-              <div class="o-testimonials__author-name">{testimonio.name}</div>
-              <div class="o-testimonials__author-title">{testimonio.title}</div>
+          {testimonio.noImage ? (
+            <div class="o-testimonials__content-col o-testimonials__content-col--centered" style="grid-column: 1 / -1; text-align: center; padding: 4rem; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+              <p class="o-testimonials__quote" style="text-align: center; margin: 0 auto; max-width: 900px; font-size: clamp(1.5rem, 2.5vw, 2.2rem); line-height: 1.5;">"{testimonio.quote}"</p>
+              <div class="o-testimonials__author" style="margin-top: 3rem;">
+                <div class="o-testimonials__author-name" style="font-size: 1.2rem;">{testimonio.name}</div>
+                <div class="o-testimonials__author-title" style="font-size: 1rem;">{testimonio.title}</div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <>
+              <div class="o-testimonials__image-col">
+                <picture>
+                  <source media="(max-width: 992px)" srcset={testimonio.mobileImage} />
+                  <img src={testimonio.image} alt={testimonio.name} class="o-testimonials__image" style={`object-position: ${testimonio.imagePosition || 'center top'};`} />
+                </picture>
+              </div>
+              <div class="o-testimonials__content-col">
+                <p class="o-testimonials__quote">"{testimonio.quote}"</p>
+                <div class="o-testimonials__author">
+                  <div class="o-testimonials__author-name">{testimonio.name}</div>
+                  <div class="o-testimonials__author-title">{testimonio.title}</div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       ))}
     </div>
